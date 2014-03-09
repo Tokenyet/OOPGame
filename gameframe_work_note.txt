@@ -1,0 +1,23 @@
+1-0.Create Something 
+	Put Picture in Bitmap
+	Declare a object by CMovingBitmap
+	LoadBitmap in CGameStateRun Oninit;
+	SetTopLeft in CGameStateRun OnMove;
+	ShowBitmap in CGameStateRun OnShow;
+	Add RGB(,,) to LoadBitmap if u want to Transparent Color
+	
+1-1.Moving Object
+	Declare a intXY in CGameStateRun (.h)
+	x,y = 0 in CGameStateRun Constructor;
+	1-0LoadBitmap
+	Write Moving Method in CGameStateRun OnMove;
+	1-0Show
+
+2-0.Create_a_class which have Construct LoadBitmap OnMove Onshow
+	Create Class(cons,LoadPic,Move,Show,privateMovingPic,x,y)
+	implement all above
+	put all thing like 1-0
+
+	
+
+

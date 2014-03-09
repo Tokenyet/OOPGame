@@ -1,0 +1,52 @@
+back to...
+
+cancel merge once before
+$ git reset --hard ORIG_HEAD
+
+cancel added files (but in tracked)
+$ git reset HEAD lib/cat.rb
+
+cancel tracked file(not in git anymore)
+$ git rm README.txt
+(git rm --cached project1.suo)
+
+cancel the modified file back to last status
+(give up any modify I did before)
+(revert "one specific file" to last version)
+$ git checkout -- lib/cat.rb
+
+modify commit-title last commited
+$ git commit --amend
+
+modify branch name
+$ git branch -m now_name what_u_want_name
+
+Cancel Commit once before
+git reset HEAD^ --soft (keep modified files here)
+git reset HEAD^ --hard (just like revert to last version)
+
+revert to last version(commit version)
+$ git reset --hard HEAD
+
+revert to specific version
+$ git reset "SHA value"
+
+conflict cancel Merge
+$ git reset --hard
+
+cancel wrong git homemaster
+$ rm -rf .git
+
+only add modified files
+$ git add -u
+
+back to certain commit but not kill other commit
+$ git reset <SHA>
+$ git reset origin/master
+
+
+
+soft : add modified in stage
+hard : cancel all modified 
+
+(last once before = sang yi chi)

@@ -1,0 +1,11 @@
+1-0. $ git init
+(if I dont have a current version that included at least a commit)
+2-0. $ git add some files
+3-0. $ git commit a initial version
+4-0. go to see 2-1 below
+
+1-1. $ git clone https://_____.git
+(if I have an existed folder in github use this)
+[if you done anything look Below]
+2-1. $ git remote add origin https://_____.git
+3-1. $ push -u origin master

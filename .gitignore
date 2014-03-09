@@ -1,0 +1,7 @@
+Game/Debug/
+Game/ipch/
+Game/Setup/
+Game/game.sdf
+Game/*.lib
+Game/*.opensdf
+*.suo
