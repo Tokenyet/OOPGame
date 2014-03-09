@@ -57,7 +57,7 @@ namespace game_framework {
 class ILocation
 {
 public:
-	virtual void SetScreenLocation(int& x,int& y) = 0;
+	virtual void SetScreenSize(int width,int height) = 0;
 	virtual void GetRealLocation(int& x,int& y) = 0;
 	virtual ~ILocation(){};
 };
@@ -66,16 +66,16 @@ class Map : public ILocation
 {
 private:
 	int movX,movY;
-	int windows_X,windows_Y;
+	int windows_Width,windows_Heigth;
 	CMovingBitmap picture;
-	int velocity;
 public:
 	Map();
-	void SetScreenLocation(int& x,int& y);
+	~Map();
+	void Initialize(int width,int heigth,char* path);
+	void SetScreenSize(int width,int height);
 	void GetRealLocation(int& x,int& y);
-	void OnMove();
-	bool CheckOutOfWindows();
-	void Reset();
+	void SetMapLocation(int x,int y);
+	bool CheckWidthOutOfWindows();
 	void OnShow();
 	void LoadMap(char *);
 };
@@ -101,7 +101,7 @@ private:
 	void attack();
 public:
 	Human();
-	void SetScreenLocation(int& x,int& y);
+	void SetScreenSize(int width,int height);
 	void GetRealLocation(int& x,int& y);
 	void KeyDetect(UINT keyin);
 	void OnMove();
@@ -117,8 +117,8 @@ private:
 	int screen_X,screen_Y;
 	int windows_Wt,windows_Ht;
 	bool repeatMode;
-	vector<Map> maps;
-	Map currentMap,nextMap;
+	vector<Map*> maps;
+	Map *currentMap,*nextMap;
 public:
 	ScreenMap();
 	void SetKeyControl(UINT keyin);
@@ -306,8 +306,9 @@ protected:
 	void OnMove();									// 移動遊戲元素
 	void OnShow();									// 顯示這個狀態的遊戲畫面
 private:
-	CGameMap		cgamemap;
-	int				picX,picY;
+	Map map;
+	int				testX,testY;
+	/*CGameMap		cgamemap;
 	CMovingBitmap   practice;
 	CPractice       cpractice;
 	const int		NUMBALLS;	// 球的總數
@@ -317,7 +318,7 @@ private:
 	CMovingBitmap	corner;		// 角落圖
 	CEraser			eraser;		// 拍子
 	CInteger		hits_left;	// 剩下的撞擊數
-	CBouncingBall   bball;		// 反覆彈跳的球
+	CBouncingBall   bball;		// 反覆彈跳的球*/
 };
 
 /////////////////////////////////////////////////////////////////////////////
