@@ -42,6 +42,7 @@
 // Constants
 /////////////////////////////////////////////////////////////////////////////
 #include <vector>
+#include <map>
 
 enum AUDIO_ID {				// 定義各種音效的編號
 	AUDIO_DING,				// 0
@@ -57,8 +58,9 @@ namespace game_framework {
 class ILocation
 {
 public:
-	virtual void SetScreenSize(int width,int height) = 0;
-	virtual void GetRealLocation(int& x,int& y) = 0;
+	virtual void SetScreenSize(int width,int height) = 0;//物件必須知道目前視窗大小
+	virtual int &GetX() = 0; //方可得知每個場上物件位置
+	virtual int &GetY() = 0;//方可得知每個場上物件位置
 	virtual ~ILocation(){};
 };
 
@@ -73,11 +75,15 @@ public:
 	~Map();
 	void Initialize(int width,int heigth,char* path);
 	void SetScreenSize(int width,int height);
-	void GetRealLocation(int& x,int& y);
+	int &GetX();
+	int &GetY();
 	void SetMapLocation(int x,int y);
-	bool CheckWidthOutOfWindows();
+	bool CheckWidthOutOfWindowsLeft();
+	bool CheckWidthOutOfWindowsRight();
 	void OnShow();
+	void OnMove();
 	void LoadMap(char *);
+	int GetWidth();
 };
 
 class Thing{};
@@ -102,7 +108,8 @@ private:
 public:
 	Human();
 	void SetScreenSize(int width,int height);
-	void GetRealLocation(int& x,int& y);
+	int &GetX();
+	int &GetY();
 	void KeyDetect(UINT keyin);
 	void OnMove();
 	void OnShow();
@@ -114,14 +121,25 @@ class ScreenMap
 private:
 	int real_X,real_Y;
 	int maps_Wt,maps_Ht;
-	int screen_X,screen_Y;
 	int windows_Wt,windows_Ht;
 	bool repeatMode;
 	vector<Map*> maps;
 	Map *currentMap,*nextMap;
+	int mapNow,mapNext;
+	bool upMove,downMove,rightMove,leftMove;
+	void mapsChangeUpdate();
+	//bool mapRestriction(int& borderMap);//地圖無輪迴 尚未實做
+	void changeMapInitialize();
+	void recorderUpdater();
 public:
 	ScreenMap();
-	void SetKeyControl(UINT keyin);
+	~ScreenMap();
+	void Initialization(vector<Map*> maps);
+	void Reset();
+	void SetKeyDownControl(UINT keyin);
+	void SetKeyUpControl(UINT keyin);
+	void AddMap(vector<Map*> maps);
+	void AddMap(Map* map);
 	void RepeatMode(bool repeat);
 	void OnMove();
 	void OnShow();
@@ -307,6 +325,10 @@ protected:
 	void OnShow();									// 顯示這個狀態的遊戲畫面
 private:
 	Map map;
+	Map map2;
+	Map map3;
+	vector<Map*> maps;
+	ScreenMap screenMap;
 	int				testX,testY;
 	/*CGameMap		cgamemap;
 	CMovingBitmap   practice;

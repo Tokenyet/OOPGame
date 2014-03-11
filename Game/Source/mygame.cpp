@@ -58,6 +58,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "mygame.h"
+#include <vector>
 
 namespace game_framework {
 
@@ -79,21 +80,25 @@ namespace game_framework {
 		windows_Width = width;
 		windows_Heigth = height;
 	}
-	void Map::GetRealLocation(int& x,int& y)
-	{
-		x = movX;
-		y = movY;
-	}
+	int& Map::GetX(){return movX;}
+	int& Map::GetY(){return movY;}
 	void Map::SetMapLocation(int x,int y)
 	{
 		movX = x;
 		movY = y;
 		picture.SetTopLeft(x,y);
 	}
-	bool Map::CheckWidthOutOfWindows()
+	bool Map::CheckWidthOutOfWindowsLeft()
 	{
 		int picture_Width = picture.Width();
-		if((movX+picture_Width) <= 0 || (movX+picture_Width) >= windows_Width)
+		if((movX+picture_Width) <= 0)//圖向左移動 人向右移動
+			return true;
+		return false;
+	}
+	bool Map::CheckWidthOutOfWindowsRight()
+	{
+		int picture_Width = picture.Width();
+		if(movX >= windows_Width)
 			return true;
 		return false;
 	}
@@ -101,50 +106,179 @@ namespace game_framework {
 	{
 		picture.ShowBitmap();
 	}
+	void Map::OnMove()
+	{
+		picture.SetTopLeft(movX,movY);
+	}
 	void Map::LoadMap(char * path)
 	{
 		picture.LoadBitmapA(path);
 	}
+	int Map::GetWidth()
+	{
+		return picture.Width();
+	}
 
+
+	void Human::SetScreenSize(int width,int height){}
+	/*int& Human::GetX(){return NULL;}
+	int& Human::GetY(){return NULL;}*/
+	void Human::KeyDetect(UINT keyin){}
+	void Human::OnMove(){}
+	void Human::OnShow(){}
+	void Human::AddThing(Thing Item){}
+
+
+
+	ScreenMap::ScreenMap()
+	{
+	}
+	ScreenMap::~ScreenMap(){}
+	void ScreenMap::Initialization(vector<Map*> maps)
+	{
+		AddMap(maps);
+		Reset();
+
+	}
+	void ScreenMap::AddMap(vector<Map*> maps)
+	{
+		for(size_t i =0;i<maps.size();i++)
+			(this->maps).push_back(maps[i]);
+		
+	}
+	void ScreenMap::AddMap(Map* map)
+	{
+		maps.push_back(map);
+	}
+	void ScreenMap::OnMove()
+	{
+		if (leftMove)
+		{
+			currentMap->GetX()+=10;
+			nextMap->GetX()+=10;
+		}	
+		if (rightMove)
+		{
+			currentMap->GetX()-=10;
+			nextMap->GetX()-=10;
+		}
+		if (upMove)
+		{
+			currentMap->GetY()++;
+			nextMap->GetY()++;
+		}
+		if (downMove)
+		{
+			currentMap->GetY()--;
+			nextMap->GetY()--;
+		}
+		currentMap->SetMapLocation(currentMap->GetX(),currentMap->GetY());
+		nextMap->SetMapLocation(nextMap->GetX(),nextMap->GetY());
+		mapsChangeUpdate();
+
+	}
+	void ScreenMap::mapsChangeUpdate()
+	{
+		if(currentMap->CheckWidthOutOfWindowsLeft())
+		{
+			mapNow++;
+			mapNext++;
+			recorderUpdater();
+			currentMap = maps[mapNow];
+			nextMap = maps[mapNext];
+			changeMapInitialize();
+		}
+		if(currentMap->CheckWidthOutOfWindowsRight())
+		{
+			mapNow--;
+			mapNext--;
+			recorderUpdater();
+			/*if(mapRestriction(mapNow))//限制住mapNow 不給指向下一張地圖(因為沒地圖了)
+				return;*/
+			currentMap = maps[mapNow];
+			nextMap = maps[mapNext];
+			changeMapInitialize();
+		}
+	}
+	void ScreenMap::Reset()
+	{
+		mapNow = 0;
+		mapNext = 1;
+		upMove = downMove = rightMove = leftMove = false;
+		currentMap = maps[mapNow];
+		nextMap = maps[mapNext];
+		changeMapInitialize();
+	}
+	void ScreenMap::changeMapInitialize()
+	{
+		currentMap->SetMapLocation(0,0);
+		nextMap->SetMapLocation(currentMap->GetWidth(),0);
+	}
+	void ScreenMap::recorderUpdater()
+	{
+		if(mapNow < 0)
+			mapNow = maps.size() -1;
+		if(mapNext < 0)
+			mapNext  = maps.size() - 1;
+		if(mapNow > (int)maps.size() -1)
+			mapNow = 0;
+		if(mapNext > (int)maps.size() -1)
+			mapNext = 0;
+
+	}//地圖輪迴
+/*	bool ScreenMap::mapRestriction(int& borderMap)
+	{
+		int maxMap = maps.size();
+		if(borderMap > maxMap-1)
+		{
+			borderMap --;
+			return true;
+		}
+		if(borderMap < 1)
+		{
+			borderMap ++;
+			return true;
+		}
+		return false;
+
+	}*/
+	void ScreenMap::OnShow()
+	{
+		currentMap->OnShow();
+		nextMap->OnShow();
+	}
+	void ScreenMap::SetKeyDownControl(UINT keyin)
+	{
+		const char KEY_LEFT  = 0x25; // keyboard左箭頭
+		const char KEY_UP    = 0x26; // keyboard上箭頭
+		const char KEY_RIGHT = 0x27; // keyboard右箭頭
+		const char KEY_DOWN  = 0x28; // keyboard下箭頭
+		if(keyin == KEY_LEFT)
+			leftMove = true;
+		if(keyin == KEY_UP)
+			upMove = true;
+		if(keyin == KEY_DOWN)
+			downMove = true;
+		if(keyin == KEY_RIGHT)
+			rightMove = true;
+	}
+	void ScreenMap::SetKeyUpControl(UINT keyin)
+	{
+		const char KEY_LEFT  = 0x25; // keyboard左箭頭
+		const char KEY_UP    = 0x26; // keyboard上箭頭
+		const char KEY_RIGHT = 0x27; // keyboard右箭頭
+		const char KEY_DOWN  = 0x28; // keyboard下箭頭
+		if(keyin == KEY_LEFT)
+			leftMove = false;
+		if(keyin == KEY_UP)
+			upMove = false;
+		if(keyin == KEY_DOWN)
+			downMove = false;
+		if(keyin == KEY_RIGHT)
+			rightMove = false;
+	}
+	void ScreenMap::RepeatMode(bool repeat){}
 /*
-class Human : public ILocation
-{
-private:
-	int x,y;
-	Status status;
-	CMovingBitmap movingMap;
-	CAnimation animation;
-	Equipment equipment;
-	Inventory inventory;
-	void moving();
-	void jump();
-	void attack();
-public:
-	void SetScreenLocation(int& x,int& y);
-	void GetRealLocation(int& x,int& y);
-	void KeyDetect(UINT keyin);
-	void OnMove();
-	void OnShow();
-	void AddThing(Thing Item);
-};
-
-class ScreenMap
-{
-private:
-	int real_X,real_Y;
-	int maps_Wt,maps_Ht;
-	int screen_X,screen_Y;
-	int windows_Wt,windows_Ht;
-	bool repeatMode;
-	vector<Map> maps;
-	Map currentMap,nextMap;
-public:
-	void SetKeyControl(UINT keyin);
-	void RepeatMode(bool repeat);
-	void OnMove();
-	void OnShow();
-};
-
 class ScrollSystem
 {
 private:
@@ -753,10 +887,11 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	/*bball.OnMove();
 	cgamemap.OnMove();*/
-	testY--;
+	/*testY--;
 	if(testY < 0-SIZE_Y)
 		testY = 0;
-	map.SetMapLocation(0,testY);
+	map.SetMapLocation(0,testY);*/
+	screenMap.OnMove();
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -778,6 +913,12 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	practice.LoadBitmapA("Bitmaps/goss.bmp",RGB(0,0,0));
 	cgamemap.LoadBitmap();*/
 	map.Initialize((int)SIZE_X,(int)SIZE_Y,"Bitmaps/bg2-1.bmp");
+	map2.Initialize((int)SIZE_X,(int)SIZE_Y,"Bitmaps/bg2-1.bmp");
+	map3.Initialize((int)SIZE_X,(int)SIZE_Y,"Bitmaps/bg2-1.bmp");
+	maps.push_back(&map);
+	maps.push_back(&map2);
+	maps.push_back(&map3);
+	screenMap.Initialization(maps);
 	// 完成部分Loading動作，提高進度
 	//
 	ShowInitProgress(50);
@@ -813,6 +954,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		eraser.SetMovingUp(true);
 	if (nChar == KEY_DOWN)
 		eraser.SetMovingDown(true);*/
+	screenMap.SetKeyDownControl(nChar);
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -829,6 +971,7 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 		eraser.SetMovingUp(false);
 	if (nChar == KEY_DOWN)
 		eraser.SetMovingDown(false);*/
+	screenMap.SetKeyUpControl(nChar);
 }
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
@@ -884,7 +1027,8 @@ void CGameStateRun::OnShow()
 	corner.ShowBitmap();*/
 	/*practice.ShowBitmap();
 	cpractice.OnShow();*/
-	map.OnShow();
+	//map.OnShow();
+	screenMap.OnShow();
 }
 
 }
