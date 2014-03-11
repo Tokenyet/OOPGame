@@ -102,6 +102,13 @@ namespace game_framework {
 			return true;
 		return false;
 	}
+	bool Map::CheckWidthOnLeftBorder()
+	{
+		int picture_Width = picture.Width();
+		if(movX >= 0)
+			return true;
+		return false;
+	}
 	void Map::OnShow()
 	{
 		picture.ShowBitmap();
@@ -154,26 +161,31 @@ namespace game_framework {
 	{
 		if (leftMove)
 		{
+			pastMap -> GetX()+=10;
 			currentMap->GetX()+=10;
 			nextMap->GetX()+=10;
 		}	
 		if (rightMove)
 		{
+			pastMap -> GetX()-=10;
 			currentMap->GetX()-=10;
 			nextMap->GetX()-=10;
 		}
 		if (upMove)
 		{
+			pastMap -> GetY()++;
 			currentMap->GetY()++;
 			nextMap->GetY()++;
 		}
 		if (downMove)
 		{
+			pastMap -> GetY()--;
 			currentMap->GetY()--;
 			nextMap->GetY()--;
 		}
 		currentMap->SetMapLocation(currentMap->GetX(),currentMap->GetY());
 		nextMap->SetMapLocation(nextMap->GetX(),nextMap->GetY());
+		pastMap->SetMapLocation(pastMap->GetX(),pastMap->GetY());
 		mapsChangeUpdate();
 
 	}
@@ -181,36 +193,43 @@ namespace game_framework {
 	{
 		if(currentMap->CheckWidthOutOfWindowsLeft())
 		{
+			mapPast++;
 			mapNow++;
 			mapNext++;
 			recorderUpdater();
+			pastMap = maps[mapPast];
 			currentMap = maps[mapNow];
 			nextMap = maps[mapNext];
 			changeMapInitialize();
 		}
-		if(currentMap->CheckWidthOutOfWindowsRight())
+		if(pastMap->CheckWidthOnLeftBorder())
 		{
 			mapNow--;
 			mapNext--;
+			mapPast--;
 			recorderUpdater();
 			/*if(mapRestriction(mapNow))//限制住mapNow 不給指向下一張地圖(因為沒地圖了)
 				return;*/
 			currentMap = maps[mapNow];
 			nextMap = maps[mapNext];
+			pastMap = maps[mapPast];
 			changeMapInitialize();
 		}
 	}
 	void ScreenMap::Reset()
 	{
-		mapNow = 0;
-		mapNext = 1;
+		mapPast = 0;
+		mapNow = 1;
+		mapNext = 2;
 		upMove = downMove = rightMove = leftMove = false;
+		pastMap = maps[mapPast];
 		currentMap = maps[mapNow];
 		nextMap = maps[mapNext];
 		changeMapInitialize();
 	}
 	void ScreenMap::changeMapInitialize()
 	{
+		pastMap -> SetMapLocation(0-pastMap->GetWidth(),0);
 		currentMap->SetMapLocation(0,0);
 		nextMap->SetMapLocation(currentMap->GetWidth(),0);
 	}
@@ -220,11 +239,14 @@ namespace game_framework {
 			mapNow = maps.size() -1;
 		if(mapNext < 0)
 			mapNext  = maps.size() - 1;
+		if(mapPast < 0)
+			mapPast  = maps.size() - 1;
 		if(mapNow > (int)maps.size() -1)
 			mapNow = 0;
 		if(mapNext > (int)maps.size() -1)
 			mapNext = 0;
-
+		if(mapPast > (int)maps.size() -1)
+			mapPast = 0;
 	}//地圖輪迴
 /*	bool ScreenMap::mapRestriction(int& borderMap)
 	{
@@ -246,6 +268,7 @@ namespace game_framework {
 	{
 		currentMap->OnShow();
 		nextMap->OnShow();
+		pastMap ->OnShow();
 	}
 	void ScreenMap::SetKeyDownControl(UINT keyin)
 	{

@@ -79,7 +79,8 @@ public:
 	int &GetY();
 	void SetMapLocation(int x,int y);
 	bool CheckWidthOutOfWindowsLeft();
-	bool CheckWidthOutOfWindowsRight();
+	bool CheckWidthOnLeftBorder();
+	bool CheckWidthOutOfWindowsRight(); //人物往左走換地圖之判斷法
 	void OnShow();
 	void OnMove();
 	void LoadMap(char *);
@@ -124,8 +125,8 @@ private:
 	int windows_Wt,windows_Ht;
 	bool repeatMode;
 	vector<Map*> maps;
-	Map *currentMap,*nextMap;
-	int mapNow,mapNext;
+	Map *currentMap,*nextMap,*pastMap;
+	int mapNow,mapNext,mapPast;
 	bool upMove,downMove,rightMove,leftMove;
 	void mapsChangeUpdate();
 	//bool mapRestriction(int& borderMap);//地圖無輪迴 尚未實做
