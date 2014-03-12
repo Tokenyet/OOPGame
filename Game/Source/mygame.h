@@ -55,13 +55,21 @@ namespace game_framework {
 // 這個class提供可以用鍵盤或滑鼠控制的擦子
 // 看懂就可以改寫成自己的程式了
 /////////////////////////////////////////////////////////////////////////////
-class ILocation
+class ILocation//interface
 {
 public:
-	virtual void SetScreenSize(int width,int height) = 0;//物件必須知道目前視窗大小
+	//virtual void SetScreenSize(int width,int height) = 0;//物件必須知道目前視窗大小
 	virtual int &GetX() = 0; //方可得知每個場上物件位置
 	virtual int &GetY() = 0;//方可得知每個場上物件位置
 	virtual ~ILocation(){};
+};
+
+class IPerform : public ILocation//interface
+{
+public:
+	virtual void OnMove() = 0;
+	virtual void OnShow() = 0;
+	virtual ~IPerform(){};
 };
 
 class Map : public ILocation
@@ -83,9 +91,26 @@ public:
 	bool CheckWidthOutOfWindowsRight(); //人物往左走換地圖之判斷法
 	void OnShow();
 	void OnMove();
-	void LoadMap(char *);
+	void LoadMap(char *);//LoadBitmap
 	int GetWidth();
 };
+
+class Obstacle : public IPerform
+{
+private:
+	int x,y;
+	CMovingBitmap picture;
+	bool deadly;
+public:
+	Obstacle();
+	void LoadBitmap(char *);
+	void OnShow();
+	void OnMove();
+	int& Obstacle::GetX();
+	int& Obstacle::GetY();
+};
+
+
 
 class Thing{};
 class Inventory{};
@@ -94,7 +119,7 @@ class Status
 {
 };
 
-class Human : public ILocation
+class Human : public IPerform
 {
 private:
 	int x,y;
@@ -135,31 +160,38 @@ private:
 public:
 	ScreenMap();
 	~ScreenMap();
-	void Initialization(vector<Map*> maps);
+	void Initialization(vector<Map> &maps);
 	void Reset();
 	void SetKeyDownControl(UINT keyin);
 	void SetKeyUpControl(UINT keyin);
-	void AddMap(vector<Map*> maps);
+	void AddMap(vector<Map> &maps);
 	void AddMap(Map* map);
 	void RepeatMode(bool repeat);
 	void OnMove();
 	void OnShow();
 };
 
-class ScrollSystem
+class Scroll_System
 {
 private:
-	vector<ILocation*> locations;
+	vector<Map> maps;
+	vector<IPerform*> locations;
 	ScreenMap screenMap;
-	Human charcter;
+	Human* charcter;
+	int windows_X,windows_Y;
+	void Object_Sync_Move();
+	bool upMove,downMove,rightMove,leftMove;
+	void mapSettingInitialize();
 public:
-	ScrollSystem();
-	void SetCharcter(Human &mainCharcter);
+	Scroll_System();
+	void Initialize(vector<IPerform*> locations);
+	void SetCharcter(Human *mainCharcter);
 	void SetWindowsSize(int windows_X,int windows_Y);
-	void AddObject(ILocation *things);
-	void AddObject(vector<ILocation*> things);
-	void KeyUpdate(UINT keyin);
-	void OnShow();
+	void AddObject(IPerform *things);
+	void AddObject(vector<IPerform*> things);
+	void KeyDownUpdate(UINT keyin);
+	void KeyUpUpdate(UINT keyin);
+	void OnShowMap();
 	void OnMove();
 };
 
@@ -325,11 +357,14 @@ protected:
 	void OnMove();									// 移動遊戲元素
 	void OnShow();									// 顯示這個狀態的遊戲畫面
 private:
-	Map map;
+	/*Map map;
 	Map map2;
 	Map map3;
-	vector<Map*> maps;
-	ScreenMap screenMap;
+	vector<Map> maps;*/
+	vector<IPerform*> iperforms;
+	Obstacle obtest;
+	//ScreenMap screenMap;
+	Scroll_System scroll_System;
 	int				testX,testY;
 	/*CGameMap		cgamemap;
 	CMovingBitmap   practice;

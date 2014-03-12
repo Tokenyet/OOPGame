@@ -127,6 +127,24 @@ namespace game_framework {
 	}
 
 
+	Obstacle::Obstacle()
+	{x=y=100;}
+	void Obstacle::LoadBitmap(char * path)
+	{
+		picture.LoadBitmapA(path);
+	}
+	void Obstacle::OnShow()
+	{
+		picture.ShowBitmap();
+	}
+	void Obstacle::OnMove()
+	{
+		picture.SetTopLeft(x,y);
+	}
+	int& Obstacle::GetX(){return x;}
+	int& Obstacle::GetY(){return y;}
+
+
 	void Human::SetScreenSize(int width,int height){}
 	/*int& Human::GetX(){return NULL;}
 	int& Human::GetY(){return NULL;}*/
@@ -141,16 +159,16 @@ namespace game_framework {
 	{
 	}
 	ScreenMap::~ScreenMap(){}
-	void ScreenMap::Initialization(vector<Map*> maps)
+	void ScreenMap::Initialization(vector<Map> &maps)
 	{
 		AddMap(maps);
 		Reset();
 
 	}
-	void ScreenMap::AddMap(vector<Map*> maps)
+	void ScreenMap::AddMap(vector<Map> &maps)
 	{
 		for(size_t i =0;i<maps.size();i++)
-			(this->maps).push_back(maps[i]);
+			(this->maps).push_back(&maps[i]);
 		
 	}
 	void ScreenMap::AddMap(Map* map)
@@ -321,6 +339,105 @@ public:
 /////////////////////////////////////////////////////////////////////////////
 // CBall: Ball class
 /////////////////////////////////////////////////////////////////////////////
+
+
+	Scroll_System::Scroll_System()
+	{
+		upMove = downMove = rightMove = leftMove = false;
+	}
+	void Scroll_System::Initialize(vector<IPerform*> locations)
+	{
+		this->locations = locations;
+		mapSettingInitialize();
+		screenMap.Initialization(maps);
+	}
+	void Scroll_System::mapSettingInitialize()
+	{
+		Map map,map2,map3;
+		map.Initialize((int)SIZE_X,(int)SIZE_Y,"Bitmaps/bg2-1.bmp");
+		map2.Initialize((int)SIZE_X,(int)SIZE_Y,"Bitmaps/bg2-1.bmp");
+		map3.Initialize((int)SIZE_X,(int)SIZE_Y,"Bitmaps/bg2-1.bmp");
+		maps.push_back(map);
+		maps.push_back(map2);
+		maps.push_back(map3);
+	}
+	void Scroll_System::SetCharcter(Human *mainCharcter)
+	{
+		charcter = mainCharcter;
+	}
+	void Scroll_System::SetWindowsSize(int windows_X,int windows_Y)
+	{
+		this->windows_X = windows_X;
+		this->windows_Y = windows_Y;
+	}
+	void Scroll_System::AddObject(IPerform *things)
+	{
+		locations.push_back(things);
+	}
+	void Scroll_System::AddObject(vector<IPerform*> things)
+	{
+		for(size_t i = 0;i<things.size();i++)
+			locations.push_back(things[i]);
+	}
+	void Scroll_System::KeyDownUpdate(UINT keyin)
+	{
+		const char KEY_LEFT  = 0x25; // keyboard左箭頭
+		const char KEY_UP    = 0x26; // keyboard上箭頭
+		const char KEY_RIGHT = 0x27; // keyboard右箭頭
+		const char KEY_DOWN  = 0x28; // keyboard下箭頭
+		if(keyin == KEY_LEFT)
+			leftMove = true;
+		if(keyin == KEY_UP)
+			upMove = true;
+		if(keyin == KEY_DOWN)
+			downMove = true;
+		if(keyin == KEY_RIGHT)
+			rightMove = true;
+		screenMap.SetKeyDownControl(keyin);
+	}
+	void Scroll_System::KeyUpUpdate(UINT keyin)
+	{
+		const char KEY_LEFT  = 0x25; // keyboard左箭頭
+		const char KEY_UP    = 0x26; // keyboard上箭頭
+		const char KEY_RIGHT = 0x27; // keyboard右箭頭
+		const char KEY_DOWN  = 0x28; // keyboard下箭頭
+		if(keyin == KEY_LEFT)
+			leftMove = false;
+		if(keyin == KEY_UP)
+			upMove = false;
+		if(keyin == KEY_DOWN)
+			downMove = false;
+		if(keyin == KEY_RIGHT)
+			rightMove = false;
+		screenMap.SetKeyUpControl(keyin);
+	}
+	void Scroll_System::OnShowMap()
+	{
+		screenMap.OnShow();
+	}
+	void Scroll_System::OnMove()
+	{
+		Object_Sync_Move();
+		screenMap.OnMove();
+	}
+	void Scroll_System::Object_Sync_Move()
+	{
+		for(size_t i = 0;i<locations.size();i++)
+		{
+		if (leftMove)
+			locations[i] -> GetX()+=10;
+		if (rightMove)
+			locations[i]  -> GetX()-=10;
+		if (upMove)
+			locations[i]  -> GetY()++;
+		if (downMove)
+			locations[i]  -> GetY()--;
+		locations[i] ->OnMove();
+		}
+	}
+
+
+
 
 #pragma region  Teacher_Code
 CBall::CBall()
@@ -914,7 +1031,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	if(testY < 0-SIZE_Y)
 		testY = 0;
 	map.SetMapLocation(0,testY);*/
-	screenMap.OnMove();
+	//screenMap.OnMove();
+	scroll_System.OnMove();
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -935,13 +1053,16 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	cpractice.LoadBitmapA();
 	practice.LoadBitmapA("Bitmaps/goss.bmp",RGB(0,0,0));
 	cgamemap.LoadBitmap();*/
-	map.Initialize((int)SIZE_X,(int)SIZE_Y,"Bitmaps/bg2-1.bmp");
+	/*map.Initialize((int)SIZE_X,(int)SIZE_Y,"Bitmaps/bg2-1.bmp");
 	map2.Initialize((int)SIZE_X,(int)SIZE_Y,"Bitmaps/bg2-1.bmp");
 	map3.Initialize((int)SIZE_X,(int)SIZE_Y,"Bitmaps/bg2-1.bmp");
-	maps.push_back(&map);
-	maps.push_back(&map2);
-	maps.push_back(&map3);
-	screenMap.Initialization(maps);
+	maps.push_back(map);
+	maps.push_back(map2);
+	maps.push_back(map3);
+	screenMap.Initialization(maps);*/
+	obtest.LoadBitmapA("Bitmaps/goss.bmp");
+	iperforms.push_back(&obtest);
+	scroll_System.Initialize(iperforms);
 	// 完成部分Loading動作，提高進度
 	//
 	ShowInitProgress(50);
@@ -977,7 +1098,8 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		eraser.SetMovingUp(true);
 	if (nChar == KEY_DOWN)
 		eraser.SetMovingDown(true);*/
-	screenMap.SetKeyDownControl(nChar);
+	//screenMap.SetKeyDownControl(nChar);
+	scroll_System.KeyDownUpdate(nChar);
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -994,7 +1116,8 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 		eraser.SetMovingUp(false);
 	if (nChar == KEY_DOWN)
 		eraser.SetMovingDown(false);*/
-	screenMap.SetKeyUpControl(nChar);
+	//screenMap.SetKeyUpControl(nChar);
+	scroll_System.KeyUpUpdate(nChar);
 }
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
@@ -1051,7 +1174,9 @@ void CGameStateRun::OnShow()
 	/*practice.ShowBitmap();
 	cpractice.OnShow();*/
 	//map.OnShow();
-	screenMap.OnShow();
+	//screenMap.OnShow();
+	scroll_System.OnShowMap();
+	obtest.OnShow();
 }
 
 }
