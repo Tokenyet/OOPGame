@@ -125,19 +125,23 @@ class Human : public IPerform
 private:
 	int x,y;
 	Status status;
-	CMovingBitmap movingMap;
-	CAnimation animation;
+	//CAnimation humanAnimation;
+	CMovingBitmap picture;
 	Equipment equipment;
 	Inventory inventory;
-	void moving();
+	void walkng();
 	void jump();
 	void attack();
+	bool upMove,downMove,rightMove,leftMove;
 public:
 	Human();
-	void SetScreenSize(int width,int height);
+	//void SetScreenSize(int width,int height);
+	void SetLocation(int x,int y);
 	int &GetX();
 	int &GetY();
-	void KeyDetect(UINT keyin);
+	void LoadBitmap(char *,COLORREF RGB);//For test to side scrolling
+	void KeyDownDetect(UINT keyin);
+	void KeyUpDetect(UINT keyin);
 	void OnMove();
 	void OnShow();
 	void AddThing(Thing Item);
@@ -365,6 +369,7 @@ private:
 	vector<Map> maps;*/
 	vector<IPerform*> iperforms;
 	Obstacle obtest;
+	Human human;
 	//ScreenMap screenMap;
 	Scroll_System scroll_System;
 	int				testX,testY;
