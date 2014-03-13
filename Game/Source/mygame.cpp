@@ -125,7 +125,10 @@ namespace game_framework {
 	{
 		return picture.Width();
 	}
-
+	int Map::GetHeight()
+	{
+		return picture.Height();
+	}
 
 	Obstacle::Obstacle()
 	{x=y=100;}
@@ -157,6 +160,7 @@ namespace game_framework {
 
 	ScreenMap::ScreenMap()
 	{
+		offset_Heigth = 0;
 	}
 	ScreenMap::~ScreenMap(){}
 	void ScreenMap::Initialization(vector<Map> &maps)
@@ -194,12 +198,14 @@ namespace game_framework {
 			pastMap -> GetY()++;
 			currentMap->GetY()++;
 			nextMap->GetY()++;
+			offset_Heigth ++;
 		}
 		if (downMove)
 		{
 			pastMap -> GetY()--;
 			currentMap->GetY()--;
 			nextMap->GetY()--;
+			offset_Heigth--;
 		}
 		currentMap->SetMapLocation(currentMap->GetX(),currentMap->GetY());
 		nextMap->SetMapLocation(nextMap->GetX(),nextMap->GetY());
@@ -247,9 +253,13 @@ namespace game_framework {
 	}
 	void ScreenMap::changeMapInitialize()
 	{
-		pastMap -> SetMapLocation(0-pastMap->GetWidth(),0);
-		currentMap->SetMapLocation(0,0);
-		nextMap->SetMapLocation(currentMap->GetWidth(),0);
+		int offset_past =0- pastMap->GetHeight() + SIZE_Y + offset_Heigth;
+		int offset_now =0- currentMap->GetHeight() + SIZE_Y + offset_Heigth;
+		int offset_next =0- nextMap->GetHeight() + SIZE_Y + offset_Heigth;
+
+		pastMap -> SetMapLocation(0-pastMap->GetWidth(),offset_past);
+		currentMap->SetMapLocation(0,offset_now);
+		nextMap->SetMapLocation(currentMap->GetWidth(),offset_next);
 	}
 	void ScreenMap::recorderUpdater()
 	{

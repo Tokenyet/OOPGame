@@ -93,6 +93,7 @@ public:
 	void OnMove();
 	void LoadMap(char *);//LoadBitmap
 	int GetWidth();
+	int GetHeight();
 };
 
 class Obstacle : public IPerform
@@ -146,6 +147,7 @@ class ScreenMap
 {
 private:
 	int real_X,real_Y;
+	int offset_Heigth;
 	int maps_Wt,maps_Ht;
 	int windows_Wt,windows_Ht;
 	bool repeatMode;
