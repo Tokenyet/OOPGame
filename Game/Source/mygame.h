@@ -43,6 +43,8 @@
 /////////////////////////////////////////////////////////////////////////////
 #include <vector>
 #include <map>
+#include "ILocation.h"
+#include "IPerform.h"
 
 enum AUDIO_ID {				// 定義各種音效的編號
 	AUDIO_DING,				// 0
@@ -55,22 +57,8 @@ namespace game_framework {
 // 這個class提供可以用鍵盤或滑鼠控制的擦子
 // 看懂就可以改寫成自己的程式了
 /////////////////////////////////////////////////////////////////////////////
-class ILocation//interface
-{
-public:
-	//virtual void SetScreenSize(int width,int height) = 0;//物件必須知道目前視窗大小
-	virtual int &GetX() = 0; //方可得知每個場上物件位置
-	virtual int &GetY() = 0;//方可得知每個場上物件位置
-	virtual ~ILocation(){};
-};
 
-class IPerform : public ILocation//interface
-{
-public:
-	virtual void OnMove() = 0;
-	virtual void OnShow() = 0;
-	virtual ~IPerform(){};
-};
+
 
 class Map : public ILocation
 {

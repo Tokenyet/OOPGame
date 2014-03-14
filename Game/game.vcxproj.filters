@@ -11,6 +11,15 @@
     <Filter Include="GameLibrary">
       <UniqueIdentifier>{df7aa532-3fdf-46a0-b3fc-8f5922e8d9e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameClass">
+      <UniqueIdentifier>{2751f409-118d-4711-9e78-08c87be39e05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClass\Interface">
+      <UniqueIdentifier>{bfc16fc1-ecf0-4a95-95b4-a06d66f4a259}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClass\SideScrollingSystem">
+      <UniqueIdentifier>{f56f16c9-dae8-42fc-a299-3652546ed6fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\ball.bmp">
@@ -147,6 +156,12 @@
     </ClInclude>
     <ClInclude Include="Source\StdAfx.h">
       <Filter>MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ILocation.h">
+      <Filter>GameClass\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IPerform.h">
+      <Filter>GameClass\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

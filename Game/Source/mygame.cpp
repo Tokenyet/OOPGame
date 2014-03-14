@@ -59,6 +59,9 @@
 #include "gamelib.h"
 #include "mygame.h"
 #include <vector>
+#include "ILocation.h"
+#include "IPerform.h"
+
 
 namespace game_framework {
 
