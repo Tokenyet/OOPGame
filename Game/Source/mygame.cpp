@@ -147,13 +147,34 @@ namespace game_framework {
 	int& Obstacle::GetX(){return x;}
 	int& Obstacle::GetY(){return y;}
 
+	int& Thing::GetX(){ return x;}
+	int& Thing::GetY(){ return y;}
+	void Thing::OnMove(){}
+	void Thing::OnShow(){}
+	void Thing::LoadBitmap(char *,COLORREF RGB){}
+
+	void Inventory::changeClothes(){}
+	void Inventory::addHealth(){}
+	void Inventory::AddThings(Thing){}
+	void Inventory::Peek(Thing){}
+	void Inventory::OnShow(){}
+
+	Thing Equipment::ChangeClothes(){Thing a; return a;}
+	//if I have a clothes turn off to Inventory
+
 
 	Human::Human()
 	{
 		upMove = downMove = rightMove = leftMove = false;
 		x = y = 0;
+		/*x = SIZE_X/2;
+		y = SIZE_Y/2;*/ //Must Know My Width Of Picture
 	}
-	void Human::SetLocation(int x,int y){}
+	void Human::SetLocation(int x,int y)
+	{
+/*		this->x = (SIZE_X - picture.Width())/2;
+		this->y = SIZE_Y/2 + 50;//- picture.Height();*/
+	}
 	int& Human::GetX(){return x;}
 	int& Human::GetY(){return y;}
 	void Human::KeyDownDetect(UINT keyin)

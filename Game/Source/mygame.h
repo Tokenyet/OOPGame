@@ -113,9 +113,46 @@ public:
 
 
 
-class Thing{};
-class Inventory{};
-class Equipment{};
+class Thing : IPerform
+{
+private:
+	int x,y;
+	CMovingBitmap picture;
+public:
+	int &GetX();
+	int &GetY();
+	void OnMove();
+	void OnShow();
+	void LoadBitmap(char *,COLORREF RGB);
+};
+
+class Human;
+class Inventory
+{
+private:
+	int x,y;
+	vector<Thing> things;
+	Human* owner;
+	CMovingBitmap picture;
+	void changeClothes();
+	void addHealth();
+public:
+	void AddThings(Thing);
+	void Peek(Thing);
+	void OnShow();
+};
+
+class Equipment
+{
+private:
+	Human *human;
+	Thing *equip;
+	//It should be Suit but i haven't complete Thing
+public:
+	Thing ChangeClothes();
+	//if I have a clothes turn off to Inventory
+};
+
 class Status
 {
 };
@@ -202,6 +239,7 @@ public:
 };
 
 
+#pragma region TeacherCode
 class CEraser
 {
 public:
@@ -322,7 +360,7 @@ protected:
 	CBouncingBall *bballs;
 	int random_num;
 };
-
+#pragma endregion
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲開頭畫面物件
 // 每個Member function的Implementation都要弄懂
