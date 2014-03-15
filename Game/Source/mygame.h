@@ -45,7 +45,14 @@
 #include <map>
 #include "ILocation.h"
 #include "IPerform.h"
-
+#include "Obstacle.h"
+#include "Map.h"
+#include "ScreenMap.h"
+#include "Scroll_System.h"
+#include "Thing.h"
+#include "Inventory.h"
+#include "Equipment.h"
+#include "Human.h"
 enum AUDIO_ID {				// 定義各種音效的編號
 	AUDIO_DING,				// 0
 	AUDIO_LAKE,				// 1
@@ -59,175 +66,6 @@ namespace game_framework {
 /////////////////////////////////////////////////////////////////////////////
 
 
-
-class Map : public ILocation
-{
-private:
-	int movX,movY;
-	int windows_Width,windows_Heigth;
-	CMovingBitmap picture;
-public:
-	Map();
-	~Map();
-	void Initialize(int width,int heigth,char* path);
-	void SetScreenSize(int width,int height);
-	int &GetX();
-	int &GetY();
-	void SetMapLocation(int x,int y);
-	bool CheckWidthOutOfWindowsLeft();
-	bool CheckWidthOnLeftBorder();
-	bool CheckWidthOutOfWindowsRight(); //人物往左走換地圖之判斷法
-	void OnShow();
-	void OnMove();
-	void LoadMap(char *);//LoadBitmap
-	int GetWidth();
-	int GetHeight();
-};
-
-class Obstacle : public IPerform
-{
-private:
-	int x,y;
-	CMovingBitmap picture;
-	bool deadly;
-public:
-	Obstacle();
-	void LoadBitmap(char *);
-	void OnShow();
-	void OnMove();
-	int& Obstacle::GetX();
-	int& Obstacle::GetY();
-};
-
-
-
-class Thing : IPerform
-{
-private:
-	int x,y;
-	CMovingBitmap picture;
-public:
-	int &GetX();
-	int &GetY();
-	void OnMove();
-	void OnShow();
-	void LoadBitmap(char *,COLORREF RGB);
-};
-
-class Human;
-class Inventory
-{
-private:
-	int x,y;
-	vector<Thing> things;
-	Human* owner;
-	CMovingBitmap picture;
-	void changeClothes();
-	void addHealth();
-public:
-	void AddThings(Thing);
-	void Peek(Thing);
-	void OnShow();
-};
-
-class Equipment
-{
-private:
-	Human *human;
-	Thing *equip;
-	//It should be Suit but i haven't complete Thing
-public:
-	Thing ChangeClothes();
-	//if I have a clothes turn off to Inventory
-};
-
-class Status
-{
-};
-
-class Human : public IPerform
-{
-private:
-	int x,y;
-	Status status;
-	//CAnimation humanAnimation;
-	CMovingBitmap picture;
-	Equipment equipment;
-	Inventory inventory;
-	void walkng();
-	void jump();
-	void attack();
-	bool upMove,downMove,rightMove,leftMove;
-public:
-	Human();
-	//void SetScreenSize(int width,int height);
-	void SetLocation(int x,int y);
-	int &GetX();
-	int &GetY();
-	void LoadBitmap(char *,COLORREF RGB);//For test to side scrolling
-	void KeyDownDetect(UINT keyin);
-	void KeyUpDetect(UINT keyin);
-	void OnMove();
-	void OnShow();
-	void AddThing(Thing Item);
-};
-
-class ScreenMap
-{
-private:
-	int real_X,real_Y;
-	int offset_Heigth;
-	int maps_Wt,maps_Ht;
-	int windows_Wt,windows_Ht;
-	bool repeatMode;
-	vector<Map*> maps;
-	Map *currentMap,*nextMap,*pastMap;
-	int mapNow,mapNext,mapPast;
-	bool upMove,downMove,rightMove,leftMove;
-	void mapsChangeUpdate();
-	//bool mapRestriction(int& borderMap);//地圖無輪迴 尚未實做
-	void changeMapInitialize();
-	void recorderUpdater();
-public:
-	ScreenMap();
-	~ScreenMap();
-	void Initialization(vector<Map> &maps);
-	void Reset();
-	void SetKeyDownControl(UINT keyin);
-	void SetKeyUpControl(UINT keyin);
-	void AddMap(vector<Map> &maps);
-	void AddMap(Map* map);
-	void RepeatMode(bool repeat);
-	void OnMove();
-	void OnShow();
-};
-
-class Scroll_System
-{
-private:
-	vector<Map> maps;
-	vector<IPerform*> locations;
-	ScreenMap screenMap;
-	Human* charcter;
-	int windows_X,windows_Y;
-	void Object_Sync_Move();
-	bool upMove,downMove,rightMove,leftMove;
-	void mapSettingInitialize();
-public:
-	Scroll_System();
-	void Initialize(vector<IPerform*> locations);
-	void SetCharcter(Human *mainCharcter);
-	void SetWindowsSize(int windows_X,int windows_Y);
-	void AddObject(IPerform *things);
-	void AddObject(vector<IPerform*> things);
-	void KeyDownUpdate(UINT keyin);
-	void KeyUpUpdate(UINT keyin);
-	void OnShowMap();
-	void OnMove();
-};
-
-
-#pragma region TeacherCode
 class CEraser
 {
 public:
@@ -348,7 +186,7 @@ protected:
 	CBouncingBall *bballs;
 	int random_num;
 };
-#pragma endregion
+
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲開頭畫面物件
 // 每個Member function的Implementation都要弄懂

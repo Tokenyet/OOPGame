@@ -20,6 +20,12 @@
     <Filter Include="GameClass\SideScrollingSystem">
       <UniqueIdentifier>{f56f16c9-dae8-42fc-a299-3652546ed6fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameClass\HumanElements">
+      <UniqueIdentifier>{e487384c-4493-4b7c-b5c0-43a8b1f84f90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClass\StaticObjects">
+      <UniqueIdentifier>{66035042-aa05-4c73-aca3-46083fc77082}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\ball.bmp">
@@ -130,6 +136,30 @@
     <ClCompile Include="Source\StdAfx.cpp">
       <Filter>MFC</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Map.cpp">
+      <Filter>GameClass\SideScrollingSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ScreenMap.cpp">
+      <Filter>GameClass\SideScrollingSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scroll_System.cpp">
+      <Filter>GameClass\SideScrollingSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Obstacle.cpp">
+      <Filter>GameClass\StaticObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Thing.cpp">
+      <Filter>GameClass\StaticObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Equipment.cpp">
+      <Filter>GameClass\HumanElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Inventory.cpp">
+      <Filter>GameClass\HumanElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Human.cpp">
+      <Filter>GameClass\HumanElements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\mygame.h" />
@@ -162,6 +192,30 @@
     </ClInclude>
     <ClInclude Include="Source\IPerform.h">
       <Filter>GameClass\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Map.h">
+      <Filter>GameClass\SideScrollingSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ScreenMap.h">
+      <Filter>GameClass\SideScrollingSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scroll_System.h">
+      <Filter>GameClass\SideScrollingSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Obstacle.h">
+      <Filter>GameClass\StaticObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Thing.h">
+      <Filter>GameClass\StaticObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Equipment.h">
+      <Filter>GameClass\HumanElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Inventory.h">
+      <Filter>GameClass\HumanElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Human.h">
+      <Filter>GameClass\HumanElements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

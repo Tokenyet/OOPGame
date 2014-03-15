@@ -1,12 +1,16 @@
-/*#include "ILocation.h"
+#ifndef MAP_H
+#define MAP_H
+#include "stdafx.h"
+#include <ddraw.h>
 #include "gamelib.h"
-class CMovingBitmap;
+#include "ILocation.h"
+
 class Map : public ILocation
 {
 private:
 	int movX,movY;
 	int windows_Width,windows_Heigth;
-	CMovingBitmap *picture;
+	game_framework::CMovingBitmap picture;
 public:
 	Map();
 	~Map();
@@ -23,4 +27,5 @@ public:
 	void LoadMap(char *);//LoadBitmap
 	int GetWidth();
 	int GetHeight();
-};*/
+};
+#endif

@@ -1,4 +1,7 @@
+#ifndef IPERFORM_H
+#define IPERFORM_H
 #pragma once
+#include "ILocation.h"
 class IPerform : public ILocation//interface
 {
 public:
@@ -6,3 +9,4 @@ public:
 	virtual void OnShow() = 0;
 	virtual ~IPerform(){};
 };
+#endif

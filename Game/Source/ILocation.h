@@ -1,3 +1,5 @@
+#ifndef ILOCATION_H
+#define ILOCATION_H
 #pragma once
 class ILocation//interface
 {
@@ -7,3 +9,4 @@ public:
 	virtual int &GetY() = 0;//方可得知每個場上物件位置
 	virtual ~ILocation(){};
 };
+#endif

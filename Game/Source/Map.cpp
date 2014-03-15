@@ -1,6 +1,6 @@
-//#include "gamelib.h"
-//#include "Map.h"
-/*
+#include "stdafx.h"
+#include "Map.h"
+
 	Map::Map()
 	{
 		movX=movY = 0;
@@ -67,4 +67,3 @@
 	{
 		return picture.Height();
 	}
-	*/
