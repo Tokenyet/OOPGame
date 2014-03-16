@@ -52,13 +52,13 @@
 	}
 	void Human::OnMove()
 	{
-		if (leftMove)
+		/*if (leftMove&&!collisionRT[2])
 			x -=5;
-		if (rightMove)
-			x +=5;
-		if (upMove)
+		if (rightMove&&!collisionRT[3])
+			x +=5;*/
+		if (upMove&&!collisionRT[0])
 			y -= 5;
-		if (downMove)
+		if (downMove&&!collisionRT[1])
 			y += 5;
 		picture.SetTopLeft(x,y);
 		syncMyRect();

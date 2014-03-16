@@ -679,11 +679,11 @@ void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
 	map.SetMapLocation(0,testY);*/
 	//screenMap.OnMove();
 	collision_System.OnCheck();
-	if(human.GetIntersect(0))
+/*	if(human.GetIntersect(0))
 	{
 		human.GetX() = 0;
 		human.GetY() = 0;
-	}
+	}*/
 	scroll_System.OnMove();
 	obtest.OnMove();
 	//human.OnMove();
