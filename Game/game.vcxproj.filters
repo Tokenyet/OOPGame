@@ -26,6 +26,9 @@
     <Filter Include="GameClass\StaticObjects">
       <UniqueIdentifier>{66035042-aa05-4c73-aca3-46083fc77082}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameClass\Collision_System">
+      <UniqueIdentifier>{d0a6f30e-812a-49f1-9904-4be81c64af43}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\ball.bmp">
@@ -160,6 +163,12 @@
     <ClCompile Include="Source\Human.cpp">
       <Filter>GameClass\HumanElements</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CRectangle.cpp">
+      <Filter>GameClass\Collision_System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collision_System.cpp">
+      <Filter>GameClass\Collision_System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\mygame.h" />
@@ -216,6 +225,15 @@
     </ClInclude>
     <ClInclude Include="Source\Human.h">
       <Filter>GameClass\HumanElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ICollision.h">
+      <Filter>GameClass\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CRectangle.h">
+      <Filter>GameClass\Collision_System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collision_System.h">
+      <Filter>GameClass\Collision_System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

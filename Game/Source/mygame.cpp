@@ -70,6 +70,8 @@
 #include "Inventory.h"
 #include "Equipment.h"
 #include "Human.h"
+#include "ICollision.h"
+#include "Collision_System.h"
 
 namespace game_framework {
 
@@ -675,8 +677,15 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		testY = 0;
 	map.SetMapLocation(0,testY);*/
 	//screenMap.OnMove();
+	collision_system.OnCheck();
+	if(human.GetIntersect(0))
+	{
+		human.GetX() = 200;
+		human.GetY() = 200;
+	}
 	scroll_System.OnMove();
 	human.OnMove();
+
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -708,6 +717,10 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	human.LoadBitmapA("Bitmaps/goss.bmp",RGB(0,0,0));
 	iperforms.push_back(&obtest);
 	scroll_System.Initialize(iperforms);
+	icollisions_human.push_back(&human);
+	collision_system.Load_HeroCollisions(icollisions_human);
+	icollisions_obstacle.push_back(&obtest);
+	collision_system.Load_ObstacleCollisions(icollisions_obstacle);
 	// 完成部分Loading動作，提高進度
 	//
 	ShowInitProgress(50);

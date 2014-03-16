@@ -3,11 +3,13 @@
 #include "Inventory.h"
 #include "IPerform.h"
 #include "Human.h"
-
+#include "CRectangle.h"
+#include "ICollision.h"
 	Human::Human()
 	{
 		upMove = downMove = rightMove = leftMove = false;
 		x = y = 0;
+		collisionRT=false;
 		/*x = SIZE_X/2;
 		y = SIZE_Y/2;*/ //Must Know My Width Of Picture
 	}
@@ -59,6 +61,7 @@
 		if (downMove)
 			y += 5;
 		picture.SetTopLeft(x,y);
+		syncMyRect();
 	}
 	void Human::OnShow()
 	{
@@ -68,4 +71,12 @@
 	void Human::LoadBitmap(char * path,COLORREF RGB)//For test to side scrolling
 	{
 		picture.LoadBitmapA(path,RGB);
+	}
+
+	CRectangle Human::GetRect(){return myRect;} 
+	bool& Human::GetIntersect(int mode = 0){return collisionRT;}
+
+	void Human::syncMyRect()
+	{
+		myRect.SetRectangle(x,y,x+picture.Width(),y+picture.Height());
 	}

@@ -5,8 +5,10 @@
 #include "Equipment.h"
 #include "Inventory.h"
 #include "IPerform.h"
+#include "ICollision.h"
+#include "CRectangle.h"
 
-class Human : public IPerform
+class Human : public IPerform,public ICollision
 {
 private:
 	int x,y;
@@ -19,6 +21,9 @@ private:
 	void jump();
 	void attack();
 	bool upMove,downMove,rightMove,leftMove;
+	CRectangle myRect;
+	bool collisionRT;
+	void syncMyRect();
 public:
 	Human();
 	//void SetScreenSize(int width,int height);
@@ -31,5 +36,7 @@ public:
 	void OnMove();
 	void OnShow();
 	void AddThing(Thing Item);
+	CRectangle GetRect();
+	bool &GetIntersect(int);
 };
 #endif

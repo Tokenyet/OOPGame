@@ -53,6 +53,8 @@
 #include "Inventory.h"
 #include "Equipment.h"
 #include "Human.h"
+#include "ICollision.h"
+#include "Collision_System.h"
 enum AUDIO_ID {				// 定義各種音效的編號
 	AUDIO_DING,				// 0
 	AUDIO_LAKE,				// 1
@@ -232,10 +234,13 @@ private:
 	Map map3;
 	vector<Map> maps;*/
 	vector<IPerform*> iperforms;
+	vector<ICollision*> icollisions_human;
+	vector<ICollision*> icollisions_obstacle;
 	Obstacle obtest;
 	Human human;
 	//ScreenMap screenMap;
 	Scroll_System scroll_System;
+	Collision_System collision_system;
 	int				testX,testY;
 	/*CGameMap		cgamemap;
 	CMovingBitmap   practice;
