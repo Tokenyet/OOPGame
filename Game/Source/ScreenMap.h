@@ -8,7 +8,7 @@ class ScreenMap
 {
 private:
 	int real_X,real_Y;
-	int offset_Heigth;
+	int offset_Heigth;//紀錄高度變化
 	int maps_Wt,maps_Ht;
 	int windows_Wt,windows_Ht;
 	bool repeatMode;
@@ -32,5 +32,6 @@ public:
 	void RepeatMode(bool repeat);
 	void OnMove();
 	void OnShow();
+	int Different_Map_HeigthOffset(int);
 };
 #endif

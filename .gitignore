@@ -8,3 +8,4 @@ Game/*.opensdf
 Game/UpgradeLog.XML
 Game/UpgradeLog.htm
 Game/_UpgradeReport_Files/
+Game/*.filters

@@ -676,6 +676,7 @@ void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
 	map.SetMapLocation(0,testY);*/
 	//screenMap.OnMove();
 	scroll_System.OnMove();
+	obtest.OnMove();
 	human.OnMove();
 }
 
