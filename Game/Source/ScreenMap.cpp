@@ -5,6 +5,8 @@
 	ScreenMap::ScreenMap()
 	{
 		offset_Heigth = 0;
+		for(int i = 0;i<2;i++)
+			set_Scrolling_LR[2] = true;
 	}
 	ScreenMap::~ScreenMap(){}
 	void ScreenMap::Initialization(vector<Map> &maps)
@@ -26,17 +28,17 @@
 	void ScreenMap::OnMove()
 	{
 		int restriction_value = currentMap->GetY();
-		if (leftMove)
+		if (leftMove&&set_Scrolling_LR[0])
 		{
-			pastMap -> GetX()+=10;
-			currentMap->GetX()+=10;
-			nextMap->GetX()+=10;
+			pastMap -> GetX()+=1;
+			currentMap->GetX()+=1;
+			nextMap->GetX()+=1;
 		}	
-		if (rightMove)
+		if (rightMove&&set_Scrolling_LR[1])
 		{
-			pastMap -> GetX()-=10;
-			currentMap->GetX()-=10;
-			nextMap->GetX()-=10;
+			pastMap -> GetX()-=1;
+			currentMap->GetX()-=1;
+			nextMap->GetX()-=1;
 		}
 		if (upMove&& restriction_value < 0)
 		{
@@ -174,6 +176,15 @@
 			rightMove = false;
 	}
 	void ScreenMap::RepeatMode(bool repeat){}
+
+	void ScreenMap::SetScrollingL(bool could)//ÅÞ¿è«Ý­×¥¿
+	{
+		set_Scrolling_LR[0] = !could;
+	}
+	void ScreenMap::SetScrollingR(bool could)
+	{
+		set_Scrolling_LR[1] = !could;
+	}
 
 	int ScreenMap::Different_Map_HeigthOffset(int choose)
 	{

@@ -32,6 +32,8 @@
 	{
 		charcter = mainCharcter;
 	}*/
+	void Scroll_System::SetCharcter(Human *mainCharcter)
+	{charcter = mainCharcter;}
 	void Scroll_System::SetWindowsSize(int windows_X,int windows_Y)
 	{
 		this->windows_X = windows_X;
@@ -84,6 +86,8 @@
 	}
 	void Scroll_System::OnMove()
 	{
+		screenMap.SetScrollingL(charcter->GetIntersect(2));
+		screenMap.SetScrollingR(charcter->GetIntersect(3));
 			Object_Sync_Move();
 			screenMap.OnMove();
 	}
@@ -91,9 +95,9 @@
 	{
 		for(size_t i = 0;i<locations.size();i++)
 		{
-		if (leftMove)
+		if (leftMove&&!charcter->GetIntersect(2))
 			locations[i] -> GetX()+=10;
-		if (rightMove)
+		if (rightMove&&!charcter->GetIntersect(3))
 			locations[i]  -> GetX()-=10;
 		if (upMove&&Check_Map_OutOfHeight())
 			locations[i]  -> GetY()++;
@@ -102,7 +106,6 @@
 		locations[i] ->OnMove();
 		}
 	}
-
 	bool Scroll_System::Check_Map_OutOfHeight()
 	{
 		int reviser = windows_Y;

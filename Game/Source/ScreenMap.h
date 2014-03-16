@@ -16,6 +16,8 @@ private:
 	Map *currentMap,*nextMap,*pastMap;
 	int mapNow,mapNext,mapPast;
 	bool upMove,downMove,rightMove,leftMove;
+
+	bool set_Scrolling_LR[2];
 	void mapsChangeUpdate();
 	//bool mapRestriction(int& borderMap);//地圖無輪迴 尚未實做
 	void changeMapInitialize();
@@ -32,6 +34,8 @@ public:
 	void RepeatMode(bool repeat);
 	void OnMove();
 	void OnShow();
+	void SetScrollingL(bool);
+	void SetScrollingR(bool);
 	int Different_Map_HeigthOffset(int);
 };
 #endif

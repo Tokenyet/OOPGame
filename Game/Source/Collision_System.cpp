@@ -44,7 +44,7 @@
                     {
 						humanBox->GetIntersect(0) = true;
                     }
-                    if(humanBox->GetRect().Get_Ry() < obstacleBox->GetRect().Get_Ry())//we have collided with an object above us.
+                    else if(humanBox->GetRect().Get_Ry() < obstacleBox->GetRect().Get_Ry())//we have collided with an object above us.
                     {
 						humanBox->GetIntersect(1) = true;
                     }

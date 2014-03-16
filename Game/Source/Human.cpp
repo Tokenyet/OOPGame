@@ -9,6 +9,8 @@
 	{
 		upMove = downMove = rightMove = leftMove = false;
 		x = y = 0;
+		for(int i = 0;i<6;i++)
+		collisionRT[i] = false;
 		//collisionRT=false;
 		/*x = SIZE_X/2;
 		y = SIZE_Y/2;*/ //Must Know My Width Of Picture

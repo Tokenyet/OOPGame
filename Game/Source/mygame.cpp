@@ -720,6 +720,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	human.LoadBitmapA("Bitmaps/goss.bmp",RGB(0,0,0));
 	iperforms.push_back(&obtest);
 	scroll_System.Initialize(iperforms);
+	scroll_System.SetCharcter(&human);
 	icollisions_human.push_back(&human);
 	collision_System.Load_HeroCollisions(icollisions_human);
 	icollisions_obstacle.push_back(&obtest);
