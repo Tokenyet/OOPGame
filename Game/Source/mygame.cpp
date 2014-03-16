@@ -684,6 +684,7 @@ void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
 		human.GetY() = 200;
 	}
 	scroll_System.OnMove();
+	obtest.OnMove();
 	human.OnMove();
 
 }

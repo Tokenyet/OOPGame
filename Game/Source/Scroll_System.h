@@ -18,6 +18,7 @@ private:
 	void Object_Sync_Move();
 	bool upMove,downMove,rightMove,leftMove;
 	void mapSettingInitialize();
+	bool Check_Map_OutOfHeight();
 public:
 	Scroll_System();
 	void Initialize(vector<IPerform*> locations);

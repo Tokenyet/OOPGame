@@ -173,3 +173,8 @@
 			rightMove = false;
 	}
 	void ScreenMap::RepeatMode(bool repeat){}
+
+	int ScreenMap::Different_Map_HeigthOffset(int choose)
+	{
+		return SIZE_Y - maps[choose]->GetHeight();
+	}

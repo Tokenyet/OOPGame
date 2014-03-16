@@ -10,6 +10,7 @@
 	Scroll_System::Scroll_System()
 	{
 		upMove = downMove = rightMove = leftMove = false;
+		windows_X = windows_Y = 0;
 	}
 	void Scroll_System::Initialize(vector<IPerform*> locations)
 	{
@@ -83,8 +84,11 @@
 	}
 	void Scroll_System::OnMove()
 	{
-		Object_Sync_Move();
-		screenMap.OnMove();
+		if(Check_Map_OutOfHeight())
+		{
+			Object_Sync_Move();
+			screenMap.OnMove();
+		}
 	}
 	void Scroll_System::Object_Sync_Move()
 	{
@@ -99,5 +103,25 @@
 		if (downMove)
 			locations[i]  -> GetY()--;
 		locations[i] ->OnMove();
+		}
+	}
+
+	bool Scroll_System::Check_Map_OutOfHeight()
+	{
+		int reviser = windows_Y;
+		if (leftMove)
+			windows_X+=10;
+		if (rightMove)
+			windows_X-=10;
+		if (upMove)
+			windows_Y--;
+		if (downMove)
+			windows_Y++;
+		if(windows_Y > screenMap.Different_Map_HeigthOffset(0) && windows_Y < 0)
+			return true;
+		else
+		{
+			windows_Y = reviser;
+			return false;
 		}
 	}
