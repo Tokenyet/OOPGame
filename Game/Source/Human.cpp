@@ -9,6 +9,8 @@
 	{
 		upMove = downMove = rightMove = leftMove = false;
 		x = y = 0;
+		for(int i = 0;i<6;i++)
+		collisionRT[i] = false;
 		//collisionRT=false;
 		/*x = SIZE_X/2;
 		y = SIZE_Y/2;*/ //Must Know My Width Of Picture
@@ -52,13 +54,13 @@
 	}
 	void Human::OnMove()
 	{
-		if (leftMove)
+		/*if (leftMove&&!collisionRT[2])
 			x -=5;
-		if (rightMove)
-			x +=5;
-		if (upMove)
+		if (rightMove&&!collisionRT[3])
+			x +=5;*/
+		if (upMove&&!collisionRT[0])
 			y -= 5;
-		if (downMove)
+		if (downMove&&!collisionRT[1])
 			y += 5;
 		picture.SetTopLeft(x,y);
 		syncMyRect();

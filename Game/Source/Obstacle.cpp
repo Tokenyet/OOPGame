@@ -2,7 +2,7 @@
 #include "Obstacle.h"
 #include "CRectangle.h"
 	Obstacle::Obstacle()
-	{x=y=100;collisionTF=false;}
+	{x=y=300;collisionTF=false;}
 	void Obstacle::LoadBitmap(char * path)
 	{
 		picture.LoadBitmapA(path);
