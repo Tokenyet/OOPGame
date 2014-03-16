@@ -9,7 +9,7 @@
 	{
 		upMove = downMove = rightMove = leftMove = false;
 		x = y = 0;
-		collisionRT=false;
+		//collisionRT=false;
 		/*x = SIZE_X/2;
 		y = SIZE_Y/2;*/ //Must Know My Width Of Picture
 	}
@@ -74,7 +74,7 @@
 	}
 
 	CRectangle Human::GetRect(){return myRect;} 
-	bool& Human::GetIntersect(int mode = 0){return collisionRT;}
+	bool& Human::GetIntersect(int mode = 0){return collisionRT[mode];}
 
 	void Human::syncMyRect()
 	{

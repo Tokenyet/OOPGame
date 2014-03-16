@@ -13,6 +13,8 @@ private:
 	vector<ICollision*> obstacleBoxes;
 	vector<ICollision*> bulletBoxes;
 	void checkHuman_Obstacle();
+	void checkHuman_ObstacleWhereCollision(ICollision* humanBoxes,ICollision* obstacleBoxes);
+	void resetHuman_Collision(ICollision* resetBoxes);
 public:
 	Collision_System();
 	~Collision_System();
