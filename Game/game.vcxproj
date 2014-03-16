@@ -285,6 +285,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <ClCompile Include="Source\Map.cpp" />
+    <ClCompile Include="Source\Movement_System.cpp" />
     <ClCompile Include="Source\Obstacle.cpp" />
     <ClCompile Include="Source\CRectangle.cpp" />
     <ClCompile Include="Source\ScreenMap.cpp" />
@@ -326,6 +327,7 @@
     <ClInclude Include="Source\IPerform.h" />
     <ClInclude Include="Source\MainFrm.h" />
     <ClInclude Include="Source\Map.h" />
+    <ClInclude Include="Source\Movement_System.h" />
     <ClInclude Include="Source\Obstacle.h" />
     <ClInclude Include="Source\CRectangle.h" />
     <ClInclude Include="Source\Resource.h" />

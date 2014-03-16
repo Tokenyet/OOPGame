@@ -29,6 +29,9 @@
     <Filter Include="GameClass\Collision_System">
       <UniqueIdentifier>{d0a6f30e-812a-49f1-9904-4be81c64af43}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameClass\MovementSystem">
+      <UniqueIdentifier>{0c822a98-6a8c-4d92-a579-51f108d71808}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\ball.bmp">
@@ -169,6 +172,9 @@
     <ClCompile Include="Source\Collision_System.cpp">
       <Filter>GameClass\Collision_System</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Movement_System.cpp">
+      <Filter>GameClass\MovementSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\mygame.h" />
@@ -234,6 +240,9 @@
     </ClInclude>
     <ClInclude Include="Source\Collision_System.h">
       <Filter>GameClass\Collision_System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Movement_System.h">
+      <Filter>GameClass\MovementSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

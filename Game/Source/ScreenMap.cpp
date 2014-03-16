@@ -25,6 +25,7 @@
 	}
 	void ScreenMap::OnMove()
 	{
+		int restriction_value = currentMap->GetY();
 		if (leftMove)
 		{
 			pastMap -> GetX()+=10;
@@ -37,14 +38,14 @@
 			currentMap->GetX()-=10;
 			nextMap->GetX()-=10;
 		}
-		if (upMove)
+		if (upMove&& restriction_value < 0)
 		{
 			pastMap -> GetY()++;
 			currentMap->GetY()++;
 			nextMap->GetY()++;
 			offset_Heigth ++;
 		}
-		if (downMove)
+		if (downMove && restriction_value > Different_Map_HeigthOffset(0))
 		{
 			pastMap -> GetY()--;
 			currentMap->GetY()--;

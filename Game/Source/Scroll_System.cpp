@@ -84,11 +84,8 @@
 	}
 	void Scroll_System::OnMove()
 	{
-		if(Check_Map_OutOfHeight())
-		{
 			Object_Sync_Move();
 			screenMap.OnMove();
-		}
 	}
 	void Scroll_System::Object_Sync_Move()
 	{
@@ -98,9 +95,9 @@
 			locations[i] -> GetX()+=10;
 		if (rightMove)
 			locations[i]  -> GetX()-=10;
-		if (upMove)
+		if (upMove&&Check_Map_OutOfHeight())
 			locations[i]  -> GetY()++;
-		if (downMove)
+		if (downMove&&Check_Map_OutOfHeight())
 			locations[i]  -> GetY()--;
 		locations[i] ->OnMove();
 		}

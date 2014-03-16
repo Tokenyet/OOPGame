@@ -72,6 +72,7 @@
 #include "Human.h"
 #include "ICollision.h"
 #include "Collision_System.h"
+#include "Movement_System.h"
 
 namespace game_framework {
 
@@ -677,15 +678,16 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		testY = 0;
 	map.SetMapLocation(0,testY);*/
 	//screenMap.OnMove();
-	collision_system.OnCheck();
+	collision_System.OnCheck();
 	if(human.GetIntersect(0))
 	{
-		human.GetX() = 200;
-		human.GetY() = 200;
+		human.GetX() = 0;
+		human.GetY() = 0;
 	}
 	scroll_System.OnMove();
 	obtest.OnMove();
-	human.OnMove();
+	//human.OnMove();
+	movement_System.OnMove();
 
 }
 
@@ -719,9 +721,10 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	iperforms.push_back(&obtest);
 	scroll_System.Initialize(iperforms);
 	icollisions_human.push_back(&human);
-	collision_system.Load_HeroCollisions(icollisions_human);
+	collision_System.Load_HeroCollisions(icollisions_human);
 	icollisions_obstacle.push_back(&obtest);
-	collision_system.Load_ObstacleCollisions(icollisions_obstacle);
+	collision_System.Load_ObstacleCollisions(icollisions_obstacle);
+	movement_System.LoadCharcter(&human);
 	// 完成部分Loading動作，提高進度
 	//
 	ShowInitProgress(50);
@@ -759,7 +762,8 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		eraser.SetMovingDown(true);*/
 	//screenMap.SetKeyDownControl(nChar);
 	scroll_System.KeyDownUpdate(nChar);
-	human.KeyDownDetect(nChar);
+	movement_System.KeyDownUpdate(nChar);
+	//human.KeyDownDetect(nChar);
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -778,7 +782,8 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 		eraser.SetMovingDown(false);*/
 	//screenMap.SetKeyUpControl(nChar);
 	scroll_System.KeyUpUpdate(nChar);
-	human.KeyUpDetect(nChar);
+	movement_System.KeyUpUpdate(nChar);
+	//human.KeyUpDetect(nChar);
 }
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
@@ -838,7 +843,8 @@ void CGameStateRun::OnShow()
 	//screenMap.OnShow();
 	scroll_System.OnShowMap();
 	obtest.OnShow();
-	human.OnShow();
+	//human.OnShow();
+	movement_System.OnShow();
 }
 
 }

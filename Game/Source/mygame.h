@@ -55,6 +55,8 @@
 #include "Human.h"
 #include "ICollision.h"
 #include "Collision_System.h"
+#include "Movement_System.h"
+
 enum AUDIO_ID {				// 定義各種音效的編號
 	AUDIO_DING,				// 0
 	AUDIO_LAKE,				// 1
@@ -240,7 +242,8 @@ private:
 	Human human;
 	//ScreenMap screenMap;
 	Scroll_System scroll_System;
-	Collision_System collision_system;
+	Collision_System collision_System;
+	Movement_System movement_System;
 	int				testX,testY;
 	/*CGameMap		cgamemap;
 	CMovingBitmap   practice;
