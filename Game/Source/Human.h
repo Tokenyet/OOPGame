@@ -22,7 +22,7 @@ private:
 	void attack();
 	bool upMove,downMove,rightMove,leftMove;
 	CRectangle myRect;
-	bool collisionRT;
+	bool collisionRT[6];//wall上wall下wall左wall右額外額外
 	void syncMyRect();
 public:
 	Human();
