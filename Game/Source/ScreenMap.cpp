@@ -25,26 +25,30 @@
 	}
 	void ScreenMap::OnMove()
 	{
-		if (leftMove)
+		int map_Width = currentMap->GetWidth();
+		pastMap -> GetX()=0-(*charcter_X%map_Width) - currentMap->GetWidth();
+		currentMap->GetX()=0-(*charcter_X%map_Width);
+		nextMap->GetX()=0-(*charcter_X%map_Width) + currentMap->GetWidth();
+		/*if (leftMove&&left_Restriction())
 		{
 			pastMap -> GetX()+=10;
 			currentMap->GetX()+=10;
 			nextMap->GetX()+=10;
 		}	
-		if (rightMove)
+		if (rightMove&&right_Restriction())
 		{
 			pastMap -> GetX()-=10;
 			currentMap->GetX()-=10;
 			nextMap->GetX()-=10;
-		}
-		if (upMove)
+		}*/
+		if (upMove&&up_Restriction())
 		{
 			pastMap -> GetY()++;
 			currentMap->GetY()++;
 			nextMap->GetY()++;
 			offset_Heigth ++;
 		}
-		if (downMove)
+		if (downMove&&down_Restriction())
 		{
 			pastMap -> GetY()--;
 			currentMap->GetY()--;
@@ -173,3 +177,30 @@
 			rightMove = false;
 	}
 	void ScreenMap::RepeatMode(bool repeat){}
+
+	void ScreenMap::SyncCharcterPoisition(int *x,int *y)
+	{
+		charcter_X = x;
+		charcter_Y = y;
+	}
+
+	bool ScreenMap::left_Restriction()
+	{
+		return true;
+	}
+	bool ScreenMap::right_Restriction()
+	{
+		return true;
+	}
+	bool ScreenMap::up_Restriction()
+	{
+		if(currentMap->GetY() >= 0)
+			return false;
+		return true;
+	}
+	bool ScreenMap::down_Restriction()
+	{
+		if(currentMap->GetY() <= SIZE_Y - currentMap->GetHeight())
+			return false;
+		return true;
+	}

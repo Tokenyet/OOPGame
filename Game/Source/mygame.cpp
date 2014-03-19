@@ -708,6 +708,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	human.LoadBitmapA("Bitmaps/goss.bmp",RGB(0,0,0));
 	iperforms.push_back(&obtest);
 	scroll_System.Initialize(iperforms);
+	scroll_System.SetCharcter(&human);
 	// 完成部分Loading動作，提高進度
 	//
 	ShowInitProgress(50);

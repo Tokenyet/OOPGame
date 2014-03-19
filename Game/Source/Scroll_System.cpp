@@ -27,10 +27,11 @@
 		maps.push_back(map2);
 		maps.push_back(map3);
 	}
-	/*void Scroll_System::SetCharcter(Human *mainCharcter)
+	void Scroll_System::SetCharcter(Human *mainCharcter)
 	{
 		charcter = mainCharcter;
-	}*/
+		screenMap.SyncCharcterPoisition(&charcter->GetX(),&charcter->GetY());
+	}
 	void Scroll_System::SetWindowsSize(int windows_X,int windows_Y)
 	{
 		this->windows_X = windows_X;

@@ -7,10 +7,11 @@
 class ScreenMap
 {
 private:
-	int real_X,real_Y;
+	/*int real_X,real_Y;*/
+	int *charcter_X,*charcter_Y;
 	int offset_Heigth;
-	int maps_Wt,maps_Ht;
-	int windows_Wt,windows_Ht;
+	/*int maps_Wt,maps_Ht;
+	int windows_Wt,windows_Ht;*/
 	bool repeatMode;
 	vector<Map*> maps;
 	Map *currentMap,*nextMap,*pastMap;
@@ -20,11 +21,16 @@ private:
 	//bool mapRestriction(int& borderMap);//地圖無輪迴 尚未實做
 	void changeMapInitialize();
 	void recorderUpdater();
+	bool left_Restriction();
+	bool right_Restriction();
+	bool up_Restriction();
+	bool down_Restriction();
 public:
 	ScreenMap();
 	~ScreenMap();
 	void Initialization(vector<Map> &maps);
 	void Reset();
+	void SyncCharcterPoisition(int *x,int *y);
 	void SetKeyDownControl(UINT keyin);
 	void SetKeyUpControl(UINT keyin);
 	void AddMap(vector<Map> &maps);

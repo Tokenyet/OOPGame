@@ -26,6 +26,9 @@
     <Filter Include="GameClass\StaticObjects">
       <UniqueIdentifier>{66035042-aa05-4c73-aca3-46083fc77082}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameClass\Collision_System">
+      <UniqueIdentifier>{15f33c5a-b005-4a61-9845-0417d211197e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\ball.bmp">

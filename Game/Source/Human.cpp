@@ -8,8 +8,8 @@
 	{
 		upMove = downMove = rightMove = leftMove = false;
 		x = y = 0;
-		/*x = SIZE_X/2;
-		y = SIZE_Y/2;*/ //Must Know My Width Of Picture
+		x = SIZE_X/2-50;
+		//y = SIZE_Y/2; //Must Know My Width Of Picture
 	}
 	void Human::SetLocation(int x,int y)
 	{
@@ -58,7 +58,7 @@
 			y -= 5;
 		if (downMove)
 			y += 5;
-		picture.SetTopLeft(x,y);
+		picture.SetTopLeft(SIZE_X/2-50,y);
 	}
 	void Human::OnShow()
 	{
