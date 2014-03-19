@@ -3,7 +3,8 @@
 #pragma once
 #include "StdAfx.h"
 #include "CRectangle.h"
-class ICollision//interface
+#include "IPerform.h"
+class ICollision : public IPerform//interface
 {
 public:
 	//virtual void SetScreenSize(int width,int height) = 0;//物件必須知道目前視窗大小

@@ -28,18 +28,20 @@
 	void ScreenMap::OnMove()
 	{
 		int restriction_value = currentMap->GetY();
-		if (leftMove&&set_Scrolling_LR[0])
-		{
-			pastMap -> GetX()+=1;
-			currentMap->GetX()+=1;
-			nextMap->GetX()+=1;
-		}	
+		int distractLocation_X = 0-(*charcter_X%currentMap->GetWidth());
+
+		/*if (leftMove&&set_Scrolling_LR[0])
+		{*/
+			pastMap -> GetX()=distractLocation_X-pastMap->GetWidth();//橫向捲軸之不可切換地圖寫法
+			currentMap->GetX()=distractLocation_X;
+			nextMap->GetX()=distractLocation_X+currentMap->GetWidth();
+		/*}	/*
 		if (rightMove&&set_Scrolling_LR[1])
 		{
 			pastMap -> GetX()-=1;
 			currentMap->GetX()-=1;
 			nextMap->GetX()-=1;
-		}
+		}*/
 		if (upMove&& restriction_value < 0)
 		{
 			pastMap -> GetY()++;
@@ -59,6 +61,11 @@
 		pastMap->SetMapLocation(pastMap->GetX(),pastMap->GetY());
 		mapsChangeUpdate();
 
+	}
+	void ScreenMap::SyncCharcterPosition(int *x,int *y)
+	{
+		charcter_X = x;
+		charcter_Y = y;
 	}
 	void ScreenMap::mapsChangeUpdate()
 	{

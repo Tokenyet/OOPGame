@@ -7,6 +7,7 @@
 class ScreenMap
 {
 private:
+	int *charcter_X,*charcter_Y;
 	int real_X,real_Y;
 	int offset_Heigth;//紀錄高度變化
 	int maps_Wt,maps_Ht;
@@ -27,6 +28,7 @@ public:
 	~ScreenMap();
 	void Initialization(vector<Map> &maps);
 	void Reset();
+	void SyncCharcterPosition(int *x,int *y);
 	void SetKeyDownControl(UINT keyin);
 	void SetKeyUpControl(UINT keyin);
 	void AddMap(vector<Map> &maps);

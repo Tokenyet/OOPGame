@@ -8,7 +8,7 @@
 #include "ICollision.h"
 #include "CRectangle.h"
 
-class Human : public IPerform,public ICollision
+class Human : public ICollision
 {
 private:
 	int x,y;

@@ -14,6 +14,5 @@ void Movement_System::KeyUpUpdate(UINT keyin){ this->charcter->KeyUpDetect(keyin
 void Movement_System::KeyDownUpdate(UINT keyin){ this->charcter->KeyDownDetect(keyin);}
 void Movement_System::charcter_Restriction_OnMove()
 {
-		charcter->GetX() = SIZE_X/2-50;
 		charcter->OnMove();
 }

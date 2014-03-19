@@ -23,3 +23,5 @@
 	int CRectangle::Get_Ly(){return y_Left;} 
 	int CRectangle::Get_Rx(){return x_Right;}
 	int CRectangle::Get_Ry(){return y_Right;}
+	int CRectangle::Get_Width(){return x_Right-x_Left;}
+	int CRectangle::Get_Heigth(){return y_Left-y_Right;}

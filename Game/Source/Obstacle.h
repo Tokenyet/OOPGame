@@ -7,7 +7,7 @@
 #include "ICollision.h"
 #include "CRectangle.h"
 
-class Obstacle : public IPerform,public ICollision
+class Obstacle : public ICollision
 {
 private:
 	int x,y;
