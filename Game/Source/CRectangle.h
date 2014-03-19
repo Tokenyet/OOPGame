@@ -18,5 +18,7 @@ public:
 	int Get_Ly();
 	int Get_Rx();
 	int Get_Ry();
+	int Get_Width();
+	int Get_Heigth();
 };
 #endif

@@ -1,9 +1,9 @@
 #include "stdafx.h"
-//#include "Human.h"
 #include "IPerform.h"
 #include "Map.h"
 #include "ScreenMap.h"
 #include "Scroll_System.h"
+#include "Human.h"
 #include <vector>
 
 
@@ -33,7 +33,10 @@
 		charcter = mainCharcter;
 	}*/
 	void Scroll_System::SetCharcter(Human *mainCharcter)
-	{charcter = mainCharcter;}
+	{
+		charcter = mainCharcter;
+		screenMap.SyncCharcterPosition(&charcter->GetX(),&charcter->GetY());
+	}
 	void Scroll_System::SetWindowsSize(int windows_X,int windows_Y)
 	{
 		this->windows_X = windows_X;
