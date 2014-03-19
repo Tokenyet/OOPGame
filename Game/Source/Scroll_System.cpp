@@ -84,21 +84,40 @@
 	}
 	void Scroll_System::OnMove()
 	{
-		Object_Sync_Move();
+		object_Sync_Move();
 		screenMap.OnMove();
 	}
-	void Scroll_System::Object_Sync_Move()
+	void Scroll_System::object_Sync_Move()
 	{
 		for(size_t i = 0;i<locations.size();i++)
 		{
 		if (leftMove)
-			locations[i] -> GetX()+=10;
+			object_Left(locations[i]);
 		if (rightMove)
-			locations[i]  -> GetX()-=10;
+			object_Right(locations[i]);
 		if (upMove)
-			locations[i]  -> GetY()++;
+			object_Up(locations[i]);
 		if (downMove)
-			locations[i]  -> GetY()--;
+			object_Down(locations[i]);
 		locations[i] ->OnMove();
 		}
+	}
+
+	void Scroll_System::object_Up(IPerform* object)
+	{
+		if(!screenMap.PutTheTop())
+			object -> GetY()++;
+	}
+	void Scroll_System::object_Down(IPerform* object)
+	{
+		if(!screenMap.PutTheBottom())
+			object  -> GetY()--;
+	}
+	void Scroll_System::object_Right(IPerform* object)
+	{
+			object  -> GetX()-=10;
+	}
+	void Scroll_System::object_Left(IPerform* object)
+	{
+			object -> GetX()+=10;
 	}

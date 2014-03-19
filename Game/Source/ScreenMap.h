@@ -38,5 +38,7 @@ public:
 	void RepeatMode(bool repeat);
 	void OnMove();
 	void OnShow();
+	bool PutTheTop();
+	bool PutTheBottom();
 };
 #endif

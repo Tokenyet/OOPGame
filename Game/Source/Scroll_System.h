@@ -15,9 +15,13 @@ private:
 	ScreenMap screenMap;
 	Human* charcter;
 	int windows_X,windows_Y;
-	void Object_Sync_Move();
+	void object_Sync_Move();
 	bool upMove,downMove,rightMove,leftMove;
 	void mapSettingInitialize();
+	void object_Up(IPerform*);
+	void object_Down(IPerform*);
+	void object_Right(IPerform*);
+	void object_Left(IPerform*);
 public:
 	Scroll_System();
 	void Initialize(vector<IPerform*> locations);

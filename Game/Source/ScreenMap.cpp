@@ -204,3 +204,17 @@
 			return false;
 		return true;
 	}
+
+
+	bool ScreenMap::PutTheTop()
+	{
+		if(currentMap->GetY() >= 0)
+			return true;
+		return false;
+	}
+	bool ScreenMap::PutTheBottom()
+	{
+		if(currentMap->GetY() <= SIZE_Y - currentMap->GetHeight())
+			return true;
+		return false;
+	}
