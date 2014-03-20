@@ -17,5 +17,8 @@ public:
 	void OnMove();
 	void OnShow();
 	void LoadBitmap(char *,COLORREF RGB);
+	const int GetOriginX();
+	const int GetOriginY();
+	
 };
 #endif

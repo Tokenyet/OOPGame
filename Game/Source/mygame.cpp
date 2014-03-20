@@ -581,6 +581,7 @@ void CGameStateOver::OnShow()
 CGameStateRun::CGameStateRun(CGame *g)
 : CGameState(g)/*, NUMBALLS(28)*/
 {
+	obtest = new Obstacle(200,200);
 	testX = testY = 0;
 	/*ball = new CBall [NUMBALLS];*/
 }
@@ -675,8 +676,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		testY = 0;
 	map.SetMapLocation(0,testY);*/
 	//screenMap.OnMove();
-	scroll_System.OnMove();
 	human.OnMove();
+	scroll_System.OnMove();
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -704,9 +705,9 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	maps.push_back(map2);
 	maps.push_back(map3);
 	screenMap.Initialization(maps);*/
-	obtest.LoadBitmapA("Bitmaps/block-5.bmp");
+	obtest->LoadBitmapA("Bitmaps/block-5.bmp");
 	human.LoadBitmapA("Bitmaps/goss.bmp",RGB(0,0,0));
-	iperforms.push_back(&obtest);
+	iperforms.push_back(obtest);
 	scroll_System.Initialize(iperforms);
 	scroll_System.SetCharcter(&human);
 	// 完成部分Loading動作，提高進度
@@ -824,7 +825,7 @@ void CGameStateRun::OnShow()
 	//map.OnShow();
 	//screenMap.OnShow();
 	scroll_System.OnShowMap();
-	obtest.OnShow();
+	obtest->OnShow();
 	human.OnShow();
 }
 

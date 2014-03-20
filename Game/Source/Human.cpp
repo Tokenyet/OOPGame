@@ -4,7 +4,7 @@
 #include "IPerform.h"
 #include "Human.h"
 
-	Human::Human()
+	Human::Human():origin_X(SIZE_X/2-50),origin_Y(0)
 	{
 		upMove = downMove = rightMove = leftMove = false;
 		x = y = 0;
@@ -68,4 +68,10 @@
 	void Human::LoadBitmap(char * path,COLORREF RGB)//For test to side scrolling
 	{
 		picture.LoadBitmapA(path,RGB);
+	}
+	const int Human::GetOriginX(){return 0;}
+	const int Human::GetOriginY(){return 0;}
+	const int Human::GetDistanceFromOriginX()
+	{
+		return GetX() - origin_X;
 	}

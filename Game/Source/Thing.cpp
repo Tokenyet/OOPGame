@@ -7,3 +7,5 @@
 	void Thing::OnMove(){}
 	void Thing::OnShow(){}
 	void Thing::LoadBitmap(char *,COLORREF RGB){}
+	const int Thing::GetOriginX(){return 0;}
+	const int Thing::GetOriginY(){return 0;}

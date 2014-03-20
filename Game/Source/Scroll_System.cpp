@@ -115,9 +115,10 @@
 	}
 	void Scroll_System::object_Right(IPerform* object)
 	{
-			object  -> GetX()-=10;
+		//int screenMap_x = screenMap.TestMap_X();//必須在人物之後更新地圖與物件移動
+		object  -> GetX() = object->GetOriginX() - charcter->GetDistanceFromOriginX();
 	}
 	void Scroll_System::object_Left(IPerform* object)
 	{
-			object -> GetX()+=10;
+		object  -> GetX() = object->GetOriginX() - charcter->GetDistanceFromOriginX();
 	}

@@ -10,6 +10,7 @@ class Human : public IPerform
 {
 private:
 	int x,y;
+	const int origin_X,origin_Y;
 	//Status status;
 	//CAnimation humanAnimation;
 	game_framework::CMovingBitmap picture;
@@ -31,5 +32,8 @@ public:
 	void OnMove();
 	void OnShow();
 	void AddThing(Thing Item);
+	const int GetOriginX();
+	const int GetOriginY();
+	const int GetDistanceFromOriginX();
 };
 #endif

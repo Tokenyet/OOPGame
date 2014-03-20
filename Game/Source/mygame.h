@@ -232,7 +232,7 @@ private:
 	Map map3;
 	vector<Map> maps;*/
 	vector<IPerform*> iperforms;
-	Obstacle obtest;
+	Obstacle *obtest;
 	Human human;
 	//ScreenMap screenMap;
 	Scroll_System scroll_System;

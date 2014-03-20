@@ -31,6 +31,7 @@ public:
 	void Initialization(vector<Map> &maps);
 	void Reset();
 	void SyncCharcterPoisition(int *x,int *y);
+	//void SetDistance(int *)
 	void SetKeyDownControl(UINT keyin);
 	void SetKeyUpControl(UINT keyin);
 	void AddMap(vector<Map> &maps);
@@ -40,5 +41,6 @@ public:
 	void OnShow();
 	bool PutTheTop();
 	bool PutTheBottom();
+	int TestMap_X(){return currentMap->GetX();}
 };
 #endif
