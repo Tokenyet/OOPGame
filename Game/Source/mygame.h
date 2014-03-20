@@ -49,6 +49,7 @@
 #include "Map.h"
 #include "ScreenMap.h"
 #include "Scroll_System.h"
+#include "Collision_System.h"
 #include "Thing.h"
 #include "Inventory.h"
 #include "Equipment.h"
@@ -231,11 +232,14 @@ private:
 	Map map2;
 	Map map3;
 	vector<Map> maps;*/
-	vector<IPerform*> iperforms;
+	vector<IPerform*> iperforms_obs;
+	vector<ICollision*> icollisions_obs;
+	vector<ICollision*> icollisions_human;
 	Obstacle *obtest;
 	Human human;
 	//ScreenMap screenMap;
 	Scroll_System scroll_System;
+	Collision_System collision_System;
 	int				testX,testY;
 	/*CGameMap		cgamemap;
 	CMovingBitmap   practice;

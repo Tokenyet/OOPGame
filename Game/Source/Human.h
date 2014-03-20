@@ -4,13 +4,16 @@
 #include "gamelib.h"
 #include "Equipment.h"
 #include "Inventory.h"
-#include "IPerform.h"
+#include "ICollision.h"
+#include "CRectangle.h"
 
-class Human : public IPerform
+class Human : public ICollision
 {
 private:
 	int x,y;
 	const int origin_X,origin_Y;
+	int slove_origin_X;//MyRect需要用到
+	CRectangle myRect;
 	//Status status;
 	//CAnimation humanAnimation;
 	game_framework::CMovingBitmap picture;
@@ -35,5 +38,6 @@ public:
 	const int GetOriginX();
 	const int GetOriginY();
 	const int GetDistanceFromOriginX();
+	CRectangle GetRect();
 };
 #endif

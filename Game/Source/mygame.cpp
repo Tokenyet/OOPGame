@@ -65,6 +65,7 @@
 #include "Map.h"
 #include "ScreenMap.h"
 #include "Scroll_System.h"
+#include "Collision_System.h"
 #include "Obstacle.h"
 #include "Thing.h"
 #include "Inventory.h"
@@ -676,8 +677,10 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		testY = 0;
 	map.SetMapLocation(0,testY);*/
 	//screenMap.OnMove();
+	//obtest->OnMove();
 	human.OnMove();
 	scroll_System.OnMove();
+	collision_System.OnCheck();
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -707,8 +710,12 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	screenMap.Initialization(maps);*/
 	obtest->LoadBitmapA("Bitmaps/block-5.bmp");
 	human.LoadBitmapA("Bitmaps/goss.bmp",RGB(0,0,0));
-	iperforms.push_back(obtest);
-	scroll_System.Initialize(iperforms);
+	iperforms_obs.push_back(obtest);
+	icollisions_obs.push_back(obtest);
+	icollisions_human.push_back(&human);
+	collision_System.Load_HeroCollisions(icollisions_human);
+	collision_System.Load_ObstacleCollisions(icollisions_obs);
+	scroll_System.Initialize(iperforms_obs);
 	scroll_System.SetCharcter(&human);
 	// 完成部分Loading動作，提高進度
 	//

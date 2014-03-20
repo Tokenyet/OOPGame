@@ -31,35 +31,44 @@
 				{            
 					checkHuman_ObstacleWhereCollision(heroBoxes[i],obstacleBoxes[i]);
 				}
-				else
+			/*	else
 				{
 					resetHuman_Collision(heroBoxes[i]);
-				}
+				}*/
 			}
 	}
 
 	void Collision_System::checkHuman_ObstacleWhereCollision(ICollision* humanBox,ICollision* obstacleBox)
 	{
-					if (humanBox->GetRect().Get_Ly() > obstacleBox->GetRect().Get_Ly()) //we have collided with an object below us.
-                    {
-						humanBox->GetIntersect(0) = true;
-                    }
-                    else if(humanBox->GetRect().Get_Ry() < obstacleBox->GetRect().Get_Ry())//we have collided with an object above us.
-                    {
-						humanBox->GetIntersect(1) = true;
-                    }
-                    if(humanBox->GetRect().Get_Lx() > obstacleBox->GetRect().Get_Lx()) //We have collided with an object to the right.
-                    {
-						humanBox->GetIntersect(2) = true;
-                    }
-                    if(humanBox->GetRect().Get_Rx() < obstacleBox->GetRect().Get_Rx())// We have collided with an object to the left;
-                    {
-						humanBox->GetIntersect(3) = true;
-                    }
+		bool below_restriction = 
+			(obstacleBox->GetRect().Get_Ly() - humanBox->GetRect().Get_Ry() < 4);
+		bool above_restriction =
+			(humanBox->GetRect().Get_Ly() -obstacleBox->GetRect().Get_Ry()  < 4);
+			if (humanBox->GetRect().Get_Ly() > obstacleBox->GetRect().Get_Ly() &&above_restriction ) //we have collided with an object above us. 
+            {
+				//humanBox->GetIntersect(0) = true;
+				humanBox->GetY() = obstacleBox->GetRect().Get_Ly() + obstacleBox->GetRect().Get_Heigth();
+            }
+            if(humanBox->GetRect().Get_Ry() < obstacleBox->GetRect().Get_Ry()&&below_restriction)//we have collided with an object below us.
+            {
+				//humanBox->GetIntersect(1) = true;
+				humanBox->GetY() = obstacleBox->GetRect().Get_Ly() - humanBox->GetRect().Get_Heigth();
+            }
+            if(humanBox->GetRect().Get_Lx() > obstacleBox->GetRect().Get_Lx()) //We have collided with an object to the right.
+            {
+				humanBox->GetX() = obstacleBox->GetRect().Get_Lx() + obstacleBox->GetRect().Get_Width();
+				//humanBox->GetIntersect(2) = true;
+            }
+		    if(humanBox->GetRect().Get_Rx() < obstacleBox->GetRect().Get_Rx())// We have collided with an object to the left;
+            {
+				//humanBox->GetIntersect(3) = true;
+				humanBox->GetX() = obstacleBox->GetRect().Get_Lx() - humanBox->GetRect().Get_Width();
+            }
 	}
+	/*
 	void Collision_System::resetHuman_Collision(ICollision* resetBoxes)
 	{
 		const int KindOfCollision = 6;
 		for(int i = 0;i< KindOfCollision;i++)
 			resetBoxes->GetIntersect(i) = false;
-	}
+	}*/

@@ -3,25 +3,32 @@
 
 	CRectangle::CRectangle()
 	{
-		x_Left = x_Right = y_Left = y_Right = 0;
+		x_Right = y_Right = 0;
 	}
 	CRectangle::~CRectangle(){}
-	void CRectangle::SetRectangle(int Lx,int Ly,int Rx,int Ry)
+	void CRectangle::SetRectangle(int *Lx,int *Ly,int width,int height)
 	{
 		x_Left = Lx;
 		y_Left = Ly;
-		x_Right = Rx;
-		y_Right = Ry;
+		this->width = width;
+		this->height = height;
+		x_Right = *Lx+width;
+		y_Right = *Ly+height;
+	}
+	void CRectangle::SYNC()
+	{
+		x_Right = *x_Left+width;
+		y_Right = *y_Left+height;
 	}
 	bool CRectangle::Intersect(CRectangle otherRect)
 	{
-		bool OutSide = (x_Right < otherRect.Get_Lx() || x_Left > otherRect.Get_Rx() ||
-             y_Right < otherRect.Get_Ly() || y_Left > otherRect.Get_Ry());
+		bool OutSide = (x_Right < otherRect.Get_Lx() || *x_Left > otherRect.Get_Rx() ||
+             y_Right < otherRect.Get_Ly() || *y_Left > otherRect.Get_Ry());
 		    return !OutSide;
 	}
-	int CRectangle::Get_Lx(){return x_Left;}
-	int CRectangle::Get_Ly(){return y_Left;} 
+	int CRectangle::Get_Lx(){return *x_Left;}
+	int CRectangle::Get_Ly(){return *y_Left;} 
 	int CRectangle::Get_Rx(){return x_Right;}
 	int CRectangle::Get_Ry(){return y_Right;}
-	int CRectangle::Get_Width(){return x_Right-x_Left;}
-	int CRectangle::Get_Heigth(){return y_Left-y_Right;}
+	int CRectangle::Get_Width(){return width/*x_Right-*x_Left*/;}
+	int CRectangle::Get_Heigth(){return height /**y_Left-y_Right*/;}

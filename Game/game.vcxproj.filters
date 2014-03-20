@@ -163,6 +163,12 @@
     <ClCompile Include="Source\Human.cpp">
       <Filter>GameClass\HumanElements</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Collision_System.cpp">
+      <Filter>GameClass\Collision_System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CRectangle.cpp">
+      <Filter>GameClass\Collision_System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\mygame.h" />
@@ -219,6 +225,15 @@
     </ClInclude>
     <ClInclude Include="Source\Human.h">
       <Filter>GameClass\HumanElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collision_System.h">
+      <Filter>GameClass\Collision_System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CRectangle.h">
+      <Filter>GameClass\Collision_System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ICollision.h">
+      <Filter>GameClass\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
