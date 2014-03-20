@@ -41,9 +41,9 @@
 	void Collision_System::checkHuman_ObstacleWhereCollision(ICollision* humanBox,ICollision* obstacleBox)
 	{
 		bool below_restriction = 
-			(obstacleBox->GetRect().Get_Ly() - humanBox->GetRect().Get_Ry() < 4);
+			(obstacleBox->GetRect().Get_Ly() - humanBox->GetRect().Get_Ry() < 4) && (obstacleBox->GetRect().Get_Ly() - humanBox->GetRect().Get_Ly()  >= humanBox->GetRect().Get_Heigth() -10);
 		bool above_restriction =
-			(humanBox->GetRect().Get_Ly() -obstacleBox->GetRect().Get_Ry()  < 4);
+			(humanBox->GetRect().Get_Ly() -obstacleBox->GetRect().Get_Ry()  < 4) && (humanBox->GetRect().Get_Ly() - obstacleBox->GetRect().Get_Ly()  >= obstacleBox->GetRect().Get_Heigth() -10);
 			if (humanBox->GetRect().Get_Ly() > obstacleBox->GetRect().Get_Ly() &&above_restriction ) //we have collided with an object above us. 
             {
 				//humanBox->GetIntersect(0) = true;

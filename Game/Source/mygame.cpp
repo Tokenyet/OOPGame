@@ -679,8 +679,9 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//screenMap.OnMove();
 	//obtest->OnMove();
 	human.OnMove();
-	scroll_System.OnMove();
 	collision_System.OnCheck();
+	scroll_System.OnMove();
+
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定

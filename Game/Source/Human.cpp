@@ -9,7 +9,6 @@
 		upMove = downMove = rightMove = leftMove = false;
 		x = y = 0;
 		x = origin_X;
-		slove_origin_X = origin_X;
 		//y = SIZE_Y/2; //Must Know My Width Of Picture
 	}
 	void Human::SetLocation(int x,int y)
@@ -60,7 +59,7 @@
 		if (downMove)
 			y += 5;
 		picture.SetTopLeft(x,y);
-		myRect.SYNC();
+		myRect.SetRectangle(x,y,picture.Width(),picture.Height());
 	}
 	void Human::OnShow()
 	{
@@ -70,7 +69,7 @@
 	void Human::LoadBitmap(char * path,COLORREF RGB)//For test to side scrolling
 	{
 		picture.LoadBitmapA(path,RGB);
-		myRect.SetRectangle(&x,&y,picture.Width(),picture.Height());
+		myRect.SetRectangle(x,y,picture.Width(),picture.Height());
 	}
 	const int Human::GetOriginX(){return 0;}
 	const int Human::GetOriginY(){return 0;}

@@ -12,7 +12,7 @@ Obstacle::Obstacle(const int init_x,const int init_y):origin_x(init_x),origin_y(
 	void Obstacle::LoadBitmap(char * path)
 	{
 		picture.LoadBitmapA(path);
-		myRect.SetRectangle(&x,&y,picture.Width(),picture.Height());
+		myRect.SetRectangle(x,y,picture.Width(),picture.Height());
 	}
 	void Obstacle::OnShow()
 	{
@@ -21,7 +21,7 @@ Obstacle::Obstacle(const int init_x,const int init_y):origin_x(init_x),origin_y(
 	void Obstacle::OnMove()
 	{
 		picture.SetTopLeft(x,y);
-		myRect.SYNC();
+		myRect.SetRectangle(x,y,picture.Width(),picture.Height());
 	}
 	int& Obstacle::GetX(){return x;}
 	int& Obstacle::GetY(){return y;}

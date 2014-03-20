@@ -5,8 +5,8 @@
 class CRectangle
 {
 private:
-	int *x_Left ;
-	int *y_Left ;
+	int x_Left ;
+	int y_Left ;
 	int width;
 	int height;
 	int x_Right ;
@@ -14,8 +14,7 @@ private:
 public:
 	CRectangle();
 	~CRectangle();
-	void SYNC();
-	void SetRectangle(int *Lx,int *Ly,int width,int height);
+	void SetRectangle(int Lx,int Ly,int width,int height);
 	bool Intersect(CRectangle);
 	int Get_Lx();
 	int Get_Ly();

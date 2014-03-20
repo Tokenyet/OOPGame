@@ -12,7 +12,7 @@ class Human : public ICollision
 private:
 	int x,y;
 	const int origin_X,origin_Y;
-	int slove_origin_X;//MyRect需要用到
+	//int slove_origin_X;//MyRect需要用到
 	CRectangle myRect;
 	//Status status;
 	//CAnimation humanAnimation;
