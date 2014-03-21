@@ -1,19 +1,21 @@
 #ifndef HUMAN_H
 #define HUMAN_H
 #include "StdAfx.h"
-#include "gamelib.h"
+//#include "gamelib.h"
 #include "Equipment.h"
 #include "Inventory.h"
 #include "ICollision.h"
 #include "CRectangle.h"
+#include "Bounding_Obs.h"
 
-class Human : public ICollision
+class Human
 {
 private:
 	int x,y;
 	const int origin_X,origin_Y;
 	//int slove_origin_X;//MyRect需要用到
-	CRectangle myRect;
+	//CRectangle myRect;
+	Bounding_Obs myRect;
 	//Status status;
 	//CAnimation humanAnimation;
 	game_framework::CMovingBitmap picture;
@@ -38,6 +40,6 @@ public:
 	const int GetOriginX();
 	const int GetOriginY();
 	const int GetDistanceFromOriginX();
-	CRectangle GetRect();
+	Bounding_Obs GetRect();
 };
 #endif

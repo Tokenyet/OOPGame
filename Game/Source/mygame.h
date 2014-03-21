@@ -235,6 +235,7 @@ private:
 	vector<IPerform*> iperforms_obs;
 	vector<ICollision*> icollisions_obs;
 	vector<ICollision*> icollisions_human;
+	vector<Human*> humans;
 	Obstacle *obtest;
 	Human human;
 	//ScreenMap screenMap;

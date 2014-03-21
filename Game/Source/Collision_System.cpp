@@ -1,5 +1,5 @@
 #include "StdAfx.h"
-//#include "Human.h"
+#include "Human.h"
 #include "ICollision.h"
 #include "CRectangle.h"
 #include "Collision_System.h"
@@ -13,7 +13,7 @@
 	{
 		checkHuman_Obstacle();
 	}
-	void Collision_System::Load_HeroCollisions (vector<ICollision*> heroBoxes)
+	void Collision_System::Load_HeroCollisions (vector<Human*> heroBoxes)
 	{this->heroBoxes = heroBoxes;}
 	void Collision_System::Load_EnemyCollisions (vector<ICollision*> enemyBoxes)
 	{this->enemyBoxes = enemyBoxes;}
@@ -28,10 +28,11 @@
 		for(size_t i=0;i<heroBoxes.size();i++)
 			for(size_t j = 0;j<obstacleBoxes.size();j++)
 			{
-				if(heroBoxes[i]->GetRect().Intersect(obstacleBoxes[i]->GetRect()))
+				checkHuman_ObstacleWhereCollision(heroBoxes[i],obstacleBoxes[i]);
+				/*if(heroBoxes[i]->GetRect().Intersect(obstacleBoxes[i]->GetRect()))
 				{            
 					checkHuman_ObstacleWhereCollision(heroBoxes[i],obstacleBoxes[i]);
-				}
+				}*/
 			/*	else
 				{
 					resetHuman_Collision(heroBoxes[i]);
@@ -39,8 +40,22 @@
 			}
 	}
 
-	void Collision_System::checkHuman_ObstacleWhereCollision(ICollision* humanBox,ICollision* obstacleBox)
+	void Collision_System::checkHuman_ObstacleWhereCollision(Human* humanBox,ICollision* obstacleBox)
 	{
+		bool human_Up = humanBox->GetRect().UpIntersect(obstacleBox->GetRect());
+		bool human_Down = humanBox->GetRect().DownIntersect(obstacleBox->GetRect());
+		bool human_Right = humanBox->GetRect().RightIntersect(obstacleBox->GetRect());
+		bool human_Left = humanBox->GetRect().LeftIntersect(obstacleBox->GetRect());
+		if(human_Up)
+			humanBox->GetY() = obstacleBox->GetRect().Get_Ly() + obstacleBox->GetRect().Get_Heigth();
+		if(human_Down)
+			humanBox->GetY() = obstacleBox->GetRect().Get_Ly() - humanBox->GetRect().GetHeight();
+		if(human_Right)
+			humanBox->GetX() = obstacleBox->GetRect().Get_Lx() + obstacleBox->GetRect().Get_Width();
+		if(human_Left)
+			humanBox->GetX() = obstacleBox->GetRect().Get_Lx() - humanBox->GetRect().GetHeight();
+		
+		/*
 		bool below_restriction = 
 			(obstacleBox->GetRect().Get_Ly() - humanBox->GetRect().Get_Ry() < 4) && (obstacleBox->GetRect().Get_Ly() - humanBox->GetRect().Get_Ly()  >= humanBox->GetRect().Get_Heigth() -10);
 		bool above_restriction =
@@ -64,7 +79,7 @@
             {
 				//humanBox->GetIntersect(3) = true;
 				humanBox->GetX() = obstacleBox->GetRect().Get_Lx() - humanBox->GetRect().Get_Width();
-            }
+            }*/
 	}
 	/*
 	void Collision_System::resetHuman_Collision(ICollision* resetBoxes)

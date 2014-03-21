@@ -3,6 +3,7 @@
 #include "Inventory.h"
 #include "IPerform.h"
 #include "Human.h"
+#include "Bounding_Obs.h"
 
 	Human::Human():origin_X(SIZE_X/2-50),origin_Y(0)
 	{
@@ -59,7 +60,7 @@
 		if (downMove)
 			y += 5;
 		picture.SetTopLeft(x,y);
-		myRect.SetRectangle(x,y,picture.Width(),picture.Height());
+		myRect.SetOriginRectangle(x,y,picture.Width(),picture.Height(),5);
 	}
 	void Human::OnShow()
 	{
@@ -69,7 +70,7 @@
 	void Human::LoadBitmap(char * path,COLORREF RGB)//For test to side scrolling
 	{
 		picture.LoadBitmapA(path,RGB);
-		myRect.SetRectangle(x,y,picture.Width(),picture.Height());
+		myRect.SetOriginRectangle(x,y,picture.Width(),picture.Height(),5);
 	}
 	const int Human::GetOriginX(){return 0;}
 	const int Human::GetOriginY(){return 0;}
@@ -78,7 +79,7 @@
 		return GetX() - origin_X;
 	}
 
-	CRectangle Human::GetRect()
+	Bounding_Obs Human::GetRect()
 	{
 		return myRect;
 	}

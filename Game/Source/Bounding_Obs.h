@@ -18,6 +18,8 @@ public:
 	CRectangle GetRowRect();
 	CRectangle GetColRect();
 	CRectangle GetOriginRect();
+	int GetWidth();
+	int GetHeight();
 };
 
 
