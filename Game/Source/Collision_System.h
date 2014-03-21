@@ -1,8 +1,9 @@
 #ifndef COLLISION_SYSTEM_H
 #define COLLISION_SYSTEM_H
-#include <vector>
 #include "StdAfx.h"
+//#include "Human.h"
 #include "ICollision.h"
+#include <vector>
 using namespace std;
 
 class Collision_System

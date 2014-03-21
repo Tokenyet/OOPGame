@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+//#include "Human.h"
 #include "ICollision.h"
 #include "CRectangle.h"
 #include "Collision_System.h"

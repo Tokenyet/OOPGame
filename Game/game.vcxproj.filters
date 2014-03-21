@@ -169,6 +169,9 @@
     <ClCompile Include="Source\CRectangle.cpp">
       <Filter>GameClass\Collision_System</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Bounding_Obs.cpp">
+      <Filter>GameClass\Collision_System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\mygame.h" />
@@ -234,6 +237,9 @@
     </ClInclude>
     <ClInclude Include="Source\ICollision.h">
       <Filter>GameClass\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bounding_Obs.h">
+      <Filter>GameClass\Collision_System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
