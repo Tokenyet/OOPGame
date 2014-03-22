@@ -47,13 +47,21 @@
 		bool human_Right = humanBox->GetRect().RightIntersect(obstacleBox->GetRect());
 		bool human_Left = humanBox->GetRect().LeftIntersect(obstacleBox->GetRect());
 		if(human_Up)
-			humanBox->GetY() = obstacleBox->GetRect().Get_Ly() + obstacleBox->GetRect().Get_Heigth();
+			humanBox->setUpRestriction(obstacleBox->GetRect().Get_Ry())
+			 = true;
+			//humanBox->GetY() = obstacleBox->GetRect().Get_Ly() + obstacleBox->GetRect().Get_Heigth()+5;
 		if(human_Down)
-			humanBox->GetY() = obstacleBox->GetRect().Get_Ly() - humanBox->GetRect().GetHeight();
+			humanBox->setDownRestriction(obstacleBox->GetRect().Get_Ly())
+			 = true;
+			//humanBox->GetY() = obstacleBox->GetRect().Get_Ly() - humanBox->GetRect().GetHeight()-20;
 		if(human_Right)
-			humanBox->GetX() = obstacleBox->GetRect().Get_Lx() + obstacleBox->GetRect().Get_Width();
+			humanBox->setRightRestriction(obstacleBox->GetRect().Get_Lx())
+			 = true;
+			//humanBox->GetX() = obstacleBox->GetRect().Get_Lx() - humanBox->GetRect().GetWidth()-20;
 		if(human_Left)
-			humanBox->GetX() = obstacleBox->GetRect().Get_Lx() - humanBox->GetRect().GetHeight();
+			humanBox->setLeftRestriction(obstacleBox->GetRect().Get_Rx())
+			 = true;
+			//humanBox->GetX() = obstacleBox->GetRect().Get_Lx() + obstacleBox->GetRect().Get_Width()+5;
 		
 		/*
 		bool below_restriction = 

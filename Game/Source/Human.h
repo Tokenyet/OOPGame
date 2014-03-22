@@ -21,10 +21,21 @@ private:
 	game_framework::CMovingBitmap picture;
 	Equipment equipment;
 	Inventory inventory;
+	bool upMove,downMove,rightMove,leftMove;//key
+	bool upRestriction,downRestriction,rightRestriction,leftRestriction;
+	int upBoundedValue,downBoundedValue,rightBoundedValue,leftBoundedValue;
 	void walkng();
 	void jump();
 	void attack();
-	bool upMove,downMove,rightMove,leftMove;
+	bool getUpRestriction();
+	bool getDownRestriction();
+	bool getRightRestriction();
+	bool getLeftRestriction();
+	void leftMoving();
+	void rightMoving();
+	void upMoving();
+	void downMoving();
+	void resetRestriction();
 public:
 	Human();
 	//void SetScreenSize(int width,int height);
@@ -41,5 +52,10 @@ public:
 	const int GetOriginY();
 	const int GetDistanceFromOriginX();
 	Bounding_Obs GetRect();
+	bool& setUpRestriction(int bounded_Up);
+	bool& setDownRestriction(int bounded_Down);
+	bool& setRightRestriction(int bounded_Right);
+	bool& setLeftRestriction(int bounded_Left);
+	
 };
 #endif
