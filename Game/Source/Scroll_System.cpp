@@ -85,6 +85,8 @@
 	void Scroll_System::OnMove()
 	{
 		object_Sync_Move();
+		screenMap.SetCharcterUpRestriction(charcter->getUpRestriction());
+		screenMap.SetCharcterDownRestriction(charcter->getDownRestriction());
 		screenMap.OnMove();
 	}
 	void Scroll_System::object_Sync_Move()
@@ -105,12 +107,12 @@
 
 	void Scroll_System::object_Up(IPerform* object)
 	{
-		if(!screenMap.PutTheTop())
+		if(!screenMap.GetTopRestriction())
 			object -> GetY()++;
 	}
 	void Scroll_System::object_Down(IPerform* object)
 	{
-		if(!screenMap.PutTheBottom())
+		if(!screenMap.GetBottomRestriction())
 			object  -> GetY()--;
 	}
 	void Scroll_System::object_Right(IPerform* object)

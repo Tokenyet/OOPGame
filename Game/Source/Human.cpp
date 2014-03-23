@@ -5,12 +5,12 @@
 #include "Human.h"
 #include "Bounding_Obs.h"
 
-	Human::Human():origin_X(SIZE_X/2-50),origin_Y(0)
+	Human::Human(int initial_X,int initial_Y):origin_X(initial_X),origin_Y(initial_Y)
 	{
 		upMove = downMove = rightMove = leftMove = false;
 		upRestriction=downRestriction=rightRestriction=leftRestriction = false;
-		x = y = 0;
 		x = origin_X;
+		y = origin_Y;
 		//y = SIZE_Y/2; //Must Know My Width Of Picture
 	}
 	void Human::SetLocation(int x,int y)
@@ -60,9 +60,8 @@
 			upMoving();
 		if (downMove)
 			downMoving();
-		resetRestriction();
-		picture.SetTopLeft(x,y);
-		myRect.SetOriginRectangle(x,y,picture.Width(),picture.Height(),5);
+		picture.SetTopLeft(x,y);//SIZE_X/2-50
+		myRect.SetOriginRectangle(x,y,picture.Width(),picture.Height(),5);//SIZE_X/2-50
 	}
 	void Human::OnShow()
 	{
@@ -126,11 +125,16 @@
 
 	void Human::leftMoving()
 	{
+		rightRestriction = false;
 		int speed = 5;
-		x -= speed;
 		if(getLeftRestriction())
-			if(x <= leftBoundedValue)
-				x = leftBoundedValue;
+		{
+			if(!(x <= leftBoundedValue)) // SIZE_X/2-50 <= leftBoundedValue
+				x -= 5;
+		}
+		else
+			x-=5;
+
 			/*else
 				x -= speed;*/
 	}
@@ -138,20 +142,31 @@
 	{
 		int speed = 5;
 		int width = picture.Width();
-		x += speed;
 		if(getRightRestriction())
-			if(x + width>= rightBoundedValue)
-				x = rightBoundedValue - width;
+		{
+			if(!(x + width>= rightBoundedValue))//SIZE_X/2-50 >= rightBoundedValue
+				x += speed;
+		}
+		else
+		{
+			x+= speed;
+		}
 			/*else
 				x += speed;*/
 	}
 	void Human::upMoving()
 	{
 		int speed = 5;
-		y -= speed;
 		if(getUpRestriction())
-			if(y <= upBoundedValue)
-				y = upBoundedValue;
+		{
+			if(!(y <= upBoundedValue))
+				y-= speed;
+		}
+		else
+		{
+			y-= speed;
+		}
+
 	/*		else
 				y -= speed;*/
 	}
@@ -159,15 +174,16 @@
 	{
 		int speed = 5;
 		int height = picture.Height();
-		y += speed;
 		if(getDownRestriction())
-			if(y + height >= downBoundedValue)
-				y = downBoundedValue - height;
-/*			else
-				y += speed;*/
+		{
+			if(!(y + height >= downBoundedValue))
+				y += speed;
+		}
+		else
+				y += speed;
 	}
 
-	void Human::resetRestriction()
+	void Human::ResetRestriction()
 	{
 		upRestriction=downRestriction=rightRestriction=leftRestriction = false;
 		upBoundedValue=downBoundedValue=rightBoundedValue=leftBoundedValue = 0;

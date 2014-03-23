@@ -54,6 +54,7 @@
 #include "Inventory.h"
 #include "Equipment.h"
 #include "Human.h"
+#include "Charcter.h"
 enum AUDIO_ID {				// 定義各種音效的編號
 	AUDIO_DING,				// 0
 	AUDIO_LAKE,				// 1
@@ -237,7 +238,7 @@ private:
 	vector<ICollision*> icollisions_human;
 	vector<Human*> humans;
 	Obstacle *obtest;
-	Human human;
+	Charcter *charcter;
 	//ScreenMap screenMap;
 	Scroll_System scroll_System;
 	Collision_System collision_System;

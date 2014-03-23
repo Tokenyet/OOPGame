@@ -6,7 +6,7 @@
 	Bounding_Obs::Bounding_Obs(){}
 	Bounding_Obs::~Bounding_Obs(){}
 
-	void Bounding_Obs::SetOriginRectangle(int lx,int ly,int width,int height,int detect_range = 0)
+	void Bounding_Obs::SetOriginRectangle(int lx,int ly,int width,int height,int detect_range = 5)
 	{
 		originRect.SetRectangle(lx+2*detect_range, ly+2*detect_range, width-4*detect_range, height-4*detect_range);
 		rowRect.SetRectangle(lx-detect_range, ly, width+2*detect_range, height);

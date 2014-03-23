@@ -5,6 +5,8 @@
 	ScreenMap::ScreenMap()
 	{
 		offset_Heigth = 0;
+		upCharcterRestriction=downCharcterRestriction
+		=rightCharcterRestriction=leftCharcterRestriction = false;
 	}
 	ScreenMap::~ScreenMap(){}
 	void ScreenMap::Initialization(vector<Map> &maps)
@@ -41,14 +43,14 @@
 			currentMap->GetX()-=10;
 			nextMap->GetX()-=10;
 		}*/
-		if (upMove&&up_Restriction())
+		if (upMove&&!GetTopRestriction())
 		{
 			pastMap -> GetY()++;
 			currentMap->GetY()++;
 			nextMap->GetY()++;
 			offset_Heigth ++;
 		}
-		if (downMove&&down_Restriction())
+		if (downMove&&!GetBottomRestriction())
 		{
 			pastMap -> GetY()--;
 			currentMap->GetY()--;
@@ -192,6 +194,7 @@
 	{
 		return true;
 	}
+	/*
 	bool ScreenMap::up_Restriction()
 	{
 		if(currentMap->GetY() >= 0)
@@ -203,8 +206,20 @@
 		if(currentMap->GetY() <= SIZE_Y - currentMap->GetHeight())
 			return false;
 		return true;
+	}*/
+	
+	bool ScreenMap::GetTopRestriction()
+	{
+		if(PutTheTop())
+			return PutTheTop();
+		return upCharcterRestriction;
 	}
-
+	bool ScreenMap::GetBottomRestriction()
+	{
+		if(PutTheBottom())
+			return PutTheBottom();
+		return downCharcterRestriction;
+	}
 
 	bool ScreenMap::PutTheTop()
 	{
@@ -217,4 +232,21 @@
 		if(currentMap->GetY() <= SIZE_Y - currentMap->GetHeight())
 			return true;
 		return false;
+	}
+
+	void ScreenMap::SetCharcterUpRestriction(bool upRe)
+	{
+		upCharcterRestriction = upRe;
+	}
+	void ScreenMap::SetCharcterDownRestriction(bool downRe)
+	{
+		downCharcterRestriction = downRe;
+	}
+	void ScreenMap::SetCharcterRightRestriction(bool rightRe)
+	{
+		rightCharcterRestriction = rightRe;
+	}
+	void ScreenMap::SetCharcterLeftRestriction(bool leftRe)
+	{
+		leftCharcterRestriction = leftRe;
 	}

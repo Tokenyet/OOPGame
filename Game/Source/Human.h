@@ -15,29 +15,25 @@ private:
 	const int origin_X,origin_Y;
 	//int slove_origin_X;//MyRect需要用到
 	//CRectangle myRect;
-	Bounding_Obs myRect;
 	//Status status;
 	//CAnimation humanAnimation;
-	game_framework::CMovingBitmap picture;
 	Equipment equipment;
 	Inventory inventory;
-	bool upMove,downMove,rightMove,leftMove;//key
-	bool upRestriction,downRestriction,rightRestriction,leftRestriction;
-	int upBoundedValue,downBoundedValue,rightBoundedValue,leftBoundedValue;
 	void walkng();
 	void jump();
 	void attack();
-	bool getUpRestriction();
-	bool getDownRestriction();
-	bool getRightRestriction();
-	bool getLeftRestriction();
-	void leftMoving();
-	void rightMoving();
-	void upMoving();
-	void downMoving();
-	void resetRestriction();
+protected : 
+	game_framework::CMovingBitmap picture; //繼承換圖用
+	bool upRestriction,downRestriction,rightRestriction,leftRestriction; //藉由Method提供外部設定
+	int upBoundedValue,downBoundedValue,rightBoundedValue,leftBoundedValue; //Restriction true give direction臨界值
+	bool upMove,downMove,rightMove,leftMove;//key 鍵盤偵測  --電腦自行設定
+	Bounding_Obs myRect; //碰撞偵測
+	virtual void leftMoving();//移動模式可覆寫 主角要覆寫判斷式 必須整段複寫
+	virtual void rightMoving();
+	virtual void upMoving();
+	virtual void downMoving();
 public:
-	Human();
+	Human(int initial_X,int initial_Y);
 	//void SetScreenSize(int width,int height);
 	void SetLocation(int x,int y);
 	int &GetX();
@@ -45,17 +41,28 @@ public:
 	void LoadBitmap(char *,COLORREF RGB);//For test to side scrolling
 	void KeyDownDetect(UINT keyin);
 	void KeyUpDetect(UINT keyin);
-	void OnMove();
+	virtual void OnMove();
 	void OnShow();
 	void AddThing(Thing Item);
 	const int GetOriginX();
 	const int GetOriginY();
 	const int GetDistanceFromOriginX();
 	Bounding_Obs GetRect();
+	///Static///
 	bool& setUpRestriction(int bounded_Up);
 	bool& setDownRestriction(int bounded_Down);
 	bool& setRightRestriction(int bounded_Right);
 	bool& setLeftRestriction(int bounded_Left);
+	bool getUpRestriction();
+	bool getDownRestriction();
+	bool getRightRestriction();
+	bool getLeftRestriction();
+	void ResetRestriction();
+	///Dynamic///
+	/*bool& setUpRestriction(int bounded_Up,int speed);
+	bool& setDownRestriction(int bounded_Down,int speed);
+	bool& setRightRestriction(int bounded_Right,int speed);
+	bool& setLeftRestriction(int bounded_Left,int speed);*/
 	
 };
 #endif

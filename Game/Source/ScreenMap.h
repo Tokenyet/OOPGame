@@ -17,14 +17,17 @@ private:
 	Map *currentMap,*nextMap,*pastMap;
 	int mapNow,mapNext,mapPast;
 	bool upMove,downMove,rightMove,leftMove;
+	bool upCharcterRestriction,downCharcterRestriction,rightCharcterRestriction,leftCharcterRestriction;
 	void mapsChangeUpdate();
 	//bool mapRestriction(int& borderMap);//地圖無輪迴 尚未實做
 	void changeMapInitialize();
 	void recorderUpdater();
 	bool left_Restriction();
 	bool right_Restriction();
-	bool up_Restriction();
-	bool down_Restriction();
+/*	bool up_Restriction();
+	bool down_Restriction();*/
+	bool PutTheTop();
+	bool PutTheBottom();
 public:
 	ScreenMap();
 	~ScreenMap();
@@ -39,8 +42,12 @@ public:
 	void RepeatMode(bool repeat);
 	void OnMove();
 	void OnShow();
-	bool PutTheTop();
-	bool PutTheBottom();
 	int TestMap_X(){return currentMap->GetX();}
+	bool GetTopRestriction();
+	bool GetBottomRestriction();
+	void SetCharcterUpRestriction(bool);
+	void SetCharcterDownRestriction(bool);
+	void SetCharcterRightRestriction(bool);
+	void SetCharcterLeftRestriction(bool);
 };
 #endif

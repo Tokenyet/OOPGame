@@ -71,6 +71,7 @@
 #include "Inventory.h"
 #include "Equipment.h"
 #include "Human.h"
+#include "Charcter.h"
 
 namespace game_framework {
 
@@ -582,6 +583,7 @@ void CGameStateOver::OnShow()
 CGameStateRun::CGameStateRun(CGame *g)
 : CGameState(g)/*, NUMBALLS(28)*/
 {
+	charcter = new Charcter();
 	obtest = new Obstacle(200,200);
 	testX = testY = 0;
 	/*ball = new CBall [NUMBALLS];*/
@@ -678,9 +680,11 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	map.SetMapLocation(0,testY);*/
 	//screenMap.OnMove();
 	//obtest->OnMove();
-	human.OnMove();
+
 	collision_System.OnCheck();
+	charcter->OnMove();
 	scroll_System.OnMove();
+	charcter->ResetRestriction();
 
 }
 
@@ -710,14 +714,14 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	maps.push_back(map3);
 	screenMap.Initialization(maps);*/
 	obtest->LoadBitmapA("Bitmaps/block-5.bmp");
-	human.LoadBitmapA("Bitmaps/goss.bmp",RGB(0,0,0));
+	charcter->LoadBitmapA("Bitmaps/goss.bmp",RGB(0,0,0));
 	iperforms_obs.push_back(obtest);
 	icollisions_obs.push_back(obtest);
-	humans.push_back(&human);
+	humans.push_back(charcter);
 	collision_System.Load_HeroCollisions(humans);
 	collision_System.Load_ObstacleCollisions(icollisions_obs);
 	scroll_System.Initialize(iperforms_obs);
-	scroll_System.SetCharcter(&human);
+	scroll_System.SetCharcter(charcter);
 	// 完成部分Loading動作，提高進度
 	//
 	ShowInitProgress(50);
@@ -755,7 +759,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		eraser.SetMovingDown(true);*/
 	//screenMap.SetKeyDownControl(nChar);
 	scroll_System.KeyDownUpdate(nChar);
-	human.KeyDownDetect(nChar);
+	charcter->KeyDownDetect(nChar);
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -774,7 +778,7 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 		eraser.SetMovingDown(false);*/
 	//screenMap.SetKeyUpControl(nChar);
 	scroll_System.KeyUpUpdate(nChar);
-	human.KeyUpDetect(nChar);
+	charcter->KeyUpDetect(nChar);
 }
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
@@ -834,7 +838,7 @@ void CGameStateRun::OnShow()
 	//screenMap.OnShow();
 	scroll_System.OnShowMap();
 	obtest->OnShow();
-	human.OnShow();
+	charcter->OnShow();
 }
 
 }

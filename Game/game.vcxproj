@@ -261,8 +261,10 @@
   <ItemGroup>
     <ClCompile Include="Source\audio.cpp" />
     <ClCompile Include="Source\Bounding_Obs.cpp" />
+    <ClCompile Include="Source\Charcter.cpp" />
     <ClCompile Include="Source\Collision_System.cpp" />
     <ClCompile Include="Source\CRectangle.cpp" />
+    <ClCompile Include="Source\Collision_System.cpp" />
     <ClCompile Include="Source\Equipment.cpp" />
     <ClCompile Include="Source\game.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -288,6 +290,7 @@
     </ClCompile>
     <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\Obstacle.cpp" />
+    <ClCompile Include="Source\CRectangle.cpp" />
     <ClCompile Include="Source\ScreenMap.cpp" />
     <ClCompile Include="Source\Scroll_System.cpp" />
     <ClCompile Include="Source\StdAfx.cpp">
@@ -316,8 +319,10 @@
   <ItemGroup>
     <ClInclude Include="Source\audio.h" />
     <ClInclude Include="Source\Bounding_Obs.h" />
+    <ClInclude Include="Source\Charcter.h" />
     <ClInclude Include="Source\Collision_System.h" />
     <ClInclude Include="Source\CRectangle.h" />
+    <ClInclude Include="Source\Collision_System.h" />
     <ClInclude Include="Source\Equipment.h" />
     <ClInclude Include="Source\game.h" />
     <ClInclude Include="Source\gameDoc.h" />
@@ -330,6 +335,7 @@
     <ClInclude Include="Source\MainFrm.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\Obstacle.h" />
+    <ClInclude Include="Source\CRectangle.h" />
     <ClInclude Include="Source\Resource.h" />
     <ClInclude Include="Source\ScreenMap.h" />
     <ClInclude Include="Source\Scroll_System.h" />
