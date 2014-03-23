@@ -11,6 +11,13 @@
 	{
 		upMove = downMove = rightMove = leftMove = false;
 	}
+	Scroll_System::~Scroll_System()
+	{
+	/*	for(size_t i = 0;i<locations.size();i++)
+			delete locations[i];*/
+	/*	if(charcter!=NULL)
+			delete charcter;*/
+	}
 	void Scroll_System::Initialize(vector<IPerform*> locations)
 	{
 		this->locations = locations;

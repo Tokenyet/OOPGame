@@ -28,7 +28,6 @@
     </Filter>
     <Filter Include="GameClass\Collision_System">
       <UniqueIdentifier>{15f33c5a-b005-4a61-9845-0417d211197e}</UniqueIdentifier>
-      <UniqueIdentifier>{d0a6f30e-812a-49f1-9904-4be81c64af43}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -164,22 +163,16 @@
     <ClCompile Include="Source\Human.cpp">
       <Filter>GameClass\HumanElements</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Collision_System.cpp">
-      <Filter>GameClass\Collision_System</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CRectangle.cpp">
-      <Filter>GameClass\Collision_System</Filter>
+    <ClCompile Include="Source\Charcter.cpp">
+      <Filter>GameClass\HumanElements</Filter>
     </ClCompile>
     <ClCompile Include="Source\Bounding_Obs.cpp">
       <Filter>GameClass\Collision_System</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Charcter.cpp">
-      <Filter>GameClass\HumanElements</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CRectangle.cpp">
+    <ClCompile Include="Source\Collision_System.cpp">
       <Filter>GameClass\Collision_System</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Collision_System.cpp">
+    <ClCompile Include="Source\CRectangle.cpp">
       <Filter>GameClass\Collision_System</Filter>
     </ClCompile>
   </ItemGroup>
@@ -239,6 +232,12 @@
     <ClInclude Include="Source\Human.h">
       <Filter>GameClass\HumanElements</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Charcter.h">
+      <Filter>GameClass\HumanElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bounding_Obs.h">
+      <Filter>GameClass\Collision_System</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Collision_System.h">
       <Filter>GameClass\Collision_System</Filter>
     </ClInclude>
@@ -247,20 +246,6 @@
     </ClInclude>
     <ClInclude Include="Source\ICollision.h">
       <Filter>GameClass\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Bounding_Obs.h">
-      <Filter>GameClass\Collision_System</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Charcter.h">
-      <Filter>GameClass\HumanElements</Filter>
-      <ClInclude Include="Source\ICollision.h">
-      <Filter>GameClass\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CRectangle.h">
-      <Filter>GameClass\Collision_System</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Collision_System.h">
-      <Filter>GameClass\Collision_System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

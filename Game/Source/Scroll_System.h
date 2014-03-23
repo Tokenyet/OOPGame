@@ -24,6 +24,7 @@ private:
 	void object_Left(IPerform*);
 public:
 	Scroll_System();
+	~Scroll_System();
 	void Initialize(vector<IPerform*> locations);
 	void SetCharcter(Human *mainCharcter);
 	void SetWindowsSize(int windows_X,int windows_Y);

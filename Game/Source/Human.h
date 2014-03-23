@@ -34,6 +34,7 @@ protected :
 	virtual void downMoving();
 public:
 	Human(int initial_X,int initial_Y);
+	~Human();
 	//void SetScreenSize(int width,int height);
 	void SetLocation(int x,int y);
 	int &GetX();

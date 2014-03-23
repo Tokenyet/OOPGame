@@ -8,7 +8,14 @@
 		upCharcterRestriction=downCharcterRestriction
 		=rightCharcterRestriction=leftCharcterRestriction = false;
 	}
-	ScreenMap::~ScreenMap(){}
+	ScreenMap::~ScreenMap(){
+		/*for(size_t i = 0;i<maps.size();i++)
+			if(maps[i] != NULL)
+				delete maps[i];*/
+		//delete currentMap,pastMap,nextMap;
+	/*	delete charcter_X;
+		delete charcter_Y;*/
+	}
 	void ScreenMap::Initialization(vector<Map> &maps)
 	{
 		AddMap(maps);

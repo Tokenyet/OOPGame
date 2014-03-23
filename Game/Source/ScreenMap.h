@@ -1,5 +1,11 @@
 #ifndef SCREENMAP_H
 #define SCREENMAP_H
+
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
+
 #include "StdAfx.h"
 #include <vector>
 #include "Map.h"
