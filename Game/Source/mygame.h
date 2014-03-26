@@ -237,7 +237,9 @@ private:
 	vector<ICollision*> icollisions_obs;
 	vector<ICollision*> icollisions_human;
 	vector<Human*> humans;
+	vector<Obstacle *> obstacles;
 	Obstacle *obtest;
+	Obstacle *rowObtest;
 	Charcter *charcter;
 	//ScreenMap screenMap;
 	Scroll_System scroll_System;

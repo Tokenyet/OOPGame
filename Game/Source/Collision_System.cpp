@@ -38,7 +38,7 @@
 		for(size_t i=0;i<heroBoxes.size();i++)
 			for(size_t j = 0;j<obstacleBoxes.size();j++)
 			{
-				checkHuman_ObstacleWhereCollision(heroBoxes[i],obstacleBoxes[i]);
+				checkHuman_ObstacleWhereCollision(heroBoxes[i],obstacleBoxes[j]);
 				/*if(heroBoxes[i]->GetRect().Intersect(obstacleBoxes[i]->GetRect()))
 				{            
 					checkHuman_ObstacleWhereCollision(heroBoxes[i],obstacleBoxes[i]);
@@ -57,19 +57,19 @@
 		bool human_Right = humanBox->GetRect().RightIntersect(obstacleBox->GetRect());
 		bool human_Left = humanBox->GetRect().LeftIntersect(obstacleBox->GetRect());
 		if(human_Up)
-			humanBox->setUpRestriction(obstacleBox->GetRect().Get_Ry())
+			humanBox->setUpRestriction(obstacleBox->GetRect().Get_Ry()+2)
 			 = true;
 			//humanBox->GetY() = obstacleBox->GetRect().Get_Ly() + obstacleBox->GetRect().Get_Heigth()+5;
 		if(human_Down)
-			humanBox->setDownRestriction(obstacleBox->GetRect().Get_Ly())
+			humanBox->setDownRestriction(obstacleBox->GetRect().Get_Ly()-2)
 			 = true;
 			//humanBox->GetY() = obstacleBox->GetRect().Get_Ly() - humanBox->GetRect().GetHeight()-20;
 		if(human_Right)
-			humanBox->setRightRestriction(obstacleBox->GetRect().Get_Lx())
+			humanBox->setRightRestriction(obstacleBox->GetRect().Get_Lx()-1)
 			 = true;
 			//humanBox->GetX() = obstacleBox->GetRect().Get_Lx() - humanBox->GetRect().GetWidth()-20;
 		if(human_Left)
-			humanBox->setLeftRestriction(obstacleBox->GetRect().Get_Rx())
+			humanBox->setLeftRestriction(obstacleBox->GetRect().Get_Rx()+1)
 			 = true;
 			//humanBox->GetX() = obstacleBox->GetRect().Get_Lx() + obstacleBox->GetRect().Get_Width()+5;
 		

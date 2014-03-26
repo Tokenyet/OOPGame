@@ -585,6 +585,7 @@ CGameStateRun::CGameStateRun(CGame *g)
 {
 	charcter = new Charcter();
 	obtest = new Obstacle(200,200);
+	rowObtest = new Obstacle(300,300);
 	testX = testY = 0;
 	/*ball = new CBall [NUMBALLS];*/
 }
@@ -714,9 +715,40 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	maps.push_back(map3);
 	screenMap.Initialization(maps);*/
 	obtest->LoadBitmapA("Bitmaps/block-5.bmp");
+	rowObtest->LoadBitmap("Bitmaps/block-4.bmp");
 	charcter->LoadBitmapA("Bitmaps/goss.bmp",RGB(0,0,0));
-	iperforms_obs.push_back(obtest);
+	obstacles.push_back(new Obstacle(200,200));
+	obstacles[0]->LoadBitmapA("Bitmaps/block-5.bmp");
+	int i;
+	for(i = 1;i<2*SIZE_X/128;i++)
+	{
+		obstacles.push_back(new Obstacle(i*128-128,450));
+		obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
+	}
+	obstacles.push_back(new Obstacle(300,300));
+	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
+	i++;
+	obstacles.push_back(new Obstacle(300,400));
+	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
+	i++;
+	obstacles.push_back(new Obstacle(450,250));
+	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
+	i++;
+	obstacles.push_back(new Obstacle(300,150));
+	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
+	i++;
+	obstacles.push_back(new Obstacle(450,50));
+	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
+
+	for(size_t i = 0;i<obstacles.size();i++)
+	{
+		iperforms_obs.push_back(obstacles[i]);
+		icollisions_obs.push_back(obstacles[i]);
+	}
+	/*iperforms_obs.push_back(obtest);
+	iperforms_obs.push_back(rowObtest);
 	icollisions_obs.push_back(obtest);
+	icollisions_obs.push_back(rowObtest);*/
 	humans.push_back(charcter);
 	collision_System.Load_HeroCollisions(humans);
 	collision_System.Load_ObstacleCollisions(icollisions_obs);
@@ -837,7 +869,8 @@ void CGameStateRun::OnShow()
 	//map.OnShow();
 	//screenMap.OnShow();
 	scroll_System.OnShowMap();
-	obtest->OnShow();
+	for(size_t i = 0;i < icollisions_obs.size();i++)
+		icollisions_obs[i]->OnShow();
 	charcter->OnShow();
 }
 

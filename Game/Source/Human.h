@@ -23,7 +23,8 @@ private:
 	void jump();
 	void attack();
 protected : 
-	game_framework::CMovingBitmap picture; //繼承換圖用
+	game_framework::CAnimation Lpicture; //繼承換圖用
+	game_framework::CAnimation Rpicture;
 	bool upRestriction,downRestriction,rightRestriction,leftRestriction; //藉由Method提供外部設定
 	int upBoundedValue,downBoundedValue,rightBoundedValue,leftBoundedValue; //Restriction true give direction臨界值
 	bool upMove,downMove,rightMove,leftMove;//key 鍵盤偵測  --電腦自行設定
