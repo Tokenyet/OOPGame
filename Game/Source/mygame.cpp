@@ -72,6 +72,7 @@
 #include "Equipment.h"
 #include "Human.h"
 #include "Charcter.h"
+#include "LevelEditor.h"
 
 namespace game_framework {
 
@@ -722,6 +723,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	collision_System.Load_ObstacleCollisions(icollisions_obs);
 	scroll_System.Initialize(iperforms_obs);
 	scroll_System.SetCharcter(charcter);
+	level_Editor.Initialization(&scroll_System,&collision_System,charcter);
 	// 完成部分Loading動作，提高進度
 	//
 	ShowInitProgress(50);
@@ -784,6 +786,12 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
 	//eraser.SetMovingLeft(true);
+	/*int offset = charcter->GetX() - SIZE_X/2 +50;
+	icollisions_obs.push_back(new Obstacle(point.x + offset,point.y));
+	scroll_System.AddObject(icollisions_obs[icollisions_obs.size()-1]);
+	scroll_System.OnMove();
+	collision_System.Load_ObstacleCollisions(icollisions_obs);*/
+	level_Editor.MouseOnClick(true,point);
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -837,7 +845,9 @@ void CGameStateRun::OnShow()
 	//map.OnShow();
 	//screenMap.OnShow();
 	scroll_System.OnShowMap();
-	obtest->OnShow();
+	//obtest->OnShow();
+	for(size_t i = 0;i<icollisions_obs.size();i++)
+		icollisions_obs[i]->OnShow();
 	charcter->OnShow();
 }
 

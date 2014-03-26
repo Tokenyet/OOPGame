@@ -29,6 +29,9 @@
     <Filter Include="GameClass\Collision_System">
       <UniqueIdentifier>{15f33c5a-b005-4a61-9845-0417d211197e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameClass\LevelEditor">
+      <UniqueIdentifier>{c4d72f03-0b69-42ac-9a59-9ca6c8ac1888}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\ball.bmp">
@@ -175,6 +178,12 @@
     <ClCompile Include="Source\CRectangle.cpp">
       <Filter>GameClass\Collision_System</Filter>
     </ClCompile>
+    <ClCompile Include="Source\LevelEditor.cpp">
+      <Filter>GameClass\LevelEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FileManager.cpp">
+      <Filter>GameClass\LevelEditor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\mygame.h" />
@@ -246,6 +255,12 @@
     </ClInclude>
     <ClInclude Include="Source\ICollision.h">
       <Filter>GameClass\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LevelEditor.h">
+      <Filter>GameClass\LevelEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FileManager.h">
+      <Filter>GameClass\LevelEditor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

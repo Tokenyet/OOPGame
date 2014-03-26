@@ -100,14 +100,15 @@
 	{
 		for(size_t i = 0;i<locations.size();i++)
 		{
-		if (leftMove)
+		/*if (leftMove)
 			object_Left(locations[i]);
 		if (rightMove)
-			object_Right(locations[i]);
+			object_Right(locations[i]);*/
 		if (upMove)
 			object_Up(locations[i]);
 		if (downMove)
 			object_Down(locations[i]);
+		object_Right(locations[i]);
 		locations[i] ->OnMove();
 		}
 	}

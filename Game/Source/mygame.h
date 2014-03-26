@@ -55,6 +55,7 @@
 #include "Equipment.h"
 #include "Human.h"
 #include "Charcter.h"
+#include "LevelEditor.h"
 enum AUDIO_ID {				// 定義各種音效的編號
 	AUDIO_DING,				// 0
 	AUDIO_LAKE,				// 1
@@ -233,6 +234,7 @@ private:
 	Map map2;
 	Map map3;
 	vector<Map> maps;*/
+	LevelEditor level_Editor;
 	vector<IPerform*> iperforms_obs;
 	vector<ICollision*> icollisions_obs;
 	vector<ICollision*> icollisions_human;

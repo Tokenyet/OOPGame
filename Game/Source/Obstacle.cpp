@@ -20,6 +20,8 @@ Obstacle::Obstacle(const int init_x,const int init_y):origin_x(init_x),origin_y(
 	}
 	void Obstacle::OnMove()
 	{
+		if(!picture.isBitmapLoaded)
+			LoadBitmap("Bitmaps/block-5.bmp");
 		picture.SetTopLeft(x,y);
 		myRect.SetRectangle(x,y,picture.Width(),picture.Height());
 	}

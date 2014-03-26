@@ -29,6 +29,8 @@
 	{this->enemyBoxes = enemyBoxes;}
 	void Collision_System::Load_ObstacleCollisions (vector<ICollision*> obstacleBoxes)
 	{this->obstacleBoxes = obstacleBoxes;}
+	void Collision_System::Add_ObstacleCollisions(ICollision* obstacle)
+	{this->obstacleBoxes.push_back(obstacle);}
 	void Collision_System::Load_bulletCollisions (vector<ICollision*> bulletBoxes)
 	{this->bulletBoxes = bulletBoxes;}
 
@@ -38,7 +40,7 @@
 		for(size_t i=0;i<heroBoxes.size();i++)
 			for(size_t j = 0;j<obstacleBoxes.size();j++)
 			{
-				checkHuman_ObstacleWhereCollision(heroBoxes[i],obstacleBoxes[i]);
+				checkHuman_ObstacleWhereCollision(heroBoxes[i],obstacleBoxes[j]);
 				/*if(heroBoxes[i]->GetRect().Intersect(obstacleBoxes[i]->GetRect()))
 				{            
 					checkHuman_ObstacleWhereCollision(heroBoxes[i],obstacleBoxes[i]);

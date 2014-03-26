@@ -23,6 +23,7 @@ public:
 	void Load_HeroCollisions (vector<Human*>);
 	void Load_EnemyCollisions (vector<ICollision*>);
 	void Load_ObstacleCollisions (vector<ICollision*>);
+	void Add_ObstacleCollisions(ICollision*);
 	void Load_bulletCollisions (vector<ICollision*>);
 
 };
