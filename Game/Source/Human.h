@@ -7,6 +7,7 @@
 #include "ICollision.h"
 #include "CRectangle.h"
 #include "Bounding_Obs.h"
+#include "Animation.h"
 
 class Human
 {
@@ -23,8 +24,8 @@ private:
 	void jump();
 	void attack();
 protected : 
-	game_framework::CAnimation Lpicture; //繼承換圖用
-	game_framework::CAnimation Rpicture;
+	Animation picture_animation;
+	game_framework::CMovingBitmap picture;//繼承換圖用
 	bool upRestriction,downRestriction,rightRestriction,leftRestriction; //藉由Method提供外部設定
 	int upBoundedValue,downBoundedValue,rightBoundedValue,leftBoundedValue; //Restriction true give direction臨界值
 	bool upMove,downMove,rightMove,leftMove;//key 鍵盤偵測  --電腦自行設定
@@ -40,11 +41,11 @@ public:
 	void SetLocation(int x,int y);
 	int &GetX();
 	int &GetY();
-	void LoadBitmap(char *,COLORREF RGB);//For test to side scrolling
+	virtual void LoadBitmap(char * path,COLORREF RGB);//For test to side scrolling
 	void KeyDownDetect(UINT keyin);
 	void KeyUpDetect(UINT keyin);
 	virtual void OnMove();
-	void OnShow();
+	virtual void OnShow();
 	void AddThing(Thing Item);
 	const int GetOriginX();
 	const int GetOriginY();

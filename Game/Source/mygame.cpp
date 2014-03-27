@@ -716,7 +716,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	screenMap.Initialization(maps);*/
 	obtest->LoadBitmapA("Bitmaps/block-5.bmp");
 	rowObtest->LoadBitmap("Bitmaps/block-4.bmp");
-	charcter->LoadBitmapA("Bitmaps/goss.bmp",RGB(0,0,0));
+	charcter->LoadBitmapA();
 	obstacles.push_back(new Obstacle(200,200));
 	obstacles[0]->LoadBitmapA("Bitmaps/block-5.bmp");
 	int i;

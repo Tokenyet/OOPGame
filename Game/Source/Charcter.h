@@ -13,5 +13,7 @@ protected:
 public:
 	Charcter();
 	void OnMove();
+	void OnShow();
+	void LoadBitmap();
 };
 #endif
