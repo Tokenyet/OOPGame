@@ -20,9 +20,6 @@ private:
 	//CAnimation humanAnimation;
 	Equipment equipment;
 	Inventory inventory;
-	void walkng();
-	void jump();
-	void attack();
 protected : 
 	Animation picture_animation;
 	game_framework::CMovingBitmap picture;//Ä~©Ó´«¹Ï¥Î

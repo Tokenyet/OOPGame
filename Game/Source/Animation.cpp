@@ -5,7 +5,7 @@
 void Animation::StateInitialize()
 {
 	myState = R_Walking;
-	animations[myState].SetDelayCount(6);
+	Reset();
 }
 
 void Animation::SetTopLeft(int x,int y)
@@ -13,12 +13,17 @@ void Animation::SetTopLeft(int x,int y)
 	animations[myState].SetTopLeft(x,y);
 }
 
-void Animation::OnMove()
+void Animation::OnMove(Animax_act action)
 {
+	if(action != myState)
+	{
+		animations[myState].Reset();
+		myState = action;
+	}
 	animations[myState].OnMove();
 }
 	
-void Animation::OnShow(Animax_act action)
+void Animation::OnShow()
 {
 	animations[myState].OnShow();
 }
@@ -46,4 +51,14 @@ int Animation::Height()
 int Animation::Width()
 {
 	return animations[myState].Width();
+}
+
+void Animation::Reset()
+{
+	 map <Animax_act,game_framework::CAnimation>::iterator animaAction;
+	 for ( animaAction = animations.begin( ); animaAction != animations.end( ); animaAction++ )
+	 {
+		 animaAction -> second.Reset();
+		animaAction -> second.SetDelayCount(5);
+	 }
 }

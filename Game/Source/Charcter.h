@@ -5,6 +5,10 @@
 
 class Charcter : public Human
 {
+private :
+	double falling_speed,timeNow,timePast,g;
+	void resetJumping(bool JumpOrFall);
+	int gravity(double Vo,double g,double Time,double PriTime);
 protected:
 	void leftMoving();
 	void rightMoving();

@@ -21,10 +21,11 @@ private:
 public:
 	void StateInitialize();
 	void SetTopLeft(int x,int y);
-	void OnShow(Animax_act);
-	void OnMove();
+	void OnShow();
+	void OnMove(Animax_act);
 	void LoadAnimation(Animax_act,char*);
 	void LoadAnimation(Animax_act,char** paths,int pic_amount);
+	void Reset();
 	int Height();
 	int Width();
 };
