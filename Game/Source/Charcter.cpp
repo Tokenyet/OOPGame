@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "Charcter.h"
-
+#include "audio.h"
 
 	Charcter::Charcter():Human(SIZE_X/2-50,0)
 	{
@@ -73,6 +73,8 @@
 	}
 	void Charcter::upMoving()
 	{
+		game_framework::CAudio::Instance()->Play(1,true);
+		game_framework::CAudio::Instance()->Play(1,false);
 		timeNow+= 0.1f;
 		int speed = 5;
 		int deltaY = gravity(falling_speed,g,timeNow,timePast);

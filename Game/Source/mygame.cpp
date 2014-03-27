@@ -605,6 +605,8 @@ void CGameStateRun::OnBeginState()
 	const int HITS_LEFT_Y = 0;
 	const int BACKGROUND_X = 60;
 	const int ANIMATION_SPEED = 15;
+
+	game_framework::CAudio::Instance()->Play(0,true);
 /*	for (int i = 0; i < NUMBALLS; i++) {				// 設定球的起始座標
 		int x_pos = i % BALL_PER_ROW;
 		int y_pos = i / BALL_PER_ROW;
@@ -725,6 +727,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		obstacles.push_back(new Obstacle(i*128-128,450));
 		obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
 	}
+#pragma region TempUsingLevelCreator
 	obstacles.push_back(new Obstacle(300,300));
 	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
 	i++;
@@ -739,7 +742,22 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	i++;
 	obstacles.push_back(new Obstacle(450,50));
 	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
-
+		i++;
+	obstacles.push_back(new Obstacle(600,370));
+	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
+		i++;
+	obstacles.push_back(new Obstacle(900,200));
+	obstacles[i]->LoadBitmapA("Bitmaps/block-5.bmp");
+		i++;
+	obstacles.push_back(new Obstacle(1000,300));
+	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
+		i++;
+	obstacles.push_back(new Obstacle(800,100));
+	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
+		i++;
+	obstacles.push_back(new Obstacle(1000,100));
+	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
+#pragma endregion
 	for(size_t i = 0;i<obstacles.size();i++)
 	{
 		iperforms_obs.push_back(obstacles[i]);
@@ -754,6 +772,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	collision_System.Load_ObstacleCollisions(icollisions_obs);
 	scroll_System.Initialize(iperforms_obs);
 	scroll_System.SetCharcter(charcter);
+	game_framework::CAudio::Instance()->Load(0,  "sounds\\bgm.mp3");
+	game_framework::CAudio::Instance()->Load(1,  "sounds\\player-jump.mp3");
 	// 完成部分Loading動作，提高進度
 	//
 	ShowInitProgress(50);
