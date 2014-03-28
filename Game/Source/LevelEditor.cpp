@@ -58,7 +58,10 @@ void LevelEditor::SystemSync()
 	collision_system->Add_ObstacleCollisions(obstacles[obstacles.size()-1]);
 	collision_system->OnCheck();
 }
-vector<Obstacle*> LevelEditor::ObjectsData(){return obstacles;}
+vector<Obstacle*> LevelEditor::ObjectsData()
+{
+	return obstacles;
+}
 void LevelEditor::SetCharcterPosition(Human *charcter){}
 void LevelEditor::KeyDownChange(UINT Keyin)
 {
@@ -67,13 +70,20 @@ void LevelEditor::KeyDownChange(UINT Keyin)
 	const char KEY_C  = 67; // c
 	const char KEY_V  = 86; // v
 	const char KEY_SPACE = 0x20;
-
+	saveData();
 }
 void LevelEditor::MouseOnClick(bool on,CPoint position)
 {
 	addObstacles(position);
 }
 void LevelEditor::MouseUpClick(bool off){}
+
+
+void LevelEditor::TestShowObjects()
+{
+	for(size_t i = 0;i<obstacles.size();i++)
+		obstacles[i]->OnShow();
+}
 
 
 string int2str(int i) {

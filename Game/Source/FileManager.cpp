@@ -6,6 +6,7 @@
 
 FileManager::FileManager(const char* fileName)
 {
+
 	length = FileMaximum(fileName);
 	data = new string[length];//必須將pointer建置連續位置 
 	FillString_FromFile(fileName,data,length);
@@ -21,6 +22,20 @@ string* FileManager::GetData()
 //完美一點可以與 FillString_FromFile合併 
 int FileManager::FileMaximum(const char* fileName) 
 {
+
+	fstream file;
+	file.open(fileName, ios_base::out | ios_base::in);  // will not create file
+	if (file.is_open())
+	{
+	        file.close();
+	}
+	else
+	{
+	    file.clear();
+	    file.open(fileName, ios_base::out);  // will create if necessary
+	}
+
+
 	int Line = 0;
 	ifstream ifs(fileName);
 	while(1)

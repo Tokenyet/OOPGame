@@ -762,6 +762,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	//screenMap.SetKeyDownControl(nChar);
 	scroll_System.KeyDownUpdate(nChar);
 	charcter->KeyDownDetect(nChar);
+	level_Editor.KeyDownChange(nChar);
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -848,6 +849,7 @@ void CGameStateRun::OnShow()
 	//obtest->OnShow();
 	for(size_t i = 0;i<icollisions_obs.size();i++)
 		icollisions_obs[i]->OnShow();
+	level_Editor.TestShowObjects();
 	charcter->OnShow();
 }
 

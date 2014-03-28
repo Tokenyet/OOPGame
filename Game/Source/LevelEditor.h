@@ -19,12 +19,14 @@ private:
 	Scroll_System * scroll_system; //Test
 	Collision_System * collision_system; //Test
 	vector<Obstacle*> obstacles;
+	
 	void saveData();
 	void addObstacles(CPoint); 
 	void SystemSync();
 public:
 	LevelEditor();
 	vector<Obstacle*> ObjectsData();
+	void TestShowObjects();
 	void Initialization(Scroll_System*,Collision_System*,Human*);
 	void SetCharcterPosition(Human *charcter);
 	void KeyDownChange(UINT);
