@@ -13,40 +13,52 @@ LevelEditor::LevelEditor()
 	fileManager = new FileManager("level-test.dat");
 	fileStatementTemp = fileManager->GetData();
 	for(int i = 0;i < fileManager->GetLine();i++)
-		real_Data[i] = fileAnaylizer(fileStatementTemp[i]);
+		object_int_data[i] = fileAnaylizer(fileStatementTemp[i]);
 }
-vector<string> LevelEditor::fileAnaylizer(string source_String)
+vector<int> LevelEditor::fileAnaylizer(string source_String)
 {
-	vector<string> data;
+	vector<int> data;
 	int split[3];
 	split[0] = source_String.find("@",0);
-	split[1] = source_String.find(",",split[0]+1);
-	data.push_back(source_String.substr(0,split[0]));
-	data.push_back(source_String.substr(split[0]+1,split[1] - split[0] -1));
-	data.push_back(source_String.substr(split[1]+1));
+	split[1] = source_String.find("(",split[0]+1);
+	split[2] = source_String.find(",",split[1]+1);
+	data.push_back(atoi(source_String.substr(0,split[0]).c_str()));
+	data.push_back(atoi(source_String.substr(split[0]+1,split[1] - split[0] -1).c_str()));
+	data.push_back(atoi(source_String.substr(split[1]+1).c_str()));
 	return data;
 }
+vector<int> LevelEditor::position_Anaylizer(string position)
+{
+
+}
+
+
+
 void LevelEditor::Initialization(Scroll_System* scroll,Collision_System* collisionS,Human* charcter)
 {
 	this->charcter = charcter;
 	this->scroll_system = scroll;
 	this->collision_system = collisionS;
+/*	for(size_t i= 0;i<obstacles.size();i++)
+	obstacles[i] = new Obstacle(object_int_data[i][1],object_int_data[i][2]);*/
 }
 void LevelEditor::saveData()
 {
-	vector<string> AllData;
-	fileManager->SetLineData(AllData);
+	fileManager->SetLineData(object_string_Data);
 }
 void LevelEditor::addObstacles(CPoint position)
 {
 	int offset = charcter->GetX() - SIZE_X/2 +50; 
 	Obstacle* newObstacle = new Obstacle(position.x + offset,position.y);
 
-	vector<string> newObstaclePosition(3);
-	newObstaclePosition[0] = "0";
-	newObstaclePosition[1] =int2str(position.x + offset);
-	newObstaclePosition[2] =int2str(position.y);
-	real_Data.push_back(newObstaclePosition);
+	string newObstaclePosition = "";
+	newObstaclePosition += "0";
+	newObstaclePosition += "@(";
+	newObstaclePosition += int2str(newObstacle->GetOriginX());
+	newObstaclePosition += ",";
+	newObstaclePosition += int2str(newObstacle->GetOriginY());
+	newObstaclePosition += ")";
+	object_string_Data.push_back(newObstaclePosition);
 
 	obstacles.push_back(newObstacle);
 	SystemSync();

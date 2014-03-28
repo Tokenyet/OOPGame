@@ -11,14 +11,16 @@ class LevelEditor
 private:
 	FileManager* fileManager;
 	string *fileStatementTemp;
-	vector<vector<string>> real_Data;
-	vector<string> fileAnaylizer(string source_String);
-
+	vector<string> object_string_Data;
+	vector<vector<int>> object_int_data;
+	vector<int>  fileAnaylizer(string source_String);
+	vector<int>  position_Anaylizer(string position);
 
 	Human *charcter;
 	Scroll_System * scroll_system; //Test
 	Collision_System * collision_system; //Test
 	vector<Obstacle*> obstacles;
+
 	
 	void saveData();
 	void addObstacles(CPoint); 
