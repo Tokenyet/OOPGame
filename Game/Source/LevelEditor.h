@@ -13,7 +13,7 @@ private:
 	string *fileStatementTemp;
 	vector<string> object_string_Data;
 	vector<vector<int>> object_int_data;
-	vector<int>  fileAnaylizer(string source_String);
+	void  fileAnaylizer(string source_String);
 	vector<int>  position_Anaylizer(string position);
 
 	Human *charcter;

@@ -718,12 +718,19 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	charcter->LoadBitmapA("Bitmaps/goss.bmp",RGB(0,0,0));
 	iperforms_obs.push_back(obtest);
 	icollisions_obs.push_back(obtest);
+	level_Editor.Initialization(&scroll_System,&collision_System,charcter);
+	vector<Obstacle*> data_Obstacle = level_Editor.ObjectsData();
+	for(size_t i = 0;i<data_Obstacle.size();i++)
+	{
+		iperforms_obs.push_back(data_Obstacle[i]);
+		icollisions_obs.push_back(data_Obstacle[i]);
+	}
 	humans.push_back(charcter);
 	collision_System.Load_HeroCollisions(humans);
 	collision_System.Load_ObstacleCollisions(icollisions_obs);
 	scroll_System.Initialize(iperforms_obs);
 	scroll_System.SetCharcter(charcter);
-	level_Editor.Initialization(&scroll_System,&collision_System,charcter);
+
 	// 完成部分Loading動作，提高進度
 	//
 	ShowInitProgress(50);

@@ -13,23 +13,43 @@ LevelEditor::LevelEditor()
 	fileManager = new FileManager("level-test.dat");
 	fileStatementTemp = fileManager->GetData();
 	for(int i = 0;i < fileManager->GetLine();i++)
-		object_int_data[i] = fileAnaylizer(fileStatementTemp[i]);
+		fileAnaylizer(fileStatementTemp[i]);
 }
-vector<int> LevelEditor::fileAnaylizer(string source_String)
+void LevelEditor::fileAnaylizer(string source_String)
 {
-	vector<int> data;
-	int split[3];
-	split[0] = source_String.find("@",0);
-	split[1] = source_String.find("(",split[0]+1);
-	split[2] = source_String.find(",",split[1]+1);
-	data.push_back(atoi(source_String.substr(0,split[0]).c_str()));
-	data.push_back(atoi(source_String.substr(split[0]+1,split[1] - split[0] -1).c_str()));
-	data.push_back(atoi(source_String.substr(split[1]+1).c_str()));
-	return data;
-}
-vector<int> LevelEditor::position_Anaylizer(string position)
-{
+	object_string_Data.push_back(source_String);
+	//依照類別給予Bitamp (動畫是Animation)
+	//
+	//類別@位置@Bitamp位置
+	int split[4];
+	int class_type;
+	string position_string;
+	split[0] = source_String.find("@");
+	split[1] = source_String.find("(");
+	split[2] = source_String.find(")");
+	class_type = atoi(source_String.substr(0,split[0]).c_str());
+	position_string = source_String.substr(split[1],split[2]-split[1]+1);
+	vector<int> position_x_y = position_Anaylizer(position_string);
 
+	Obstacle *TempObstacle = new Obstacle(position_x_y[0],position_x_y[1]);
+	//TempObstacle->LoadBitmapA("Bitmaps/block-5.bmp");
+	obstacles.push_back(TempObstacle);
+
+}
+
+vector<int> LevelEditor::position_Anaylizer(string position)//(1234,5678)
+{
+	vector<int> position_int;
+	int split[3];
+	split[0] = position.find("(");
+	split[1] = position.find(",");
+	split[2] = position.find(")");
+	int x = atoi(position.substr(split[0]+1,split[1]-split[0]+1).c_str());
+	int y = atoi(position.substr(split[1]+1,split[2]-split[1]+1).c_str());
+	position_int.push_back(x);
+	position_int.push_back(y);
+
+	return position_int;
 }
 
 
@@ -39,6 +59,8 @@ void LevelEditor::Initialization(Scroll_System* scroll,Collision_System* collisi
 	this->charcter = charcter;
 	this->scroll_system = scroll;
 	this->collision_system = collisionS;
+	for(size_t i= 0;i<obstacles.size();i++)
+		obstacles[i]->LoadBitmapA("Bitmaps/block-5.bmp");
 /*	for(size_t i= 0;i<obstacles.size();i++)
 	obstacles[i] = new Obstacle(object_int_data[i][1],object_int_data[i][2]);*/
 }
@@ -75,13 +97,14 @@ vector<Obstacle*> LevelEditor::ObjectsData()
 	return obstacles;
 }
 void LevelEditor::SetCharcterPosition(Human *charcter){}
-void LevelEditor::KeyDownChange(UINT Keyin)
+void LevelEditor::KeyDownChange(UINT keyin)
 {
 	const char KEY_Z  = 90; // z
 	const char KEY_X  = 88; // x
 	const char KEY_C  = 67; // c
 	const char KEY_V  = 86; // v
 	const char KEY_SPACE = 0x20;
+	if(keyin == KEY_SPACE)
 	saveData();
 }
 void LevelEditor::MouseOnClick(bool on,CPoint position)
