@@ -13,10 +13,6 @@
 	}
 	Scroll_System::~Scroll_System()
 	{
-	/*	for(size_t i = 0;i<locations.size();i++)
-			delete locations[i];*/
-	/*	if(charcter!=NULL)
-			delete charcter;*/
 	}
 	void Scroll_System::Initialize(vector<IPerform*> locations)
 	{
@@ -48,6 +44,13 @@
 	{
 		locations.push_back(things);
 	}
+	void Scroll_System::DelObject(IPerform *things)
+	{
+		for(size_t i=0;i<locations.size();i++)
+			if(locations[i]==things)
+				locations.erase(locations.begin()+i);
+	}
+
 	void Scroll_System::AddObject(vector<IPerform*> things)
 	{
 		for(size_t i = 0;i<things.size();i++)

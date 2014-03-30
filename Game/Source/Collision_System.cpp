@@ -31,6 +31,12 @@
 	{this->obstacleBoxes = obstacleBoxes;}
 	void Collision_System::Add_ObstacleCollisions(ICollision* obstacle)
 	{this->obstacleBoxes.push_back(obstacle);}
+	void Collision_System::Del_ObstacleCollisions(ICollision* obstacle)
+	{
+		for(size_t i=0;i<obstacleBoxes.size();i++)
+			if(obstacleBoxes[i]==obstacle)
+				obstacleBoxes.erase(obstacleBoxes.begin()+i);
+	}
 	void Collision_System::Load_bulletCollisions (vector<ICollision*> bulletBoxes)
 	{this->bulletBoxes = bulletBoxes;}
 

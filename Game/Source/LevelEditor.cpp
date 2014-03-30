@@ -15,6 +15,13 @@ LevelEditor::LevelEditor()
 	for(int i = 0;i < fileManager->GetLine();i++)
 		fileAnaylizer(fileStatementTemp[i]);
 }
+
+LevelEditor::~LevelEditor()
+{
+	delete fileManager;
+}
+
+
 void LevelEditor::fileAnaylizer(string source_String)
 {
 	object_string_Data.push_back(source_String);
@@ -85,6 +92,7 @@ void LevelEditor::addObstacles(CPoint position)
 	obstacles.push_back(newObstacle);
 	SystemSync();
 }
+
 void LevelEditor::SystemSync()
 {
 	scroll_system->AddObject(obstacles[obstacles.size()-1]);
@@ -92,6 +100,7 @@ void LevelEditor::SystemSync()
 	collision_system->Add_ObstacleCollisions(obstacles[obstacles.size()-1]);
 	collision_system->OnCheck();
 }
+
 vector<Obstacle*> LevelEditor::ObjectsData()
 {
 	return obstacles;
@@ -107,11 +116,34 @@ void LevelEditor::KeyDownChange(UINT keyin)
 	if(keyin == KEY_SPACE)
 	saveData();
 }
-void LevelEditor::MouseOnClick(bool on,CPoint position)
+void LevelEditor::LMouseOnClick(bool on,CPoint position)
 {
 	addObstacles(position);
 }
-void LevelEditor::MouseUpClick(bool off){}
+void LevelEditor::LMouseUpClick(bool off){}
+
+
+void LevelEditor::RMouseOnClick(bool on,CPoint position)
+{
+	int offset = charcter->GetDistanceFromOriginX();
+	int x = position.x + offset;
+	int y = position.y;
+		for(size_t i = 0;i<obstacles.size();i++)
+		{
+			if(x < obstacles[i]->GetOriginX() + obstacles[i]->GetRect().Get_Width()&&
+			   y < obstacles[i]->GetRect().Get_Ry()&&
+			   x > obstacles[i]->GetOriginX()&&
+			   y > obstacles[i]->GetRect().Get_Ly())
+			{
+			   collision_system->Del_ObstacleCollisions(obstacles[i]);
+			   scroll_system->DelObject(obstacles[i]);
+			   obstacles.erase(obstacles.begin()+i);
+			   object_string_Data.erase(object_string_Data.begin()+i);
+			}
+
+		}
+
+}
 
 
 void LevelEditor::TestShowObjects()

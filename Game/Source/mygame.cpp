@@ -593,6 +593,7 @@ CGameStateRun::CGameStateRun(CGame *g)
 CGameStateRun::~CGameStateRun()
 {
 //	delete [] ball;
+	delete obtest;
 }
 
 void CGameStateRun::OnBeginState()
@@ -716,8 +717,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	screenMap.Initialization(maps);*/
 	obtest->LoadBitmapA("Bitmaps/block-5.bmp");
 	charcter->LoadBitmapA("Bitmaps/goss.bmp",RGB(0,0,0));
-	iperforms_obs.push_back(obtest);
-	icollisions_obs.push_back(obtest);
+	//iperforms_obs.push_back(obtest);
+	//icollisions_obs.push_back(obtest);
 	level_Editor.Initialization(&scroll_System,&collision_System,charcter);
 	vector<Obstacle*> data_Obstacle = level_Editor.ObjectsData();
 	for(size_t i = 0;i<data_Obstacle.size();i++)
@@ -799,7 +800,7 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 	scroll_System.AddObject(icollisions_obs[icollisions_obs.size()-1]);
 	scroll_System.OnMove();
 	collision_System.Load_ObstacleCollisions(icollisions_obs);*/
-	level_Editor.MouseOnClick(true,point);
+	level_Editor.LMouseOnClick(true,point);
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -814,6 +815,7 @@ void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 
 void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
+	level_Editor.RMouseOnClick(true,point);
 	//eraser.SetMovingRight(true);
 }
 
@@ -854,8 +856,8 @@ void CGameStateRun::OnShow()
 	//screenMap.OnShow();
 	scroll_System.OnShowMap();
 	//obtest->OnShow();
-	for(size_t i = 0;i<icollisions_obs.size();i++)
-		icollisions_obs[i]->OnShow();
+	/*for(size_t i = 0;i<icollisions_obs.size();i++)
+		icollisions_obs[i]->OnShow();*/
 	level_Editor.TestShowObjects();
 	charcter->OnShow();
 }

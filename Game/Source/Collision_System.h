@@ -24,6 +24,7 @@ public:
 	void Load_EnemyCollisions (vector<ICollision*>);
 	void Load_ObstacleCollisions (vector<ICollision*>);
 	void Add_ObstacleCollisions(ICollision*);
+	void Del_ObstacleCollisions(ICollision*);
 	void Load_bulletCollisions (vector<ICollision*>);
 
 };

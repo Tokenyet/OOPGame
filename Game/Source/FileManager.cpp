@@ -12,6 +12,12 @@ FileManager::FileManager(const char* fileName)
 	FillString_FromFile(fileName,data,length);
 	FileName = fileName;
 }
+
+FileManager::~FileManager()
+{
+	delete[] data;
+}
+
 string* FileManager::GetData()
 {
 	return data;

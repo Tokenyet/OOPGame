@@ -17,7 +17,7 @@ class FileManager
 		//註記: string* Data 本來要用 address(&)但 address無法傳陣列與指標 
 	public:
 		FileManager(const char* fileName);//從檔案初始資料 
-		~FileManager(){delete[] data;}
+		~FileManager();
 		string* GetData();//設定字串 最好是陣列近來即可 
 		int GetLine(){return length;}//
 		void SetLineData(vector<string> data);

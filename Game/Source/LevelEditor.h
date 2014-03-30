@@ -27,13 +27,15 @@ private:
 	void SystemSync();
 public:
 	LevelEditor();
+	~LevelEditor();
 	vector<Obstacle*> ObjectsData();
 	void TestShowObjects();
 	void Initialization(Scroll_System*,Collision_System*,Human*);
 	void SetCharcterPosition(Human *charcter);
 	void KeyDownChange(UINT);
-	void MouseOnClick(bool,CPoint);
-	void MouseUpClick(bool);
+	void LMouseOnClick(bool,CPoint);
+	void RMouseOnClick(bool,CPoint);
+	void LMouseUpClick(bool);
 };
 
 string int2str(int i);
