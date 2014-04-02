@@ -6,9 +6,14 @@
 class Charcter : public Human
 {
 private :
-	double falling_speed,timeNow,timePast,g;
-	void resetJumping(bool JumpOrFall);
+	double interval_time;
+	double timeUpLimit;
+	double timeNow,timePast;
+	void resetTimeParameter(bool JumpOrFall);
 	int gravity(double Vo,double g,double Time,double PriTime);
+	void jumpUptimeParameter();
+	bool isOnGround,isOnSky,isKeepUpMove;
+	bool dojump();
 protected:
 	void leftMoving();
 	void rightMoving();
