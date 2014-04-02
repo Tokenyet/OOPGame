@@ -4,6 +4,7 @@
 
 	Charcter::Charcter():Human(SIZE_X/2-50,0)
 	{
+		head_Direction = Head_Right;
 		upMove = downMove = rightMove = leftMove = false;
 		upRestriction=downRestriction=rightRestriction=leftRestriction = false;
 		isOnGround = false;
@@ -30,9 +31,14 @@
 	void Charcter::LoadBitmap()
 	{
 		char *RWalking[2] = {"Bitmaps/r_stand.bmp","Bitmaps/r_run.bmp"};
-		char *LWalking[2] = {"Bitmaps/L_stand.bmp","Bitmaps/L_run.bmp"};
+		char *LWalking[2] = {"Bitmaps/l_stand.bmp","Bitmaps/l_run.bmp"};
+		char *RJumping[3] = {"Bitmaps/r_jump-1.bmp","Bitmaps/r_jump-2.bmp","Bitmaps/r_jump-3.bmp"};
+		char *LJumping[3] = {"Bitmaps/l_jump-1.bmp","Bitmaps/l_jump-2.bmp","Bitmaps/l_jump-3.bmp"};
+
 		picture_animation.LoadAnimation(R_Walking,RWalking,2);
 		picture_animation.LoadAnimation(L_Walking,LWalking,2);
+		picture_animation.LoadAnimation(R_Jumping,RJumping,3);
+		picture_animation.LoadAnimation(L_Jumping,LJumping,3);
 		picture_animation.StateInitialize();
 		picture_animation.SetTopLeft(GetX(),GetY());
 	}
@@ -54,13 +60,17 @@
 			GetX()-=5;
 
 		if(!rightMove)
+		{
+			head_Direction = Head_Left;
 			picture_animation.OnMove(L_Walking);
+		}
 
 			/*else
 				x -= speed;*/
 	}
 	void Charcter::rightMoving()
 	{
+
 		int speed = 5;
 		int width = picture_animation.Width();
 		if(getRightRestriction())
@@ -71,12 +81,20 @@
 		else
 			GetX()+= speed;
 		if(!leftMove)
+		{
+			head_Direction = Head_Right;
 			picture_animation.OnMove(R_Walking);
+		}
+
 			/*else
 				x += speed;*/
 	}
 	void Charcter::upMoving()
 	{
+		if(head_Direction == Head_Left)
+			picture_animation.OnMove(L_Jumping);
+		if(head_Direction == Head_Right)
+			picture_animation.OnMove(R_Jumping);
 		jumpUptimeParameter();
 		//int speed = 5;
 		int deltaY = gravity(30,4.4,timeNow,timePast);
@@ -107,6 +125,19 @@
 	}
 	void Charcter::downMoving()
 	{
+		if(!isOnGround)
+		{
+			if(head_Direction == Head_Left)
+				picture_animation.OnMove(L_Jumping);
+			if(head_Direction == Head_Right)
+				picture_animation.OnMove(R_Jumping);
+		}
+		else
+			if(head_Direction == Head_Left&&isOnGround)
+				picture_animation.OnMove(L_Walking);
+			if(head_Direction == Head_Right&&isOnGround)
+				picture_animation.OnMove(R_Walking);
+
 		timeNow+= interval_time;
 		int speed = 5;
 		int deltaY = gravity(0,4.4,timeNow,timePast);
@@ -153,13 +184,11 @@
 			isOnSky = false;
 		}
 	}
-	
 	void Charcter::resetTimeParameter(bool JumpOrFall)
 	{
 		timeNow = timePast  = 0;
 		timeUpLimit = interval_time * 10;
 	}
-
 	int Charcter::gravity(double Vo,double g,double Time,double PriTime)
     {
 		double delta_t = Time-PriTime;
@@ -167,8 +196,6 @@
         GravityX = (int)((Vo * delta_t) - (g / 2) *((Time * Time)-(PriTime*PriTime)));
         return GravityX;
     }
-
-
 	bool Charcter::dojump()
 	{
 		if(isOnGround&&upMove)

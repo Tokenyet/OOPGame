@@ -8,6 +8,11 @@
 #include "CRectangle.h"
 #include "Bounding_Obs.h"
 #include "Animation.h"
+enum HeadDirection
+{
+	Head_Left,
+	Head_Right,
+};
 
 class Human
 {
@@ -21,6 +26,7 @@ private:
 	Equipment equipment;
 	Inventory inventory;
 protected : 
+	HeadDirection head_Direction;
 	Animation picture_animation;
 	game_framework::CMovingBitmap picture;//繼承換圖用
 	bool upRestriction,downRestriction,rightRestriction,leftRestriction; //藉由Method提供外部設定
