@@ -1,6 +1,7 @@
 #ifndef ANIMATION_H
 #define ANIMATION_H
-#include "Map.h"
+#include <ddraw.h>
+#include "gamelib.h"
 
 enum Animax_act
 {

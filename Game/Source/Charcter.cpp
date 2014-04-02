@@ -133,10 +133,12 @@
 				picture_animation.OnMove(R_Jumping);
 		}
 		else
+		{
 			if(head_Direction == Head_Left&&isOnGround)
 				picture_animation.OnMove(L_Walking);
 			if(head_Direction == Head_Right&&isOnGround)
 				picture_animation.OnMove(R_Walking);
+		}
 
 		timeNow+= interval_time;
 		int speed = 5;

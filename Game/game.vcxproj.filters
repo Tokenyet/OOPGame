@@ -32,6 +32,12 @@
     <Filter Include="GameClass\Animation">
       <UniqueIdentifier>{f35c2e36-aa0e-4827-a981-586372070d9f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameClass\HumanElements\Hero">
+      <UniqueIdentifier>{5f36619b-0d3b-4b09-b5b8-f2242af5e1d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClass\HumanElements\Enemy">
+      <UniqueIdentifier>{203d369b-5ab0-4cf7-a5eb-6c727edb9684}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\ball.bmp">
@@ -166,9 +172,6 @@
     <ClCompile Include="Source\Human.cpp">
       <Filter>GameClass\HumanElements</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Charcter.cpp">
-      <Filter>GameClass\HumanElements</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Bounding_Obs.cpp">
       <Filter>GameClass\Collision_System</Filter>
     </ClCompile>
@@ -180,6 +183,12 @@
     </ClCompile>
     <ClCompile Include="Source\Animation.cpp">
       <Filter>GameClass\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Charcter.cpp">
+      <Filter>GameClass\HumanElements\Hero</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy.cpp">
+      <Filter>GameClass\HumanElements\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -238,9 +247,6 @@
     <ClInclude Include="Source\Human.h">
       <Filter>GameClass\HumanElements</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Charcter.h">
-      <Filter>GameClass\HumanElements</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Bounding_Obs.h">
       <Filter>GameClass\Collision_System</Filter>
     </ClInclude>
@@ -255,6 +261,12 @@
     </ClInclude>
     <ClInclude Include="Source\Animation.h">
       <Filter>GameClass\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Charcter.h">
+      <Filter>GameClass\HumanElements\Hero</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy.h">
+      <Filter>GameClass\HumanElements\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

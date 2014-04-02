@@ -586,6 +586,7 @@ CGameStateRun::CGameStateRun(CGame *g)
 	charcter = new Charcter();
 	obtest = new Obstacle(200,200);
 	rowObtest = new Obstacle(300,300);
+	enemytest = new Enemy(300,100);
 	testX = testY = 0;
 	/*ball = new CBall [NUMBALLS];*/
 }
@@ -686,8 +687,10 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 	collision_System.OnCheck();
 	charcter->OnMove();
+	enemytest->OnMove();
 	scroll_System.OnMove();
 	charcter->ResetRestriction();
+	enemytest->ResetRestriction();
 
 }
 
@@ -718,6 +721,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	screenMap.Initialization(maps);*/
 	obtest->LoadBitmapA("Bitmaps/block-5.bmp");
 	rowObtest->LoadBitmap("Bitmaps/block-4.bmp");
+	enemytest->LoadBitmapA();
 	charcter->LoadBitmapA();
 	obstacles.push_back(new Obstacle(200,200));
 	obstacles[0]->LoadBitmapA("Bitmaps/block-5.bmp");
@@ -768,6 +772,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	icollisions_obs.push_back(obtest);
 	icollisions_obs.push_back(rowObtest);*/
 	humans.push_back(charcter);
+	humans.push_back(enemytest);
 	collision_System.Load_HeroCollisions(humans);
 	collision_System.Load_ObstacleCollisions(icollisions_obs);
 	scroll_System.Initialize(iperforms_obs);
@@ -892,6 +897,7 @@ void CGameStateRun::OnShow()
 	for(size_t i = 0;i < icollisions_obs.size();i++)
 		icollisions_obs[i]->OnShow();
 	charcter->OnShow();
+	enemytest->OnShow();
 }
 
 }
