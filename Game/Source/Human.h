@@ -4,15 +4,10 @@
 //#include "gamelib.h"
 #include "Equipment.h"
 #include "Inventory.h"
-#include "ICollision.h"
 #include "CRectangle.h"
 #include "Bounding_Obs.h"
 #include "Animation.h"
-enum HeadDirection
-{
-	Head_Left,
-	Head_Right,
-};
+#include "Ewalk.h"
 
 class Human
 {

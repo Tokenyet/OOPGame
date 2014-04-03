@@ -2,20 +2,23 @@
 #define ENEMY_H
 
 #include "Human.h"
+#include "Ewalk.h"
+#include "EGravity.h"
 
 class Enemy : public Human
 {
 private :
+	Ewalk *walk_Behavior;
+	EGravity *myGravity_Behavior;
 	double interval_time;
 	double timeNow,timePast;
+	double timeRestriction;
 	void resetTimeParameter(bool JumpOrFall);
 	void walking_nearby();
-	bool isOnGround;
 	/*double timeUpLimit;
 	void jumpUptimeParameter();
 	bool isOnGround,isOnSky,isKeepUpMove;
 	bool dojump();*/
-	int gravity(double Vo,double g,double Time,double PriTime);
 /*protected:
 	void leftMoving();
 	void rightMoving();

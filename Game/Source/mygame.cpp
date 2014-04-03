@@ -775,6 +775,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	humans.push_back(enemytest);
 	collision_System.Load_HeroCollisions(humans);
 	collision_System.Load_ObstacleCollisions(icollisions_obs);
+	scroll_System.AddEnemy(enemytest);
 	scroll_System.Initialize(iperforms_obs);
 	scroll_System.SetCharcter(charcter);
 	game_framework::CAudio::Instance()->Load(0,  "sounds\\bgm.mp3");

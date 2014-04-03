@@ -38,6 +38,9 @@
     <Filter Include="GameClass\HumanElements\Enemy">
       <UniqueIdentifier>{203d369b-5ab0-4cf7-a5eb-6c727edb9684}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameClass\Interface\EnemyBehavior">
+      <UniqueIdentifier>{0d654457-c32d-4334-8a18-01e78262ede8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\ball.bmp">
@@ -190,6 +193,12 @@
     <ClCompile Include="Source\Enemy.cpp">
       <Filter>GameClass\HumanElements\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Ewalk.cpp">
+      <Filter>GameClass\Interface\EnemyBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EGravity.cpp">
+      <Filter>GameClass\Interface\EnemyBehavior</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\mygame.h" />
@@ -267,6 +276,12 @@
     </ClInclude>
     <ClInclude Include="Source\Enemy.h">
       <Filter>GameClass\HumanElements\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Ewalk.h">
+      <Filter>GameClass\Interface\EnemyBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EGravity.h">
+      <Filter>GameClass\Interface\EnemyBehavior</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

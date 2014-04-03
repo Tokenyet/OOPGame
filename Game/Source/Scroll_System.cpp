@@ -53,6 +53,16 @@
 		for(size_t i = 0;i<things.size();i++)
 			locations.push_back(things[i]);
 	}
+	void Scroll_System::AddEnemy(Enemy *enemy)
+	{
+		enemys.push_back(enemy);
+	}
+	void Scroll_System::AddEnemy(vector<Enemy*> enemys)
+	{
+		for(size_t i = 0;i<enemys.size();i++)
+			this->enemys.push_back(enemys[i]);
+	}
+
 	void Scroll_System::KeyDownUpdate(UINT keyin)
 	{
 		const char KEY_LEFT  = 0x25; // keyboard¥ª½bÀY
@@ -91,6 +101,7 @@
 	}
 	void Scroll_System::OnMove()
 	{
+		enemy_Sync_Move();
 		object_Sync_Move();
 		screenMap.SetCharcterUpRestriction(charcter->getUpRestriction());
 		screenMap.SetCharcterDownRestriction(charcter->getDownRestriction());
@@ -109,6 +120,23 @@
 		if (downMove)
 			object_Down(locations[i]);
 		locations[i] ->OnMove();
+		}
+	}
+
+	void Scroll_System::enemy_Sync_Move()
+	{
+		bool right_restriction = charcter->getRightRestriction();
+		bool left_restriction = charcter->getLeftRestriction();
+		for(size_t i = 0;i<enemys.size();i++)
+		{
+		if (leftMove&&!left_restriction)
+			enemys[i]->GetX() += 5;
+		if (rightMove&&!right_restriction)
+			enemys[i]->GetX() -= 5;
+		if (upMove)
+			enemys[i]-> GetY()++;
+		if (downMove)
+			enemys[i] -> GetY()--;
 		}
 	}
 

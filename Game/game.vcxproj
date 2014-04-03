@@ -265,8 +265,10 @@
     <ClCompile Include="Source\Charcter.cpp" />
     <ClCompile Include="Source\Collision_System.cpp" />
     <ClCompile Include="Source\CRectangle.cpp" />
+    <ClCompile Include="Source\EGravity.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\Equipment.cpp" />
+    <ClCompile Include="Source\Ewalk.cpp" />
     <ClCompile Include="Source\game.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -323,8 +325,10 @@
     <ClInclude Include="Source\Charcter.h" />
     <ClInclude Include="Source\Collision_System.h" />
     <ClInclude Include="Source\CRectangle.h" />
+    <ClInclude Include="Source\EGravity.h" />
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Equipment.h" />
+    <ClInclude Include="Source\Ewalk.h" />
     <ClInclude Include="Source\game.h" />
     <ClInclude Include="Source\gameDoc.h" />
     <ClInclude Include="Source\gameView.h" />
