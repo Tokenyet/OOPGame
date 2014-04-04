@@ -726,7 +726,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	enemytest->LoadBitmapA();
 	charcter->LoadBitmapA();
 	level_Editor.Initialization(&scroll_System,&collision_System,charcter);
-	vector<Obstacle*> data_Obstacle = level_Editor.ObjectsData();
+	vector<Obstacle*> data_Obstacle = level_Editor.GetObstaclsDatas();
 	for(size_t i = 0;i<data_Obstacle.size();i++)
 	{
 		iperforms_obs.push_back(data_Obstacle[i]);

@@ -10,6 +10,7 @@
 
 LevelEditor::LevelEditor()
 {
+	classType = ColBlock;
 	fileManager = new FileManager("level-test.dat");
 	fileStatementTemp = fileManager->GetData();
 	for(int i = 0;i < fileManager->GetLine();i++)
@@ -41,6 +42,7 @@ void LevelEditor::fileAnaylizer(string source_String)
 	Obstacle *TempObstacle = new Obstacle(position_x_y[0],position_x_y[1]);
 	//TempObstacle->LoadBitmapA("Bitmaps/block-5.bmp");
 	obstacles.push_back(TempObstacle);
+	object_type_data.push_back((ObstacleData)class_type);
 
 }
 
@@ -67,10 +69,25 @@ void LevelEditor::Initialization(Scroll_System* scroll,Collision_System* collisi
 	this->scroll_system = scroll;
 	this->collision_system = collisionS;
 	for(size_t i= 0;i<obstacles.size();i++)
-		obstacles[i]->LoadBitmapA("Bitmaps/block-5.bmp");
-/*	for(size_t i= 0;i<obstacles.size();i++)
-	obstacles[i] = new Obstacle(object_int_data[i][1],object_int_data[i][2]);*/
+		Obstacle_BitmapLoader(obstacles[i],object_type_data[i]);
 }
+
+void LevelEditor::Obstacle_BitmapLoader(Obstacle* obstacle,ObstacleData obData)
+{
+	switch(obData)
+	{
+		case 0:
+		obstacle->LoadBitmapA("Bitmaps/block-5.bmp");
+		break;
+		case 1:
+		obstacle->LoadBitmapA("Bitmaps/block-4.bmp");
+		break;
+		default:
+			ASSERT(1);
+	}
+}
+
+
 void LevelEditor::saveData()
 {
 	fileManager->SetLineData(object_string_Data);
@@ -81,7 +98,7 @@ void LevelEditor::addObstacles(CPoint position)
 	Obstacle* newObstacle = new Obstacle(position.x + offset,position.y);
 
 	string newObstaclePosition = "";
-	newObstaclePosition += "0";
+	newObstaclePosition += int2str(classType);
 	newObstaclePosition += "@(";
 	newObstaclePosition += int2str(newObstacle->GetOriginX());
 	newObstaclePosition += ",";
@@ -89,6 +106,8 @@ void LevelEditor::addObstacles(CPoint position)
 	newObstaclePosition += ")";
 	object_string_Data.push_back(newObstaclePosition);
 
+	Obstacle_BitmapLoader(newObstacle,classType);
+	object_type_data.push_back((ObstacleData)classType);
 	obstacles.push_back(newObstacle);
 	SystemSync();
 }
@@ -101,10 +120,12 @@ void LevelEditor::SystemSync()
 	collision_system->OnCheck();
 }
 
-vector<Obstacle*> LevelEditor::ObjectsData()
+vector<Obstacle*> LevelEditor::GetObstaclsDatas()
 {
 	return obstacles;
 }
+
+
 void LevelEditor::SetCharcterPosition(Human *charcter){}
 void LevelEditor::KeyDownChange(UINT keyin)
 {
@@ -115,6 +136,10 @@ void LevelEditor::KeyDownChange(UINT keyin)
 	const char KEY_SPACE = 0x20;
 	if(keyin == KEY_SPACE)
 	saveData();
+	if(keyin == KEY_Z)
+		classType = ColBlock;
+	if(keyin == KEY_X)
+		classType = RowBlock;
 }
 void LevelEditor::LMouseOnClick(bool on,CPoint position)
 {
@@ -138,6 +163,7 @@ void LevelEditor::RMouseOnClick(bool on,CPoint position)
 			   collision_system->Del_ObstacleCollisions(obstacles[i]);
 			   scroll_system->DelObject(obstacles[i]);
 			   obstacles.erase(obstacles.begin()+i);
+			   object_type_data.erase(object_type_data.begin()+i);
 			   object_string_Data.erase(object_string_Data.begin()+i);
 			}
 
