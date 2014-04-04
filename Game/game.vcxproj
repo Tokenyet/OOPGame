@@ -268,6 +268,7 @@
     <ClCompile Include="Source\EGravity.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\Equipment.cpp" />
+    <ClCompile Include="Source\FileManager.cpp" />
     <ClCompile Include="Source\Ewalk.cpp" />
     <ClCompile Include="Source\game.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -286,6 +287,7 @@
     </ClCompile>
     <ClCompile Include="Source\Human.cpp" />
     <ClCompile Include="Source\Inventory.cpp" />
+    <ClCompile Include="Source\LevelEditor.cpp" />
     <ClCompile Include="Source\MainFrm.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -328,6 +330,7 @@
     <ClInclude Include="Source\EGravity.h" />
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Equipment.h" />
+    <ClInclude Include="Source\FileManager.h" />
     <ClInclude Include="Source\Ewalk.h" />
     <ClInclude Include="Source\game.h" />
     <ClInclude Include="Source\gameDoc.h" />
@@ -337,6 +340,7 @@
     <ClInclude Include="Source\ILocation.h" />
     <ClInclude Include="Source\Inventory.h" />
     <ClInclude Include="Source\IPerform.h" />
+    <ClInclude Include="Source\LevelEditor.h" />
     <ClInclude Include="Source\MainFrm.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\Obstacle.h" />

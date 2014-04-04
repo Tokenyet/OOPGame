@@ -72,6 +72,7 @@
 #include "Equipment.h"
 #include "Human.h"
 #include "Charcter.h"
+#include "LevelEditor.h"
 
 namespace game_framework {
 
@@ -594,6 +595,7 @@ CGameStateRun::CGameStateRun(CGame *g)
 CGameStateRun::~CGameStateRun()
 {
 //	delete [] ball;
+	delete obtest;
 }
 
 void CGameStateRun::OnBeginState()
@@ -723,49 +725,12 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	rowObtest->LoadBitmap("Bitmaps/block-4.bmp");
 	enemytest->LoadBitmapA();
 	charcter->LoadBitmapA();
-	obstacles.push_back(new Obstacle(200,200));
-	obstacles[0]->LoadBitmapA("Bitmaps/block-5.bmp");
-	int i;
-	for(i = 1;i<2*SIZE_X/128;i++)
+	level_Editor.Initialization(&scroll_System,&collision_System,charcter);
+	vector<Obstacle*> data_Obstacle = level_Editor.ObjectsData();
+	for(size_t i = 0;i<data_Obstacle.size();i++)
 	{
-		obstacles.push_back(new Obstacle(i*128-128,450));
-		obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
-	}
-#pragma region TempUsingLevelCreator
-	obstacles.push_back(new Obstacle(300,300));
-	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
-	i++;
-	obstacles.push_back(new Obstacle(300,400));
-	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
-	i++;
-	obstacles.push_back(new Obstacle(450,250));
-	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
-	i++;
-	obstacles.push_back(new Obstacle(300,150));
-	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
-	i++;
-	obstacles.push_back(new Obstacle(450,50));
-	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
-		i++;
-	obstacles.push_back(new Obstacle(600,370));
-	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
-		i++;
-	obstacles.push_back(new Obstacle(900,200));
-	obstacles[i]->LoadBitmapA("Bitmaps/block-5.bmp");
-		i++;
-	obstacles.push_back(new Obstacle(1000,300));
-	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
-		i++;
-	obstacles.push_back(new Obstacle(800,100));
-	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
-		i++;
-	obstacles.push_back(new Obstacle(1000,100));
-	obstacles[i]->LoadBitmapA("Bitmaps/block-4.bmp");
-#pragma endregion
-	for(size_t i = 0;i<obstacles.size();i++)
-	{
-		iperforms_obs.push_back(obstacles[i]);
-		icollisions_obs.push_back(obstacles[i]);
+		iperforms_obs.push_back(data_Obstacle[i]);
+		icollisions_obs.push_back(data_Obstacle[i]);
 	}
 	/*iperforms_obs.push_back(obtest);
 	iperforms_obs.push_back(rowObtest);
@@ -776,6 +741,37 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	collision_System.Load_HeroCollisions(humans);
 	collision_System.Load_ObstacleCollisions(icollisions_obs);
 	scroll_System.AddEnemy(enemytest);
+	scroll_System.Initialize(iperforms_obs);
+	scroll_System.SetCharcter(charcter);
+	game_framework::CAudio::Instance()->Load(0,  "sounds\\bgm.mp3");
+	game_framework::CAudio::Instance()->Load(1,  "sounds\\player-jump.mp3");
+	// 完成部分Loading動作，提高進度
+	//
+	ShowInitProgress(50);
+	Sleep(300); // 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+	//
+	// 繼續載入其他資料
+	//
+	/*help.LoadBitmap(IDB_HELP,RGB(255,255,255));				// 載入說明的圖形
+	corner.LoadBitmap(IDB_CORNER);							// 載入角落圖形
+	corner.ShowBitmap(background);							// 將corner貼到background
+	bball.LoadBitmap();										// 載入圖形
+	hits_left.LoadBitmap();									
+	CAudio::Instance()->Load(AUDIO_DING,  "sounds\\ding.wav");	// 載入編號0的聲音ding.wav
+	CAudio::Instance()->Load(AUDIO_LAKE,  "sounds\\lake.mp3");	// 載入編號1的聲音lake.mp3
+	CAudio::Instance()->Load(AUDIO_NTUT,  "sounds\\ntut.mid");	// 載入編號2的聲音ntut.mid*/
+	//
+	// 此OnInit動作會接到CGameStaterOver::OnInit()，所以進度還沒到100%
+	//
+}
+
+void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	const char KEY_LEFT  = 0x25; // keyboard左箭頭
+	const char KEY_UP    = 0x26; // keyboard上箭頭
+	humans.push_back(charcter);
+	collision_System.Load_HeroCollisions(humans);
+	collision_System.Load_ObstacleCollisions(icollisions_obs);
 	scroll_System.Initialize(iperforms_obs);
 	scroll_System.SetCharcter(charcter);
 	game_framework::CAudio::Instance()->Load(0,  "sounds\\bgm.mp3");
@@ -818,6 +814,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	//screenMap.SetKeyDownControl(nChar);
 	scroll_System.KeyDownUpdate(nChar);
 	charcter->KeyDownDetect(nChar);
+	level_Editor.KeyDownChange(nChar);
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -842,6 +839,12 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
 	//eraser.SetMovingLeft(true);
+	/*int offset = charcter->GetX() - SIZE_X/2 +50;
+	icollisions_obs.push_back(new Obstacle(point.x + offset,point.y));
+	scroll_System.AddObject(icollisions_obs[icollisions_obs.size()-1]);
+	scroll_System.OnMove();
+	collision_System.Load_ObstacleCollisions(icollisions_obs);*/
+	level_Editor.LMouseOnClick(true,point);
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -856,6 +859,7 @@ void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 
 void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
+	level_Editor.RMouseOnClick(true,point);
 	//eraser.SetMovingRight(true);
 }
 
@@ -895,8 +899,10 @@ void CGameStateRun::OnShow()
 	//map.OnShow();
 	//screenMap.OnShow();
 	scroll_System.OnShowMap();
-	for(size_t i = 0;i < icollisions_obs.size();i++)
-		icollisions_obs[i]->OnShow();
+	//obtest->OnShow();
+	/*for(size_t i = 0;i<icollisions_obs.size();i++)
+		icollisions_obs[i]->OnShow();*/
+	level_Editor.TestShowObjects();
 	charcter->OnShow();
 	enemytest->OnShow();
 }

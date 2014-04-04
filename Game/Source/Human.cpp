@@ -14,7 +14,7 @@
 		//y = SIZE_Y/2; //Must Know My Width Of Picture
 
 	}
-	Human::~Human(){}
+	Human::~Human()	{}
 	void Human::SetLocation(int x,int y)
 	{
 /*		this->x = (SIZE_X - picture.Width())/2;

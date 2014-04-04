@@ -31,6 +31,7 @@ public:
 	void SetCharcter(Human *mainCharcter);
 	void SetWindowsSize(int windows_X,int windows_Y);
 	void AddObject(IPerform *things);
+	void DelObject(IPerform *things);
 	void AddObject(vector<IPerform*> things);
 	void AddEnemy(Enemy *enemy);
 	void AddEnemy(vector<Enemy*> enemys);
