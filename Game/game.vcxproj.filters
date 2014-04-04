@@ -1,55 +1,187 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{1a913106-0be0-4476-b0ce-2aa855072614}</UniqueIdentifier>
-      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe</Extensions>
-    </Filter>
-    <Filter Include="MFC">
-      <UniqueIdentifier>{da904ee8-7f59-4a6c-b3ff-b91b6fb6d0ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameLibrary">
-      <UniqueIdentifier>{df7aa532-3fdf-46a0-b3fc-8f5922e8d9e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameClass">
-      <UniqueIdentifier>{2751f409-118d-4711-9e78-08c87be39e05}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameClass\Interface">
-      <UniqueIdentifier>{bfc16fc1-ecf0-4a95-95b4-a06d66f4a259}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameClass\SideScrollingSystem">
-      <UniqueIdentifier>{f56f16c9-dae8-42fc-a299-3652546ed6fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameClass\HumanElements">
-      <UniqueIdentifier>{e487384c-4493-4b7c-b5c0-43a8b1f84f90}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameClass\StaticObjects">
-      <UniqueIdentifier>{66035042-aa05-4c73-aca3-46083fc77082}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameClass\Collision_System">
-      <UniqueIdentifier>{15f33c5a-b005-4a61-9845-0417d211197e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameClass\LevelEditor">
-      <UniqueIdentifier>{c4d72f03-0b69-42ac-9a59-9ca6c8ac1888}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameClass\Animation">
-      <UniqueIdentifier>{f35c2e36-aa0e-4827-a981-586372070d9f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameClass\HumanElements\Hero">
-      <UniqueIdentifier>{5f36619b-0d3b-4b09-b5b8-f2242af5e1d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameClass\HumanElements\Enemy">
-      <UniqueIdentifier>{203d369b-5ab0-4cf7-a5eb-6c727edb9684}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameClass\Interface\EnemyBehavior">
-      <UniqueIdentifier>{0d654457-c32d-4334-8a18-01e78262ede8}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="Source\mygame.cpp" />
+    <ClCompile Include="Source\audio.cpp">
+      <Filter>GameLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\game.cpp">
+      <Filter>MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\gameDoc.cpp">
+      <Filter>MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\gameView.cpp">
+      <Filter>MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MainFrm.cpp">
+      <Filter>MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StdAfx.cpp">
+      <Filter>MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\gamelib.cpp">
+      <Filter>GameLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collision_System.cpp">
+      <Filter>GameClass\Collision_System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CRectangle.cpp">
+      <Filter>GameClass\Collision_System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Animation.cpp">
+      <Filter>GameClass\Animation_System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Bounding_Obs.cpp">
+      <Filter>GameClass\Collision_System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EGravity.cpp">
+      <Filter>GameClass\Interface\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Ewalk.cpp">
+      <Filter>GameClass\Interface\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Equipment.cpp">
+      <Filter>GameClass\HumanElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FileManager.cpp">
+      <Filter>GameClass\LevelEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Human.cpp">
+      <Filter>GameClass\HumanElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Inventory.cpp">
+      <Filter>GameClass\HumanElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Obstacle.cpp">
+      <Filter>GameClass\StaticObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Map.cpp">
+      <Filter>GameClass\SideScrollingSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Thing.cpp">
+      <Filter>GameClass\StaticObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ScreenMap.cpp">
+      <Filter>GameClass\SideScrollingSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scroll_System.cpp">
+      <Filter>GameClass\SideScrollingSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LevelEditor.cpp">
+      <Filter>GameClass\LevelEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Charcter.cpp">
+      <Filter>GameClass\HumanElements\Hero</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy.cpp">
+      <Filter>GameClass\HumanElements\Enemy</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\mygame.h" />
+    <ClInclude Include="Source\audio.h">
+      <Filter>GameLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\gameView.h">
+      <Filter>MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\game.h">
+      <Filter>MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\gameDoc.h">
+      <Filter>MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MainFrm.h">
+      <Filter>MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Resource.h">
+      <Filter>MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StdAfx.h">
+      <Filter>MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\gamelib.h">
+      <Filter>GameLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collision_System.h">
+      <Filter>GameClass\Collision_System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CRectangle.h">
+      <Filter>GameClass\Collision_System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Animation.h">
+      <Filter>GameClass\Animation_System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bounding_Obs.h">
+      <Filter>GameClass\Collision_System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EGravity.h">
+      <Filter>GameClass\Interface\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Ewalk.h">
+      <Filter>GameClass\Interface\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ICollision.h">
+      <Filter>GameClass\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ILocation.h">
+      <Filter>GameClass\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IPerform.h">
+      <Filter>GameClass\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Equipment.h">
+      <Filter>GameClass\HumanElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FileManager.h">
+      <Filter>GameClass\LevelEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Inventory.h">
+      <Filter>GameClass\HumanElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Human.h">
+      <Filter>GameClass\HumanElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Obstacle.h">
+      <Filter>GameClass\StaticObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Map.h">
+      <Filter>GameClass\SideScrollingSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Thing.h">
+      <Filter>GameClass\StaticObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scroll_System.h">
+      <Filter>GameClass\SideScrollingSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ScreenMap.h">
+      <Filter>GameClass\SideScrollingSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LevelEditor.h">
+      <Filter>GameClass\LevelEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Charcter.h">
+      <Filter>GameClass\HumanElements\Hero</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy.h">
+      <Filter>GameClass\HumanElements\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\ball.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="RES\bmp9.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\bitmap3.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="RES\bmp0.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\bmp00001.bmp">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="RES\bmp1.bmp">
@@ -79,10 +211,10 @@
     <None Include="RES\bmp8.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="RES\bmp9.bmp">
+    <None Include="RES\center.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="RES\center.bmp">
+    <None Include="RES\eraser3.bmp">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="RES\continue.bmp">
@@ -97,206 +229,74 @@
     <None Include="RES\eraser2.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="RES\eraser3.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="res\game.ico">
-      <Filter>Resource Files</Filter>
+      <Filter>MFC</Filter>
     </None>
     <None Include="res\game.rc2">
-      <Filter>Resource Files</Filter>
+      <Filter>MFC</Filter>
     </None>
     <None Include="RES\gamecurs.cur">
-      <Filter>Resource Files</Filter>
+      <Filter>MFC</Filter>
     </None>
     <None Include="res\gameDoc.ico">
-      <Filter>Resource Files</Filter>
+      <Filter>MFC</Filter>
     </None>
     <None Include="RES\help.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="RES\loading.bmp">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="RES\ntutcsie.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="RES\loading.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="res\Toolbar.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="res\bitmap3.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\bmp00001.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\mygame.cpp" />
-    <ClCompile Include="Source\audio.cpp">
-      <Filter>GameLibrary</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\game.cpp">
-      <Filter>MFC</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\gameDoc.cpp">
-      <Filter>MFC</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\gamelib.cpp">
-      <Filter>GameLibrary</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\gameView.cpp">
-      <Filter>MFC</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\MainFrm.cpp">
-      <Filter>MFC</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\StdAfx.cpp">
-      <Filter>MFC</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Map.cpp">
-      <Filter>GameClass\SideScrollingSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ScreenMap.cpp">
-      <Filter>GameClass\SideScrollingSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scroll_System.cpp">
-      <Filter>GameClass\SideScrollingSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Obstacle.cpp">
-      <Filter>GameClass\StaticObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Thing.cpp">
-      <Filter>GameClass\StaticObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Equipment.cpp">
-      <Filter>GameClass\HumanElements</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Inventory.cpp">
-      <Filter>GameClass\HumanElements</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Human.cpp">
-      <Filter>GameClass\HumanElements</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Bounding_Obs.cpp">
-      <Filter>GameClass\Collision_System</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Collision_System.cpp">
-      <Filter>GameClass\Collision_System</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CRectangle.cpp">
-      <Filter>GameClass\Collision_System</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LevelEditor.cpp">
-      <Filter>GameClass\LevelEditor</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\FileManager.cpp">
-      <Filter>GameClass\LevelEditor</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Animation.cpp">
-      <Filter>GameClass\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Charcter.cpp">
-      <Filter>GameClass\HumanElements\Hero</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Enemy.cpp">
-      <Filter>GameClass\HumanElements\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Ewalk.cpp">
-      <Filter>GameClass\Interface\EnemyBehavior</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\EGravity.cpp">
-      <Filter>GameClass\Interface\EnemyBehavior</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Source\mygame.h" />
-    <ClInclude Include="Source\audio.h">
-      <Filter>GameLibrary</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\game.h">
-      <Filter>MFC</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\gameDoc.h">
-      <Filter>MFC</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\gamelib.h">
-      <Filter>GameLibrary</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\gameView.h">
-      <Filter>MFC</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\MainFrm.h">
-      <Filter>MFC</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Resource.h">
-      <Filter>MFC</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\StdAfx.h">
-      <Filter>MFC</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ILocation.h">
-      <Filter>GameClass\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\IPerform.h">
-      <Filter>GameClass\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Map.h">
-      <Filter>GameClass\SideScrollingSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ScreenMap.h">
-      <Filter>GameClass\SideScrollingSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scroll_System.h">
-      <Filter>GameClass\SideScrollingSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Obstacle.h">
-      <Filter>GameClass\StaticObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Thing.h">
-      <Filter>GameClass\StaticObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Equipment.h">
-      <Filter>GameClass\HumanElements</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Inventory.h">
-      <Filter>GameClass\HumanElements</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Human.h">
-      <Filter>GameClass\HumanElements</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Bounding_Obs.h">
-      <Filter>GameClass\Collision_System</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Collision_System.h">
-      <Filter>GameClass\Collision_System</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CRectangle.h">
-      <Filter>GameClass\Collision_System</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ICollision.h">
-      <Filter>GameClass\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\LevelEditor.h">
-      <Filter>GameClass\LevelEditor</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\FileManager.h">
-      <Filter>GameClass\LevelEditor</Filter>
-    <ClInclude Include="Source\Animation.h">
-      <Filter>GameClass\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Charcter.h">
-      <Filter>GameClass\HumanElements\Hero</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Enemy.h">
-      <Filter>GameClass\HumanElements\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Ewalk.h">
-      <Filter>GameClass\Interface\EnemyBehavior</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\EGravity.h">
-      <Filter>GameClass\Interface\EnemyBehavior</Filter>
-    </ClInclude>
+    <Filter Include="GameClass">
+      <UniqueIdentifier>{3780cead-dfc8-4b2a-8f92-add0fefccc8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MFC">
+      <UniqueIdentifier>{df1c880a-f5f2-46c0-82cf-94e788eb349c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{860408b4-7bb2-4313-a96a-89b93953af60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameLibrary">
+      <UniqueIdentifier>{2fce51d6-86f9-4379-a029-0925ce57b31a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClass\StaticObjects">
+      <UniqueIdentifier>{e68435d5-ccf7-4359-861a-91fb50d9c9ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClass\SideScrollingSystem">
+      <UniqueIdentifier>{ee899b2d-049b-4014-9430-273931512c31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClass\LevelEditor">
+      <UniqueIdentifier>{3dc12dc7-c056-4c3f-9bb6-b2fb2e3b0cff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClass\Interface">
+      <UniqueIdentifier>{50c8067f-33e8-4e74-899b-72d7f3a04af2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClass\HumanElements">
+      <UniqueIdentifier>{d0deec50-bf63-402c-ab85-b7e137c31ba6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClass\Collision_System">
+      <UniqueIdentifier>{fd5f3b98-3a82-4030-8d07-9b9da79e4bac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClass\Animation_System">
+      <UniqueIdentifier>{491a1617-8a86-4381-9312-ba0fae25aa09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClass\Interface\Enemy">
+      <UniqueIdentifier>{2f420aa6-c352-4a13-983c-f33f8a4260d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClass\HumanElements\Hero">
+      <UniqueIdentifier>{b6e4c4f0-c4cc-41b9-b83c-2d66c2fd8d6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClass\HumanElements\Enemy">
+      <UniqueIdentifier>{88d9faf1-a8e4-4eec-9a77-feed8538ea02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\game.rc">
