@@ -75,8 +75,8 @@
 		picture.LoadBitmapA(path,RGB);
 		myRect.SetOriginRectangle(x,y,picture.Width(),picture.Height(),5);
 	}
-	const int Human::GetOriginX(){return 0;}
-	const int Human::GetOriginY(){return 0;}
+	const int Human::GetOriginX(){return origin_X;}
+	const int Human::GetOriginY(){return origin_Y;}
 	const int Human::GetDistanceFromOriginX()
 	{
 		return GetX() - origin_X;

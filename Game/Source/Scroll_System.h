@@ -11,8 +11,8 @@ class Scroll_System
 {
 private:
 	vector<Map> maps;
-	vector<IPerform*> locations;
-	vector<Enemy*> enemys;
+	vector<IPerform*> *locations;
+	vector<Enemy*> *enemys;
 	ScreenMap screenMap;
 	Human* charcter;
 	int windows_X,windows_Y;
@@ -27,14 +27,16 @@ private:
 public:
 	Scroll_System();
 	~Scroll_System();
-	void Initialize(vector<IPerform*> locations);
+	void Initialize(vector<IPerform*>* locations);
 	void SetCharcter(Human *mainCharcter);
 	void SetWindowsSize(int windows_X,int windows_Y);
 	void AddObject(IPerform *things);
 	void DelObject(IPerform *things);
 	void AddObject(vector<IPerform*> things);
 	void AddEnemy(Enemy *enemy);
-	void AddEnemy(vector<Enemy*> enemys);
+	void DelEnemy(Enemy *enemy);
+	void LoadEnemy(vector<Enemy*> *enemys);
+	void AddEnemy(vector<Enemy*> *enemys);
 	void KeyDownUpdate(UINT keyin);
 	void KeyUpUpdate(UINT keyin);
 	void OnShowMap();

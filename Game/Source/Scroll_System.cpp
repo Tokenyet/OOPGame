@@ -14,7 +14,7 @@
 	Scroll_System::~Scroll_System()
 	{
 	}
-	void Scroll_System::Initialize(vector<IPerform*> locations)
+	void Scroll_System::Initialize(vector<IPerform*> *locations)
 	{
 		this->locations = locations;
 		mapSettingInitialize();
@@ -42,28 +42,42 @@
 	}
 	void Scroll_System::AddObject(IPerform *things)
 	{
-		locations.push_back(things);
+		locations->push_back(things);
 	}
 	void Scroll_System::DelObject(IPerform *things)
 	{
-		for(size_t i=0;i<locations.size();i++)
-			if(locations[i]==things)
-				locations.erase(locations.begin()+i);
+		for(size_t i=0;i<locations->size();i++)
+			if((*locations)[i]==things)
+				locations->erase(locations->begin()+i);
 	}
+
+	void Scroll_System::DelEnemy(Enemy *enemy)
+	{
+		for(size_t i=0;i<enemys->size();i++)
+			if((*enemys)[i]==enemy)
+				enemys->erase(enemys->begin()+i);
+	}
+
 
 	void Scroll_System::AddObject(vector<IPerform*> things)
 	{
 		for(size_t i = 0;i<things.size();i++)
-			locations.push_back(things[i]);
+			locations->push_back(things[i]);
 	}
 	void Scroll_System::AddEnemy(Enemy *enemy)
 	{
-		enemys.push_back(enemy);
+		enemys->push_back(enemy);
 	}
-	void Scroll_System::AddEnemy(vector<Enemy*> enemys)
+
+	void Scroll_System::LoadEnemy(vector<Enemy*> *enemys)
 	{
-		for(size_t i = 0;i<enemys.size();i++)
-			this->enemys.push_back(enemys[i]);
+		this->enemys = enemys;
+	}
+
+	void Scroll_System::AddEnemy(vector<Enemy*> *enemys)
+	{
+		for(size_t i = 0;i<enemys->size();i++)
+			this->enemys->push_back((*enemys)[i]);
 	}
 
 	void Scroll_System::KeyDownUpdate(UINT keyin)
@@ -112,18 +126,18 @@
 	}
 	void Scroll_System::object_Sync_Move()
 	{
-		for(size_t i = 0;i<locations.size();i++)
+		for(size_t i = 0;i<locations->size();i++)
 		{
 		/*if (leftMove)
 			object_Left(locations[i]);
 		if (rightMove)
 			object_Right(locations[i]);*/
 		if (upMove)
-			object_Up(locations[i]);
+			object_Up((*locations)[i]);
 		if (downMove)
-			object_Down(locations[i]);
-		object_Right(locations[i]);
-		locations[i] ->OnMove();
+			object_Down((*locations)[i]);
+		object_Right((*locations)[i]);
+		(*locations)[i] ->OnMove();
 		}
 	}
 
@@ -131,16 +145,16 @@
 	{
 		bool right_restriction = charcter->getRightRestriction();
 		bool left_restriction = charcter->getLeftRestriction();
-		for(size_t i = 0;i<enemys.size();i++)
+		for(size_t i = 0;i<enemys->size();i++)
 		{
 		if (leftMove&&!left_restriction)
-			enemys[i]->GetX() += 5;
+			(*enemys)[i]->GetX() += 5;
 		if (rightMove&&!right_restriction)
-			enemys[i]->GetX() -= 5;
+			(*enemys)[i]->GetX() -= 5;
 		if (upMove)
-			enemys[i]-> GetY()++;
+			(*enemys)[i]-> GetY()++;
 		if (downMove)
-			enemys[i] -> GetY()--;
+			(*enemys)[i] -> GetY()--;
 		}
 	}
 

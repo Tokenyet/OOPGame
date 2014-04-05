@@ -239,10 +239,11 @@ private:
 	LevelEditor level_Editor;
 	vector<IPerform*> iperforms_obs;
 	vector<ICollision*> icollisions_obs;
-	vector<ICollision*> icollisions_human;
+	vector<ICollision*> *icollisions_human;
 	vector<Human*> humans;
-	vector<Obstacle *> obstacles;
+	vector<Obstacle *> *obstacles;
 	Enemy* enemytest;
+	vector<Enemy*> *enemys;
 	Obstacle *obtest;
 	Obstacle *rowObtest;
 	Charcter *charcter;

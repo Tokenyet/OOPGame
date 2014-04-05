@@ -39,10 +39,18 @@ void LevelEditor::fileAnaylizer(string source_String)
 	position_string = source_String.substr(split[1],split[2]-split[1]+1);
 	vector<int> position_x_y = position_Anaylizer(position_string);
 
-	Obstacle *TempObstacle = new Obstacle(position_x_y[0],position_x_y[1]);
+	if(class_type < 3)
+	{
+		Obstacle *TempObstacle = new Obstacle(position_x_y[0],position_x_y[1]);
+		obstacles.push_back(TempObstacle);
+	}
+	else
+	{
+		Enemy *TempEnemy = new Enemy(position_x_y[0],position_x_y[1]);
+		enemys.push_back(TempEnemy);
+	}
 	//TempObstacle->LoadBitmapA("Bitmaps/block-5.bmp");
-	obstacles.push_back(TempObstacle);
-	object_type_data.push_back((ObstacleData)class_type);
+	object_type_data.push_back((ObjectData)class_type);
 
 }
 
@@ -68,11 +76,25 @@ void LevelEditor::Initialization(Scroll_System* scroll,Collision_System* collisi
 	this->charcter = charcter;
 	this->scroll_system = scroll;
 	this->collision_system = collisionS;
-	for(size_t i= 0;i<obstacles.size();i++)
-		Obstacle_BitmapLoader(obstacles[i],object_type_data[i]);
+	int ob_index = 0;
+	int enemy_index = 0;
+	for(size_t i = 0; i< object_type_data.size();i++)
+	{
+		switch(object_type_data[i])
+		{
+		case 0:
+		case 1:
+			Obstacle_BitmapLoader(obstacles[ob_index],object_type_data[i]);
+			ob_index ++;
+			break;
+		case 3:
+			Enemy_BitmapLoader(enemys[enemy_index],object_type_data[i]);
+			enemy_index++;
+			break;
+		}
+	}
 }
-
-void LevelEditor::Obstacle_BitmapLoader(Obstacle* obstacle,ObstacleData obData)
+void LevelEditor::Obstacle_BitmapLoader(Obstacle* obstacle,ObjectData obData)
 {
 	switch(obData)
 	{
@@ -81,6 +103,17 @@ void LevelEditor::Obstacle_BitmapLoader(Obstacle* obstacle,ObstacleData obData)
 		break;
 		case 1:
 		obstacle->LoadBitmapA("Bitmaps/block-4.bmp");
+		break;
+		default:
+			ASSERT(1);
+	}
+}
+void LevelEditor::Enemy_BitmapLoader(Enemy* enemy,ObjectData obData)
+{
+	switch(obData)
+	{
+		case 3:
+		enemy->LoadBitmapA();
 		break;
 		default:
 			ASSERT(1);
@@ -107,24 +140,54 @@ void LevelEditor::addObstacles(CPoint position)
 	object_string_Data.push_back(newObstaclePosition);
 
 	Obstacle_BitmapLoader(newObstacle,classType);
-	object_type_data.push_back((ObstacleData)classType);
+	object_type_data.push_back((ObjectData)classType);
 	obstacles.push_back(newObstacle);
 	SystemSync();
 }
+void LevelEditor::addEnemys(CPoint position)
+{
+	int offset = charcter->GetX() - SIZE_X/2 +50; 
+	Enemy* newEnemy = new Enemy(position.x + offset,position.y);
+
+	string newObstaclePosition = "";
+	newObstaclePosition += int2str(classType);
+	newObstaclePosition += "@(";
+	newObstaclePosition += int2str(position.x + offset);
+	newObstaclePosition += ",";
+	newObstaclePosition += int2str(position.y);
+	newObstaclePosition += ")";
+	object_string_Data.push_back(newObstaclePosition);
+	newEnemy->GetX() -= offset;//顯示時需抵補回來
+
+	Enemy_BitmapLoader(newEnemy,classType);
+	object_type_data.push_back((ObjectData)classType);
+	enemys.push_back(newEnemy);
+	SystemSync();
+}
+
 
 void LevelEditor::SystemSync()
 {
-	scroll_system->AddObject(obstacles[obstacles.size()-1]);
+	if(classType < 3)
+	{
+		scroll_system->AddObject(obstacles[obstacles.size()-1]);
+		collision_system->Add_ObstacleCollisions(obstacles[obstacles.size()-1]);
+	}
+	else
+	{
+		//scroll_system->AddEnemy(enemys[enemys.size()-1]);
+		//collision_system->Add_EnemyCollisions(enemys[enemys.size()-1]);
+	}
 	scroll_system->OnMove();
-	collision_system->Add_ObstacleCollisions(obstacles[obstacles.size()-1]);
 	collision_system->OnCheck();
 }
 
-vector<Obstacle*> LevelEditor::GetObstaclsDatas()
+vector<Obstacle*>* LevelEditor::GetObstaclsDatas()
 {
-	return obstacles;
+	return &obstacles;
 }
-
+vector<Enemy*>* LevelEditor::GetEnemysDatas()
+{return &enemys;}
 
 void LevelEditor::SetCharcterPosition(Human *charcter){}
 void LevelEditor::KeyDownChange(UINT keyin)
@@ -140,16 +203,20 @@ void LevelEditor::KeyDownChange(UINT keyin)
 		classType = ColBlock;
 	if(keyin == KEY_X)
 		classType = RowBlock;
+	if(keyin == KEY_C)
+		classType = MushRoom;
 }
 void LevelEditor::LMouseOnClick(bool on,CPoint position)
 {
+	if(classType < 3)
 	addObstacles(position);
+	else
+	addEnemys(position);
 }
 void LevelEditor::LMouseUpClick(bool off){}
-
-
 void LevelEditor::RMouseOnClick(bool on,CPoint position)
 {
+	/*
 	int offset = charcter->GetDistanceFromOriginX();
 	int x = position.x + offset;
 	int y = position.y;
@@ -169,6 +236,78 @@ void LevelEditor::RMouseOnClick(bool on,CPoint position)
 
 		}
 
+		*/
+	int offset = charcter->GetDistanceFromOriginX();
+	int x =  position.x;
+	int y =  position.y;
+	int obstacle_index = 0;
+	int enemy_index = 0;
+	for(size_t i = 0;i<object_type_data.size();i++)
+	{
+		switch(object_type_data[i])
+		{
+			case ColBlock:
+			case RowBlock:
+				if(obstacles.empty())
+					break;
+				if(obstacles[obstacle_index])
+					if(DelObstacle(i,obstacle_index,x,y,offset))
+						return;
+				obstacle_index++;
+				break;
+			case MushRoom:
+				if(enemys.empty())
+					break;
+				if(enemys[enemy_index])
+					if(DelEnemy(i,enemy_index,x,y,offset))
+						return;
+					enemy_index++;
+				break;
+			default:
+				ASSERT(0);
+				break;
+		}
+	}
+}
+
+
+
+bool LevelEditor::DelObstacle(int recorder_index,int object_index,int x,int y,int offset)
+{
+	 x += offset;
+	if(x < obstacles[object_index]->GetOriginX() + obstacles[object_index]->GetRect().Get_Width()&&
+		y < obstacles[object_index]->GetRect().Get_Ry()&&
+		x > obstacles[object_index]->GetOriginX()&&
+		y > obstacles[object_index]->GetRect().Get_Ly())
+			{
+			   collision_system->Del_ObstacleCollisions(obstacles[object_index]);
+			   scroll_system->DelObject(obstacles[object_index]);
+			   obstacles.erase(obstacles.begin()+object_index);
+			   object_type_data.erase(object_type_data.begin()+recorder_index);
+			   object_string_Data.erase(object_string_Data.begin()+recorder_index);
+			   return true;
+			}
+	return false;
+
+}
+
+bool LevelEditor::DelEnemy(int recorder_index ,int object_index,int x,int y,int offset)
+{
+	int width = enemys[object_index]->GetRect().GetWidth()+5;
+	int heigth = enemys[object_index]->GetRect().GetHeight()+5;
+	if(x <= enemys[object_index]->GetX() + width&&
+		y <= enemys[object_index]->GetY() + heigth&&
+		x >= enemys[object_index]->GetX()&&
+		y >= enemys[object_index]->GetY())
+	{
+			   //collision_system->Del_EnemyCollisions(enemys[object_index]);
+			   //scroll_system->DelEnemy(enemys[object_index]);
+			   enemys.erase(enemys.begin()+object_index);
+			   object_type_data.erase(object_type_data.begin()+recorder_index);
+			   object_string_Data.erase(object_string_Data.begin()+recorder_index);
+			   return true;
+	}
+	return false;
 }
 
 
@@ -176,6 +315,8 @@ void LevelEditor::TestShowObjects()
 {
 	for(size_t i = 0;i<obstacles.size();i++)
 		obstacles[i]->OnShow();
+	/*for(size_t i = 0;i<enemys.size();i++)
+		enemys[i]->OnShow();*/
 }
 
 

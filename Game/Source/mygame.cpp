@@ -688,11 +688,19 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//obtest->OnMove();
 
 	collision_System.OnCheck();
-	charcter->OnMove();
-	enemytest->OnMove();
+	/*charcter->OnMove();
+	enemytest->OnMove();*/
+	for(size_t i = 0;i<enemys->size();i++)
+		(*enemys)[i]->OnMove();
+	for(size_t i = 0;i<humans.size();i++)
+		humans[i]->OnMove();
 	scroll_System.OnMove();
-	charcter->ResetRestriction();
-	enemytest->ResetRestriction();
+	/*charcter->ResetRestriction();
+	enemytest->ResetRestriction();*/
+	for(size_t i = 0;i<humans.size();i++)
+		humans[i]->ResetRestriction();
+	for(size_t i = 0;i<enemys->size();i++)
+		(*enemys)[i]->ResetRestriction();
 
 }
 
@@ -706,42 +714,27 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//
 	// 開始載入資料
 	//
-/*	int i;
-	for (i = 0; i < NUMBALLS; i++)	
-		ball[i].LoadBitmap();								// 載入第i個球的圖形
-	eraser.LoadBitmap();
-	background.LoadBitmap(IDB_BACKGROUND);					// 載入背景的圖形
-	cpractice.LoadBitmapA();
-	practice.LoadBitmapA("Bitmaps/goss.bmp",RGB(0,0,0));
-	cgamemap.LoadBitmap();*/
-	/*map.Initialize((int)SIZE_X,(int)SIZE_Y,"Bitmaps/bg2-1.bmp");
-	map2.Initialize((int)SIZE_X,(int)SIZE_Y,"Bitmaps/bg2-1.bmp");
-	map3.Initialize((int)SIZE_X,(int)SIZE_Y,"Bitmaps/bg2-1.bmp");
-	maps.push_back(map);
-	maps.push_back(map2);
-	maps.push_back(map3);
-	screenMap.Initialization(maps);*/
 	obtest->LoadBitmapA("Bitmaps/block-5.bmp");
 	rowObtest->LoadBitmap("Bitmaps/block-4.bmp");
-	enemytest->LoadBitmapA();
+	//enemytest->LoadBitmapA();
 	charcter->LoadBitmapA();
 	level_Editor.Initialization(&scroll_System,&collision_System,charcter);
-	vector<Obstacle*> data_Obstacle = level_Editor.GetObstaclsDatas();
-	for(size_t i = 0;i<data_Obstacle.size();i++)
+	vector<Obstacle*> *data_Obstacle = level_Editor.GetObstaclsDatas();
+	for(size_t i = 0;i<data_Obstacle->size();i++)
 	{
-		iperforms_obs.push_back(data_Obstacle[i]);
-		icollisions_obs.push_back(data_Obstacle[i]);
+		iperforms_obs.push_back((*data_Obstacle)[i]);
+		icollisions_obs.push_back((*data_Obstacle)[i]);
 	}
-	/*iperforms_obs.push_back(obtest);
-	iperforms_obs.push_back(rowObtest);
-	icollisions_obs.push_back(obtest);
-	icollisions_obs.push_back(rowObtest);*/
+	enemys = level_Editor.GetEnemysDatas();
 	humans.push_back(charcter);
-	humans.push_back(enemytest);
+
+	collision_System.Load_EnemyCollisions(enemys);
 	collision_System.Load_HeroCollisions(humans);
-	collision_System.Load_ObstacleCollisions(icollisions_obs);
-	scroll_System.AddEnemy(enemytest);
-	scroll_System.Initialize(iperforms_obs);
+	collision_System.Load_ObstacleCollisions(&icollisions_obs);
+	scroll_System.LoadEnemy(enemys);
+	//scroll_System.AddEnemy(enemytest);
+	/*scroll_System.AddEnemy(enemys);*/
+	scroll_System.Initialize(&iperforms_obs);
 	scroll_System.SetCharcter(charcter);
 	game_framework::CAudio::Instance()->Load(0,  "sounds\\bgm.mp3");
 	game_framework::CAudio::Instance()->Load(1,  "sounds\\player-jump.mp3");
@@ -872,8 +865,13 @@ void CGameStateRun::OnShow()
 	/*for(size_t i = 0;i<icollisions_obs.size();i++)
 		icollisions_obs[i]->OnShow();*/
 	level_Editor.TestShowObjects();
-	charcter->OnShow();
-	enemytest->OnShow();
+	for(size_t i = 0;i<enemys->size();i++)
+		(*enemys)[i]->OnShow();
+	for(size_t i = 0;i<humans.size();i++)
+		humans[i]->OnShow();
+
+	/*charcter->OnShow();
+	enemytest->OnShow();*/
 }
 
 }

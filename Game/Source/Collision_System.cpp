@@ -1,9 +1,11 @@
 #include "StdAfx.h"
+#include "Enemy.h"
 #include "Human.h"
 #include "ICollision.h"
 #include "CRectangle.h"
 #include "Collision_System.h"
 #include <vector>
+
 //using namespace std;
 
 
@@ -12,30 +14,40 @@
 	{
 		for(size_t i = 0;i< heroBoxes.size();i++)
 			delete heroBoxes[i];
-		for(size_t i = 0;i< enemyBoxes.size();i++)
-			delete enemyBoxes[i];
-		for(size_t i = 0;i< obstacleBoxes.size();i++)
-			delete obstacleBoxes[i];
+	/*	for(size_t i = 0;i< enemyBoxes->size();i++)
+			delete (*enemyBoxes)[i];*/
+		for(size_t i = 0;i< obstacleBoxes->size();i++)
+			delete (*obstacleBoxes)[i];
 		for(size_t i = 0;i< bulletBoxes.size();i++)
 			delete bulletBoxes[i];
 	}
 	void Collision_System::OnCheck()
 	{
 		checkHuman_Obstacle();
+		checkEnemy_Obstacle();
 	}
 	void Collision_System::Load_HeroCollisions (vector<Human*> heroBoxes)
 	{this->heroBoxes = heroBoxes;}
-	void Collision_System::Load_EnemyCollisions (vector<ICollision*> enemyBoxes)
+	void Collision_System::Load_EnemyCollisions (vector<Enemy*>* enemyBoxes)
 	{this->enemyBoxes = enemyBoxes;}
-	void Collision_System::Load_ObstacleCollisions (vector<ICollision*> obstacleBoxes)
+	void Collision_System::Add_EnemyCollisions(Enemy* enemy)
+	{this->enemyBoxes->push_back(enemy);}
+	void Collision_System::Del_EnemyCollisions(Enemy* enemy)
+	{
+		for(size_t i=0;i<enemyBoxes->size();i++)
+			if((*enemyBoxes)[i]==enemy)
+				enemyBoxes->erase(enemyBoxes->begin()+i);
+	}
+
+	void Collision_System::Load_ObstacleCollisions (vector<ICollision*>* obstacleBoxes)
 	{this->obstacleBoxes = obstacleBoxes;}
 	void Collision_System::Add_ObstacleCollisions(ICollision* obstacle)
-	{this->obstacleBoxes.push_back(obstacle);}
+	{this->obstacleBoxes->push_back(obstacle);}
 	void Collision_System::Del_ObstacleCollisions(ICollision* obstacle)
 	{
-		for(size_t i=0;i<obstacleBoxes.size();i++)
-			if(obstacleBoxes[i]==obstacle)
-				obstacleBoxes.erase(obstacleBoxes.begin()+i);
+		for(size_t i=0;i<obstacleBoxes->size();i++)
+			if((*obstacleBoxes)[i]==obstacle)
+				(*obstacleBoxes).erase((*obstacleBoxes).begin()+i);
 	}
 	void Collision_System::Load_bulletCollisions (vector<ICollision*> bulletBoxes)
 	{this->bulletBoxes = bulletBoxes;}
@@ -44,9 +56,9 @@
 	void Collision_System::checkHuman_Obstacle()
 	{
 		for(size_t i=0;i<heroBoxes.size();i++)
-			for(size_t j = 0;j<obstacleBoxes.size();j++)
+			for(size_t j = 0;j<obstacleBoxes->size();j++)
 			{
-				checkHuman_ObstacleWhereCollision(heroBoxes[i],obstacleBoxes[j]);
+				checkHuman_ObstacleWhereCollision(heroBoxes[i],(*obstacleBoxes)[j]);
 				/*if(heroBoxes[i]->GetRect().Intersect(obstacleBoxes[i]->GetRect()))
 				{            
 					checkHuman_ObstacleWhereCollision(heroBoxes[i],obstacleBoxes[i]);
@@ -57,7 +69,14 @@
 				}*/
 			}
 	}
-
+	void Collision_System::checkEnemy_Obstacle()
+	{
+		for(size_t i=0;i<enemyBoxes->size();i++)
+			for(size_t j = 0;j<obstacleBoxes->size();j++)
+			{
+				checkHuman_ObstacleWhereCollision((*enemyBoxes)[i],(*obstacleBoxes)[j]);
+			}
+	}
 	void Collision_System::checkHuman_ObstacleWhereCollision(Human* humanBox,ICollision* obstacleBox)
 	{
 		bool human_Up = humanBox->GetRect().UpIntersect(obstacleBox->GetRect());
