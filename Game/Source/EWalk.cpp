@@ -16,14 +16,14 @@ void Nomal_Walking::Walk(int &x,int&y,bool &r_Restrict,bool &l_Restrict
 		{
 			if(r_Restrict)
 			{
-				if(x + width >= r_x + speed)
+				if(x + width >= r_x)
 				{
 					leftWalking(x,l_Restrict,l_x,speed);
 					direction = Head_Left;
 				}
 			}
-			else
-				rightWalking(x,r_Restrict,r_x,speed,width);
+			//else
+			rightWalking(x,r_Restrict,r_x,speed,width);
 		}
 		else
 		{
@@ -35,8 +35,8 @@ void Nomal_Walking::Walk(int &x,int&y,bool &r_Restrict,bool &l_Restrict
 					direction = Head_Right;
 				}
 			}
-			else
-				leftWalking(x,l_Restrict,l_x,speed);
+			//else
+			leftWalking(x,l_Restrict,l_x,speed);
 		}
 	}
 	void Nomal_Walking::leftWalking(int &x,bool &l_Restrict,int l_x,int speed)
