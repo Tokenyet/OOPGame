@@ -7,7 +7,7 @@
 
 	Human::Human(int initial_X,int initial_Y):origin_X(initial_X),origin_Y(initial_Y)
 	{
-		upMove = downMove = rightMove = leftMove = false;
+		upMove = downMove = rightMove = leftMove = attackMove = false;
 		upRestriction=downRestriction=rightRestriction=leftRestriction = false;
 		x = origin_X;
 		y = origin_Y;
@@ -20,14 +20,26 @@
 /*		this->x = (SIZE_X - picture.Width())/2;
 		this->y = SIZE_Y/2 + 50;//- picture.Height();*/
 	}
+	void Human::setMySize(int width,int height)
+	{
+		this->width = width;
+		this->height = height;
+	}
+
+
+
 	int& Human::GetX(){return x;}
 	int& Human::GetY(){return y;}
+	int Human::GetWidth(){return width;}
+	int Human::GetHeight(){return height;}
+
 	void Human::KeyDownDetect(UINT keyin)
 	{
 		const char KEY_LEFT  = 0x25; // keyboard左箭頭
 		const char KEY_UP    = 0x26; // keyboard上箭頭
 		const char KEY_RIGHT = 0x27; // keyboard右箭頭
 		const char KEY_DOWN  = 0x28; // keyboard下箭頭
+		const char KEY_A = 65;  //A
 		if(keyin == KEY_LEFT)
 			leftMove = true;
 		if(keyin == KEY_UP)
@@ -36,6 +48,8 @@
 			downMove = true;
 		if(keyin == KEY_RIGHT)
 			rightMove = true;
+		if(keyin == KEY_A)
+			attackMove = true;
 	}
 	void Human::KeyUpDetect(UINT keyin)
 	{
@@ -43,6 +57,7 @@
 		const char KEY_UP    = 0x26; // keyboard上箭頭
 		const char KEY_RIGHT = 0x27; // keyboard右箭頭
 		const char KEY_DOWN  = 0x28; // keyboard下箭頭
+		const char KEY_A = 65; //A
 		if(keyin == KEY_LEFT)
 			leftMove = false;
 		if(keyin == KEY_UP)
@@ -51,6 +66,8 @@
 			downMove = false;
 		if(keyin == KEY_RIGHT)
 			rightMove = false;
+		if(keyin == KEY_A)
+			attackMove = false;
 	}
 	void Human::OnMove()
 	{

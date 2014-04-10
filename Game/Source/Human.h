@@ -14,6 +14,7 @@ class Human
 private:
 	int x,y;
 	const int origin_X,origin_Y;
+	int width,height;
 	//int slove_origin_X;//MyRect需要用到
 	//CRectangle myRect;
 	//Status status;
@@ -27,11 +28,13 @@ protected :
 	bool upRestriction,downRestriction,rightRestriction,leftRestriction; //藉由Method提供外部設定
 	int upBoundedValue,downBoundedValue,rightBoundedValue,leftBoundedValue; //Restriction true give direction臨界值
 	bool upMove,downMove,rightMove,leftMove;//key 鍵盤偵測  --電腦自行設定
+	bool attackMove;
 	Bounding_Obs myRect; //碰撞偵測
 	virtual void leftMoving();//移動模式可覆寫 主角要覆寫判斷式 必須整段複寫
 	virtual void rightMoving();
 	virtual void upMoving();
 	virtual void downMoving();
+	void setMySize(int width,int height);
 public:
 	Human(int initial_X,int initial_Y);
 	~Human();
@@ -39,6 +42,8 @@ public:
 	void SetLocation(int x,int y);
 	int &GetX();
 	int &GetY();
+	int GetWidth();
+	int GetHeight();
 	virtual void LoadBitmap(char * path,COLORREF RGB);//For test to side scrolling
 	void KeyDownDetect(UINT keyin);
 	void KeyUpDetect(UINT keyin);

@@ -16,13 +16,20 @@ private :
 	bool dojump();
 protected:
 	void leftMoving();
+	void leftAnimation();
 	void rightMoving();
+	void rightAnimation();
 	void upMoving();
+	void upAnimation();
 	void downMoving();
+	void downAnimation();
+	void attackMoving();
+	void attackAnimation();
 public:
 	Charcter();
 	void OnMove();
 	void OnShow();
 	void LoadBitmap();
+	bool GetAttacking();
 };
 #endif

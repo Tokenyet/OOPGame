@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "Enemy.h"
 #include "Human.h"
+#include "Charcter.h"
 #include "ICollision.h"
 #include "CRectangle.h"
 #include "Collision_System.h"
@@ -25,6 +26,7 @@
 	{
 		checkHuman_Obstacle();
 		checkEnemy_Obstacle();
+		checkHuman_AttackEnemy();
 	}
 	void Collision_System::Load_HeroCollisions (vector<Human*> heroBoxes)
 	{this->heroBoxes = heroBoxes;}
@@ -125,6 +127,29 @@
 				//humanBox->GetIntersect(3) = true;
 				humanBox->GetX() = obstacleBox->GetRect().Get_Lx() - humanBox->GetRect().Get_Width();
             }*/
+	}
+	void Collision_System::checkHuman_AttackEnemy()
+	{
+		for(size_t i=0;i<heroBoxes.size();i++)
+			for(size_t j = 0;j<enemyBoxes->size();j++)
+			{
+				if(checkHuman_EnemyCollision(heroBoxes[i],(*enemyBoxes)[j]))
+					Del_EnemyCollisions((*enemyBoxes)[j]);
+			}
+	}
+	bool Collision_System::checkHuman_EnemyCollision(Human* charcter,Human* enemy)
+	{
+		Charcter* Ccharcter = dynamic_cast<Charcter*>(charcter);
+		CRectangle enemyBody = enemy->GetRect().GetOriginRect();
+		if(Ccharcter != NULL)
+		{
+		bool intersect = charcter->GetRect().GetOriginRect().Intersect(enemyBody);
+			if(Ccharcter->GetAttacking()&&intersect)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	/*
 	void Collision_System::resetHuman_Collision(ICollision* resetBoxes)

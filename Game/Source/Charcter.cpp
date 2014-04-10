@@ -17,29 +17,52 @@
 	void Charcter::OnMove()
 	{
 		if (leftMove)
+		{
 			leftMoving();
+			leftAnimation();
+		}
 		if (rightMove)
+		{
 			rightMoving();
+			rightAnimation();
+		}
 		if (dojump())
+		{
 			upMoving();
+			upAnimation();
+		}
 		if (!isOnSky)
+		{
 			downMoving();
-		if(!leftMove&&!rightMove&&!upMove&&!downMove)
+			downAnimation();
+		}
+		if(attackMove)
+		{
+			attackMoving();
+			attackAnimation();
+		}
+		if(!leftMove&&!rightMove&&!upMove&&!downMove&&!attackMove)
 			picture_animation.Reset();
-		myRect.SetOriginRectangle(SIZE_X/2-50,GetY(),picture_animation.Width(),picture_animation.Height(),5);//SIZE_X/2-50
+		//myRect.SetOriginRectangle(SIZE_X/2-50,GetY(),picture_animation.Width(),picture_animation.Height(),5);//SIZE_X/2-50
+		myRect.SetOriginRectangle(SIZE_X/2-50,GetY(),GetWidth(),GetHeight(),5);
 	}
 	void Charcter::LoadBitmap()
 	{
-		char *RWalking[2] = {"Bitmaps/r_stand.bmp","Bitmaps/r_run.bmp"};
-		char *LWalking[2] = {"Bitmaps/l_stand.bmp","Bitmaps/l_run.bmp"};
-		char *RJumping[3] = {"Bitmaps/r_jump-1.bmp","Bitmaps/r_jump-2.bmp","Bitmaps/r_jump-3.bmp"};
-		char *LJumping[3] = {"Bitmaps/l_jump-1.bmp","Bitmaps/l_jump-2.bmp","Bitmaps/l_jump-3.bmp"};
-
-		picture_animation.LoadAnimation(R_Walking,RWalking,2);
-		picture_animation.LoadAnimation(L_Walking,LWalking,2);
-		picture_animation.LoadAnimation(R_Jumping,RJumping,3);
-		picture_animation.LoadAnimation(L_Jumping,LJumping,3);
+		char *RWalking[5] = {"Bitmaps/R/r_walk-1.bmp","Bitmaps/R/r_walk-2.bmp","Bitmaps/R/r_walk-3.bmp","Bitmaps/R/r_walk-2.bmp","Bitmaps/R/r_walk-1.bmp"};
+		char *LWalking[5] = {"Bitmaps/L/l_walk-1.bmp","Bitmaps/L/l_walk-2.bmp","Bitmaps/L/l_walk-3.bmp","Bitmaps/L/l_walk-2.bmp","Bitmaps/L/l_walk-1.bmp"};
+		char *RJumping[2] = {"Bitmaps/R/r_jump-1.bmp","Bitmaps/R/r_jump-2.bmp"};
+		char *LJumping[2] = {"Bitmaps/L/l_jump-1.bmp","Bitmaps/L/l_jump-2.bmp"};
+		char *RAttack[4] =  {"Bitmaps/R/r_attack-1.bmp","Bitmaps/R/r_attack-2.bmp","Bitmaps/R/r_attack-3.bmp","Bitmaps/R/r_attack-4.bmp"};
+		char *LAttack[4] =  {"Bitmaps/L/l_attack-1.bmp","Bitmaps/L/l_attack-2.bmp","Bitmaps/L/l_attack-3.bmp","Bitmaps/L/l_attack-4.bmp"};
+		
+		picture_animation.LoadAnimation(R_Walking,RWalking,5,1);
+		picture_animation.LoadAnimation(L_Walking,LWalking,5,1);
+		picture_animation.LoadAnimation(R_Jumping,RJumping,2,1);
+		picture_animation.LoadAnimation(L_Jumping,LJumping,2,1);
+		picture_animation.LoadAnimation(R_Attacking,RAttack,4,0);
+		picture_animation.LoadAnimation(L_Attacking,LAttack,4,0);
 		picture_animation.StateInitialize();
+		setMySize(picture_animation.Width(),picture_animation.Height());
 		picture_animation.SetTopLeft(GetX(),GetY());
 	}
 	void Charcter::OnShow()
@@ -59,12 +82,6 @@
 		else
 			GetX()-=5;
 
-		if(!rightMove)
-		{
-			head_Direction = Head_Left;
-			picture_animation.OnMove(L_Walking);
-		}
-
 			/*else
 				x -= speed;*/
 	}
@@ -80,21 +97,12 @@
 		}
 		else
 			GetX()+= speed;
-		if(!leftMove)
-		{
-			head_Direction = Head_Right;
-			picture_animation.OnMove(R_Walking);
-		}
 
 			/*else
 				x += speed;*/
 	}
 	void Charcter::upMoving()
 	{
-		if(head_Direction == Head_Left)
-			picture_animation.OnMove(L_Jumping);
-		if(head_Direction == Head_Right)
-			picture_animation.OnMove(R_Jumping);
 		jumpUptimeParameter();
 		//int speed = 5;
 		int deltaY = gravity(30,4.4,timeNow,timePast);
@@ -125,30 +133,16 @@
 	}
 	void Charcter::downMoving()
 	{
-		if(!isOnGround)
-		{
-			if(head_Direction == Head_Left)
-				picture_animation.OnMove(L_Jumping);
-			if(head_Direction == Head_Right)
-				picture_animation.OnMove(R_Jumping);
-		}
-		else
-		{
-			if(head_Direction == Head_Left&&isOnGround)
-				picture_animation.OnMove(L_Walking);
-			if(head_Direction == Head_Right&&isOnGround)
-				picture_animation.OnMove(R_Walking);
-		}
-
 		timeNow+= interval_time;
 		int speed = 5;
 		int deltaY = gravity(0,4.4,timeNow,timePast);
 		if(deltaY < -10)
 			deltaY = -10;
-		int height = picture_animation.Height();
+		//int height = picture_animation.Height();
+		int height = GetHeight();
 		if(getDownRestriction())
 		{
-			if(!(GetY() + height >= downBoundedValue))
+			if(!(GetY() + height > downBoundedValue))
 			{
 				GetY() -= deltaY;
 				isOnGround = false;
@@ -167,6 +161,77 @@
 		}
 		timePast = timeNow;
 	}
+	void Charcter::attackMoving()
+	{
+	}
+	void Charcter::leftAnimation()
+	{	
+		bool gothrough = true;
+		if(attackMove)
+			gothrough = false;
+		if(!rightMove&&gothrough)
+		{
+			head_Direction = Head_Left;
+			picture_animation.OnMove(L_Walking);
+		}
+	}
+	void Charcter::rightAnimation()
+	{
+		bool gothrough = true;
+		if(attackMove)
+			gothrough = false;
+		if(!leftMove&&gothrough)
+		{
+			head_Direction = Head_Right;
+			picture_animation.OnMove(R_Walking);
+		}
+	}
+	void Charcter::upAnimation()
+	{
+		bool gothrough = true;
+		if(attackMove)
+			gothrough = false;
+		if(head_Direction == Head_Left&&gothrough)
+			picture_animation.OnMove(L_Jumping);
+		if(head_Direction == Head_Right&&gothrough)
+			picture_animation.OnMove(R_Jumping);
+	}
+	void Charcter::downAnimation()
+	{
+		bool gothrough = true;
+		if(attackMove)
+			gothrough = false;
+		if(gothrough)
+		{
+			if(!isOnGround)
+			{
+				if(head_Direction == Head_Left)
+					picture_animation.OnMove(L_Jumping);
+				if(head_Direction == Head_Right)
+					picture_animation.OnMove(R_Jumping);
+			}
+			else
+			{
+				bool check = false;
+				if(isOnGround&&!attackMove)
+					check = true;
+				if(head_Direction == Head_Left&&check)
+					picture_animation.OnMove(L_Walking);
+				if(head_Direction == Head_Right&&check)
+					picture_animation.OnMove(R_Walking);
+			}
+		}
+	}
+	void Charcter::attackAnimation()
+	{
+			if(head_Direction == Head_Left)
+				picture_animation.OnMove(L_Attacking);
+			if(head_Direction == Head_Right)
+				picture_animation.OnMove(R_Attacking);
+	}
+
+
+
 
 	void Charcter::jumpUptimeParameter()
 	{
@@ -212,4 +277,10 @@
 		if(isOnSky)
 			return true;
 		return false;
+	}
+
+
+	bool Charcter::GetAttacking()
+	{
+		return attackMove;
 	}

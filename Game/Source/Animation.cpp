@@ -28,18 +28,38 @@ void Animation::OnShow()
 	animations[myState].OnShow();
 }
 
+
 void Animation::LoadAnimation(Animax_act action,char* path)
 {
-	/*game_framework::CAnimation *newAnimationLoad = new game_framework::CAnimation(10);
-	newAnimationLoad->AddBitmap(path,RGB(255,255,255));*/
-	animations[action].AddBitmap(path,RGB(0,0,0));
-	//animations.insert(map<Animax_act,game_framework::CAnimation>::value_type(action,newAnimationLoad));
+	LoadAnimation(action,path,0);
 }
 
 void Animation::LoadAnimation(Animax_act action,char* paths[],int pic_amout)
 {
 	for(int i = 0;i<pic_amout;i++)
 		LoadAnimation(action,paths[i]);
+}
+
+void Animation::LoadAnimation(Animax_act action,char* path,int keyBlackOrWhite)
+{
+	/*game_framework::CAnimation *newAnimationLoad = new game_framework::CAnimation(10);
+	newAnimationLoad->AddBitmap(path,RGB(255,255,255));*/
+	switch(keyBlackOrWhite)
+	{
+	case 0:
+		animations[action].AddBitmap(path,RGB(0,0,0));
+		break;
+	case 1:
+		animations[action].AddBitmap(path,RGB(255,255,255));
+		break;
+	}
+	//animations.insert(map<Animax_act,game_framework::CAnimation>::value_type(action,newAnimationLoad));
+}
+
+void Animation::LoadAnimation(Animax_act action,char* paths[],int pic_amout,int keyBlackOrWhite)
+{
+	for(int i = 0;i<pic_amout;i++)
+		LoadAnimation(action,paths[i],keyBlackOrWhite);
 /*		newAnimationLoad.AddBitmap(*paths[i],RGB(255,255,255));
 	animations.insert(pair<Animax_act,game_framework::CAnimation>(action,newAnimationLoad));*/
 }
@@ -61,4 +81,9 @@ void Animation::Reset()
 		 animaAction -> second.Reset();
 		animaAction -> second.SetDelayCount(5);
 	 }
+}
+
+Animax_act Animation::GetNowState()
+{
+	return myState;
 }

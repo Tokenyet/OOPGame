@@ -15,7 +15,9 @@ private:
 	vector<ICollision*> bulletBoxes;
 	void checkHuman_Obstacle();
 	void checkEnemy_Obstacle();
+	void checkHuman_AttackEnemy();
 	void checkHuman_ObstacleWhereCollision(Human* humanBoxes,ICollision* obstacleBoxes);
+	bool checkHuman_EnemyCollision(Human* charcter,Human* enemy);
 	void resetHuman_Collision(ICollision* resetBoxes);
 public:
 	Collision_System();
