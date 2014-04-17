@@ -16,6 +16,7 @@
 	}
 	void Scroll_System::Initialize(vector<IPerform*> *locations)
 	{
+		maps.clear();
 		this->locations = locations;
 		mapSettingInitialize();
 		screenMap.Initialization(maps);

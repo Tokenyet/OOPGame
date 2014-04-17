@@ -487,7 +487,10 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	const char KEY_ESC = 27;
 	const char KEY_SPACE = ' ';
-	if (nChar == KEY_SPACE)
+	const char KEY_ENTER = 0x0D;
+	if (nChar == KEY_ENTER)
+		GotoGameState(GAME_STATE_RUN);	
+	else if (nChar == KEY_SPACE)
 		GotoGameState(GAME_STATE_RUN);						// 切換至GAME_STATE_RUN
 	else if (nChar == KEY_ESC)								// Demo 關閉遊戲的方法
 		PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE,0,0);	// 關閉遊戲
@@ -514,14 +517,13 @@ void CGameStateInit::OnShow()
 	fp=pDC->SelectObject(&f);					// 選用 font f
 	pDC->SetBkColor(RGB(0,0,0));
 	pDC->SetTextColor(RGB(255,255,0));
-	pDC->TextOut(120,220,"Please click mouse or press SPACE to begin.");
-	pDC->TextOut(5,395,"Press Ctrl-F to switch in between window mode and full screen mode.");
+	pDC->TextOut(SIZE_X/3,SIZE_Y/3,"Please Enter to Start.");
+	pDC->TextOut(SIZE_X/20,SIZE_Y-50,"Press Ctrl-F to switch in between window mode and full screen mode.");
 	if (ENABLE_GAME_PAUSE)
-		pDC->TextOut(5,425,"Press Ctrl-Q to pause the Game.");
-	pDC->TextOut(5,455,"Press Alt-F4 or ESC to Quit.");
+		pDC->TextOut(SIZE_X/20,SIZE_Y-100,"Press Ctrl-Q to pause the Game.");
+	pDC->TextOut(SIZE_X/20,SIZE_Y-150,"Press Alt-F4 or ESC to Quit.");
 	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
 	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
-	GotoGameState(GAME_STATE_RUN);//先直接開始
 }								
 
 /////////////////////////////////////////////////////////////////////////////
@@ -538,6 +540,7 @@ void CGameStateOver::OnMove()
 	counter--;
 	if (counter < 0)
 		GotoGameState(GAME_STATE_INIT);
+
 }
 
 void CGameStateOver::OnBeginState()
@@ -702,6 +705,37 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	for(size_t i = 0;i<enemys->size();i++)
 		(*enemys)[i]->ResetRestriction();
 
+	if(charcter->GetRestartGame())
+	{
+		GotoGameState(GAME_STATE_OVER);
+		reset();
+	}
+}
+
+void CGameStateRun::reset()
+{
+	//enemytest->LoadBitmapA();
+	level_Editor.Reset();
+	iperforms_obs.clear();
+	icollisions_obs.clear();
+	humans.clear();
+	enemys = level_Editor.GetEnemysDatas();
+	vector<Obstacle*> *data_Obstacle = level_Editor.GetObstaclsDatas();
+	for(size_t i = 0;i<data_Obstacle->size();i++)
+	{
+		iperforms_obs.push_back((*data_Obstacle)[i]);
+		icollisions_obs.push_back((*data_Obstacle)[i]);
+	}
+	humans.push_back(charcter);
+	for(size_t i = 0;i<humans.size();i++)
+		humans[i]->Reset();
+
+	collision_System.Load_EnemyCollisions(enemys);
+	collision_System.Load_HeroCollisions(humans);
+	collision_System.Load_ObstacleCollisions(&icollisions_obs);
+	scroll_System.LoadEnemy(enemys);
+	scroll_System.Initialize(&iperforms_obs);
+	scroll_System.SetCharcter(charcter);
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定

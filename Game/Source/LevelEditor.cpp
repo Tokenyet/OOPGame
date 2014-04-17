@@ -16,6 +16,35 @@ LevelEditor::LevelEditor()
 	for(int i = 0;i < fileManager->GetLine();i++)
 		fileAnaylizer(fileStatementTemp[i]);
 }
+void LevelEditor::Reset()
+{
+	fileManager = new FileManager("level-test.dat");
+	fileStatementTemp = fileManager->GetData();
+	object_string_Data.clear();
+	object_type_data.clear();
+	obstacles.clear();
+	enemys.clear();
+	for(int i = 0;i < fileManager->GetLine();i++)
+		fileAnaylizer(fileStatementTemp[i]);
+
+	int ob_index = 0;
+	int enemy_index = 0;
+	for(size_t i = 0; i< object_type_data.size();i++)
+	{
+		switch(object_type_data[i])
+		{
+		case 0:
+		case 1:
+			Obstacle_BitmapLoader(obstacles[ob_index],object_type_data[i]);
+			ob_index ++;
+			break;
+		case 3:
+			Enemy_BitmapLoader(enemys[enemy_index],object_type_data[i]);
+			enemy_index++;
+			break;
+		}
+	}
+}
 
 LevelEditor::~LevelEditor()
 {

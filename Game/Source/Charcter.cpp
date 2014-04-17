@@ -284,3 +284,9 @@
 	{
 		return attackMove;
 	}
+	bool Charcter::GetRestartGame()
+	{
+		if(GetY() > SIZE_Y)
+			return true;
+		return false;
+	}

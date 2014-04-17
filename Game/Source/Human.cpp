@@ -207,3 +207,8 @@
 		upRestriction=downRestriction=rightRestriction=leftRestriction = false;
 		upBoundedValue=downBoundedValue=rightBoundedValue=leftBoundedValue = 0;
 	}
+	void Human::Reset()
+	{
+		this->x = origin_X;
+		this->y = origin_Y;
+	}

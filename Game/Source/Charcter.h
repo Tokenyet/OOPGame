@@ -31,5 +31,6 @@ public:
 	void OnShow();
 	void LoadBitmap();
 	bool GetAttacking();
+	bool GetRestartGame();
 };
 #endif

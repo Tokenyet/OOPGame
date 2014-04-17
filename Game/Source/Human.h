@@ -64,6 +64,7 @@ public:
 	bool getRightRestriction();
 	bool getLeftRestriction();
 	void ResetRestriction();
+	void Reset();
 	///Dynamic///
 	/*bool& setUpRestriction(int bounded_Up,int speed);
 	bool& setDownRestriction(int bounded_Down,int speed);

@@ -49,6 +49,7 @@ public:
 	void LMouseOnClick(bool,CPoint);
 	void RMouseOnClick(bool,CPoint);
 	void LMouseUpClick(bool);
+	void Reset();
 	vector<Obstacle*>* GetObstaclsDatas();
 	vector<Enemy*>* GetEnemysDatas();
 };

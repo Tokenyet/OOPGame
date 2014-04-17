@@ -232,6 +232,7 @@ protected:
 	void OnMove();									// 移動遊戲元素
 	void OnShow();									// 顯示這個狀態的遊戲畫面
 private:
+	void reset();
 	/*Map map;
 	Map map2;
 	Map map3;
