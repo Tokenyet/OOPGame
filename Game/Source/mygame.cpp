@@ -597,8 +597,31 @@ CGameStateRun::CGameStateRun(CGame *g)
 
 CGameStateRun::~CGameStateRun()
 {
+	iperforms_obs.clear();
+	icollisions_obs.clear();
+	humans.clear();
 //	delete [] ball;
+	//for(size_t i=0;i<iperforms_obs.size();i++)
+		//iperforms_obs.clear();
+
+/*	for(size_t i=0;i<icollisions_obs.size();i++)
+	delete icollisions_obs[i];*/
+
+/*	for(size_t i=0;i<humans.size();i++)
+	delete humans[i];*/
+
+/*	for(size_t i=0;i<enemys->size();i++)
+	delete (*enemys)[i];
+	for(size_t i=0;i<obstacles->size();i++)
+	delete (*obstacles)[i];
+*/	
+	delete enemytest;
+
 	delete obtest;
+
+	delete rowObtest;
+
+//	delete charcter;
 }
 
 void CGameStateRun::OnBeginState()
@@ -798,6 +821,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char KEY_UP    = 0x26; // keyboard上箭頭
 	const char KEY_RIGHT = 0x27; // keyboard右箭頭
 	const char KEY_DOWN  = 0x28; // keyboard下箭頭
+	const char KEY_ENTER = 0x0D;
 	//cgamemap.OnKeyDown(nChar);
 /*	if (nChar == KEY_LEFT)
 		eraser.SetMovingLeft(true);
@@ -808,6 +832,13 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	if (nChar == KEY_DOWN)
 		eraser.SetMovingDown(true);*/
 	//screenMap.SetKeyDownControl(nChar);
+
+
+	if(nChar == KEY_ENTER)
+	{
+		GotoGameState(GAME_STATE_OVER);
+		reset();
+	}
 	scroll_System.KeyDownUpdate(nChar);
 	charcter->KeyDownDetect(nChar);
 	level_Editor.KeyDownChange(nChar);

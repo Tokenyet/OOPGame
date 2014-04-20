@@ -17,8 +17,8 @@
 			delete heroBoxes[i];
 	/*	for(size_t i = 0;i< enemyBoxes->size();i++)
 			delete (*enemyBoxes)[i];*/
-		for(size_t i = 0;i< obstacleBoxes->size();i++)
-			delete (*obstacleBoxes)[i];
+		/*for(size_t i = 0;i< obstacleBoxes->size();i++)
+			delete (*obstacleBoxes)[i];*/
 		for(size_t i = 0;i< bulletBoxes.size();i++)
 			delete bulletBoxes[i];
 	}

@@ -11,6 +11,12 @@
 		head_Direction = Head_Left;
 	}
 
+	Enemy::~Enemy()
+	{
+		delete walk_Behavior;
+		delete myGravity_Behavior;
+	}
+
 	void Enemy::walking_nearby()
 	{
 		int width = picture_animation.Width();

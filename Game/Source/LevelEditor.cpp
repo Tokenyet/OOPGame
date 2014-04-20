@@ -16,14 +16,39 @@ LevelEditor::LevelEditor()
 	for(int i = 0;i < fileManager->GetLine();i++)
 		fileAnaylizer(fileStatementTemp[i]);
 }
+
+LevelEditor::~LevelEditor()
+{
+	delete fileManager;
+	//delete charcter;
+	//delete scroll_system; //Test
+	//delete collision_system; //Test
+
+	for(size_t i = 0;i<obstacles.size();i++)
+	delete obstacles[i];//container
+	for(size_t i = 0;i<enemys.size();i++)
+	delete enemys[i];
+	obstacles.clear();
+	enemys.clear();
+}
+
 void LevelEditor::Reset()
 {
+	delete fileManager;
 	fileManager = new FileManager("level-test.dat");
 	fileStatementTemp = fileManager->GetData();
 	object_string_Data.clear();
 	object_type_data.clear();
+
+	for(size_t i = 0;i<obstacles.size();i++)
+	delete obstacles[i];//container
+	for(size_t i = 0;i<enemys.size();i++)
+	delete enemys[i];
+
 	obstacles.clear();
 	enemys.clear();
+
+
 	for(int i = 0;i < fileManager->GetLine();i++)
 		fileAnaylizer(fileStatementTemp[i]);
 
@@ -44,11 +69,6 @@ void LevelEditor::Reset()
 			break;
 		}
 	}
-}
-
-LevelEditor::~LevelEditor()
-{
-	delete fileManager;
 }
 
 

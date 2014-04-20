@@ -26,6 +26,7 @@ private :
 	void downMoving();
 public:
 	Enemy(int,int);
+	~Enemy();
 	void OnMove();
 	void OnShow();
 	void LoadBitmap();
