@@ -27,11 +27,14 @@
 		checkHuman_Obstacle();
 		checkEnemy_Obstacle();
 		checkHuman_AttackEnemy();
+		checkHuman_Thing();
 	}
 	void Collision_System::Load_HeroCollisions (vector<Human*> heroBoxes)
 	{this->heroBoxes = heroBoxes;}
 	void Collision_System::Load_EnemyCollisions (vector<Enemy*>* enemyBoxes)
 	{this->enemyBoxes = enemyBoxes;}
+	void Collision_System::Load_ThingCollisions (vector<Thing*>* thingBoxes)
+	{this->thingBoxes = thingBoxes;}
 	void Collision_System::Add_EnemyCollisions(Enemy* enemy)
 	{this->enemyBoxes->push_back(enemy);}
 	void Collision_System::Del_EnemyCollisions(Enemy* enemy)
@@ -79,6 +82,23 @@
 				checkHuman_ObstacleWhereCollision((*enemyBoxes)[i],(*obstacleBoxes)[j]);
 			}
 	}
+	void Collision_System::checkHuman_Thing()
+	{
+		for(size_t i=0;i<heroBoxes.size();i++)
+			for(size_t j = 0;j<thingBoxes->size();j++)
+			{
+				checkHuman_ThingCollision(heroBoxes[i],(*thingBoxes)[j]);
+			}
+	}
+	void Collision_System::checkHuman_ThingCollision(Human* humanBox,Thing* thingBox)
+	{
+		CRectangle charcterBody = humanBox->GetRect().GetOriginRect();
+		CRectangle thingBody = thingBox->GetRect();
+		if(charcterBody.Intersect(thingBody))
+			if(!thingBox->HasOwner())
+				humanBox->AddThing(thingBox);//不做多餘事!!!
+	}
+
 	void Collision_System::checkHuman_ObstacleWhereCollision(Human* humanBox,ICollision* obstacleBox)
 	{
 		bool human_Up = humanBox->GetRect().UpIntersect(obstacleBox->GetRect());

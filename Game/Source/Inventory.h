@@ -6,18 +6,19 @@
 #include "Thing.h"
 //#include "Human.h"
 
+class Thing;
 class Inventory
 {
 private:
 	int x,y;
-	vector<Thing> things;
+	//vector<Thing*> things;
 	//Human* owner;
 	game_framework::CMovingBitmap picture;
 	void changeClothes();
 	void addHealth();
 public:
-	void AddThings(Thing);
-	void Peek(Thing);
+	void AddThings(Thing*);
+	void Peek(Thing*);
 	void OnShow();
 };
 #endif

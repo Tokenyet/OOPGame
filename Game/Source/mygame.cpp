@@ -592,6 +592,10 @@ CGameStateRun::CGameStateRun(CGame *g)
 	rowObtest = new Obstacle(300,300);
 	enemytest = new Enemy(300,100);
 	testX = testY = 0;
+
+	thingTests = new vector<Thing*>();
+	thingtest = new Thing(400,400);
+	thingTests->push_back(thingtest);
 	/*ball = new CBall [NUMBALLS];*/
 }
 
@@ -782,9 +786,11 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		iperforms_obs.push_back((*data_Obstacle)[i]);
 		icollisions_obs.push_back((*data_Obstacle)[i]);
 	}
+	iperforms_obs.push_back(thingtest);//***
 	enemys = level_Editor.GetEnemysDatas();
 	humans.push_back(charcter);
 
+	collision_System.Load_ThingCollisions(thingTests);
 	collision_System.Load_EnemyCollisions(enemys);
 	collision_System.Load_HeroCollisions(humans);
 	collision_System.Load_ObstacleCollisions(&icollisions_obs);
@@ -934,7 +940,7 @@ void CGameStateRun::OnShow()
 		(*enemys)[i]->OnShow();
 	for(size_t i = 0;i<humans.size();i++)
 		humans[i]->OnShow();
-
+		thingtest->OnShow();
 	/*charcter->OnShow();
 	enemytest->OnShow();*/
 }

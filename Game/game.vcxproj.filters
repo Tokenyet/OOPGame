@@ -41,16 +41,10 @@
     <ClCompile Include="Source\Ewalk.cpp">
       <Filter>GameClass\Interface\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Equipment.cpp">
-      <Filter>GameClass\HumanElements</Filter>
-    </ClCompile>
     <ClCompile Include="Source\FileManager.cpp">
       <Filter>GameClass\LevelEditor</Filter>
     </ClCompile>
     <ClCompile Include="Source\Human.cpp">
-      <Filter>GameClass\HumanElements</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Inventory.cpp">
       <Filter>GameClass\HumanElements</Filter>
     </ClCompile>
     <ClCompile Include="Source\Obstacle.cpp">
@@ -79,6 +73,12 @@
     </ClCompile>
     <ClCompile Include="Source\Items.cpp">
       <Filter>GameClass\LevelEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Equipment.cpp">
+      <Filter>GameClass\HumanElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Inventory.cpp">
+      <Filter>GameClass\HumanElements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,14 +134,8 @@
     <ClInclude Include="Source\IPerform.h">
       <Filter>GameClass\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Equipment.h">
-      <Filter>GameClass\HumanElements</Filter>
-    </ClInclude>
     <ClInclude Include="Source\FileManager.h">
       <Filter>GameClass\LevelEditor</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Inventory.h">
-      <Filter>GameClass\HumanElements</Filter>
     </ClInclude>
     <ClInclude Include="Source\Human.h">
       <Filter>GameClass\HumanElements</Filter>
@@ -172,6 +166,12 @@
     </ClInclude>
     <ClInclude Include="Source\Items.h">
       <Filter>GameClass\LevelEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Equipment.h">
+      <Filter>GameClass\HumanElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Inventory.h">
+      <Filter>GameClass\HumanElements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

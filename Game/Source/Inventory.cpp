@@ -5,6 +5,6 @@
 
 	void Inventory::changeClothes(){}
 	void Inventory::addHealth(){}
-	void Inventory::AddThings(Thing){}
-	void Inventory::Peek(Thing){}
+	void Inventory::AddThings(Thing* a){}
+	void Inventory::Peek(Thing* a){}
 	void Inventory::OnShow(){}

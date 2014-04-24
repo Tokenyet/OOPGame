@@ -2,6 +2,7 @@
 #define HUMAN_H
 #include "StdAfx.h"
 //#include "gamelib.h"
+#include "Thing.h"
 #include "Equipment.h"
 #include "Inventory.h"
 #include "CRectangle.h"
@@ -9,6 +10,7 @@
 #include "Animation.h"
 #include "Ewalk.h"
 
+class Thing;
 class Human
 {
 private:
@@ -19,8 +21,9 @@ private:
 	//CRectangle myRect;
 	//Status status;
 	//CAnimation humanAnimation;
-	Equipment equipment;
-	Inventory inventory;
+	/*Equipment equipment;
+	Inventory inventory;*/
+	Thing* myThing; 
 protected : 
 	HeadDirection head_Direction;
 	Animation picture_animation;
@@ -49,7 +52,7 @@ public:
 	void KeyUpDetect(UINT keyin);
 	virtual void OnMove();
 	virtual void OnShow();
-	void AddThing(Thing Item);
+	void AddThing(Thing* Item);
 	const int GetOriginX();
 	const int GetOriginY();
 	const int GetDistanceFromOriginX();

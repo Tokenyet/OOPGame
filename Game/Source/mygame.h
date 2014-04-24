@@ -245,6 +245,11 @@ private:
 	vector<Obstacle *> *obstacles;
 	Enemy* enemytest;
 	vector<Enemy*> *enemys;
+
+	vector<Thing*> *thingTests;
+	Thing * thingtest;
+
+
 	Obstacle *obtest;
 	Obstacle *rowObtest;
 	Charcter *charcter;
