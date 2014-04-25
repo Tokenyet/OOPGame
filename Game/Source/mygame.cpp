@@ -594,8 +594,8 @@ CGameStateRun::CGameStateRun(CGame *g)
 	testX = testY = 0;
 
 	thingTests = new vector<Thing*>();
-	thingtest = new Thing(400,400);
-	thingTests->push_back(thingtest);
+	/*thingtest = new Thing(400,400);
+	thingTests->push_back(thingtest);*/
 	/*ball = new CBall [NUMBALLS];*/
 }
 
@@ -724,6 +724,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		(*enemys)[i]->OnMove();
 	for(size_t i = 0;i<humans.size();i++)
 		humans[i]->OnMove();
+	for(size_t i = 0;i<thingTests->size();i++)
+		(*thingTests)[i]->OnMove();
 	scroll_System.OnMove();
 	/*charcter->ResetRestriction();
 	enemytest->ResetRestriction();*/
@@ -786,9 +788,14 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		iperforms_obs.push_back((*data_Obstacle)[i]);
 		icollisions_obs.push_back((*data_Obstacle)[i]);
 	}
-	iperforms_obs.push_back(thingtest);//***
+	//iperforms_obs.push_back(thingtest);//***
 	enemys = level_Editor.GetEnemysDatas();
 	humans.push_back(charcter);
+
+	thingTests = level_Editor.GetThingsDatas();
+	for(size_t i = 0;i<thingTests->size();i++)
+		iperforms_obs.push_back((*thingTests)[i]);
+
 
 	collision_System.Load_ThingCollisions(thingTests);
 	collision_System.Load_EnemyCollisions(enemys);
@@ -940,7 +947,8 @@ void CGameStateRun::OnShow()
 		(*enemys)[i]->OnShow();
 	for(size_t i = 0;i<humans.size();i++)
 		humans[i]->OnShow();
-		thingtest->OnShow();
+	for(size_t i = 0;i<thingTests->size();i++)
+		(*thingTests)[i]->OnShow();
 	/*charcter->OnShow();
 	enemytest->OnShow();*/
 }

@@ -28,8 +28,11 @@ LevelEditor::~LevelEditor()
 	delete obstacles[i];//container
 	for(size_t i = 0;i<enemys.size();i++)
 	delete enemys[i];
+	for(size_t i = 0;i<things.size();i++)
+	delete things[i];
 	obstacles.clear();
 	enemys.clear();
+	things.clear();
 }
 
 void LevelEditor::Reset()
@@ -44,31 +47,16 @@ void LevelEditor::Reset()
 	delete obstacles[i];//container
 	for(size_t i = 0;i<enemys.size();i++)
 	delete enemys[i];
-
+	for(size_t i = 0;i<things.size();i++)
+	delete things[i];
 	obstacles.clear();
 	enemys.clear();
+	things.clear();
 
 
 	for(int i = 0;i < fileManager->GetLine();i++)
 		fileAnaylizer(fileStatementTemp[i]);
-
-	int ob_index = 0;
-	int enemy_index = 0;
-	for(size_t i = 0; i< object_type_data.size();i++)
-	{
-		switch(object_type_data[i])
-		{
-		case 0:
-		case 1:
-			Obstacle_BitmapLoader(obstacles[ob_index],object_type_data[i]);
-			ob_index ++;
-			break;
-		case 3:
-			Enemy_BitmapLoader(enemys[enemy_index],object_type_data[i]);
-			enemy_index++;
-			break;
-		}
-	}
+	Initialization(this->scroll_system,this->collision_system,this->charcter);
 }
 
 
@@ -93,10 +81,15 @@ void LevelEditor::fileAnaylizer(string source_String)
 		Obstacle *TempObstacle = new Obstacle(position_x_y[0],position_x_y[1]);
 		obstacles.push_back(TempObstacle);
 	}
-	else
+	else if(class_type == 3)
 	{
 		Enemy *TempEnemy = new Enemy(position_x_y[0],position_x_y[1]);
 		enemys.push_back(TempEnemy);
+	}
+	else if(class_type == ArmorThing)
+	{
+		Thing *TempThing = new Thing(position_x_y[0],position_x_y[1]);
+		things.push_back(TempThing);
 	}
 	//TempObstacle->LoadBitmapA("Bitmaps/block-5.bmp");
 	object_type_data.push_back((ObjectData)class_type);
@@ -127,6 +120,7 @@ void LevelEditor::Initialization(Scroll_System* scroll,Collision_System* collisi
 	this->collision_system = collisionS;
 	int ob_index = 0;
 	int enemy_index = 0;
+	int thing_index = 0;
 	for(size_t i = 0; i< object_type_data.size();i++)
 	{
 		switch(object_type_data[i])
@@ -139,6 +133,10 @@ void LevelEditor::Initialization(Scroll_System* scroll,Collision_System* collisi
 		case 3:
 			Enemy_BitmapLoader(enemys[enemy_index],object_type_data[i]);
 			enemy_index++;
+			break;
+		case 5:
+			Thing_BitmapLoader(things[thing_index],object_type_data[i]);
+			thing_index++;
 			break;
 		}
 	}
@@ -168,7 +166,17 @@ void LevelEditor::Enemy_BitmapLoader(Enemy* enemy,ObjectData obData)
 			ASSERT(1);
 	}
 }
-
+void LevelEditor::Thing_BitmapLoader(Thing* thing,ObjectData obData)
+{
+	switch(obData)
+	{
+		case ArmorThing:
+		thing->LoadBitmapA("Bitmaps/ball1.bmp",RGB(0,0,0));
+		break;
+		default:
+			ASSERT(1);
+	}
+}
 
 void LevelEditor::saveData()
 {
@@ -213,6 +221,27 @@ void LevelEditor::addEnemys(CPoint position)
 	enemys.push_back(newEnemy);
 	SystemSync();
 }
+void LevelEditor::addThings(CPoint position)
+{
+	int offset = charcter->GetX() - SIZE_X/2 +50; 
+	Thing* newThing = new Thing(position.x + offset,position.y);
+
+	string newObstaclePosition = "";
+	newObstaclePosition += int2str(classType);
+	newObstaclePosition += "@(";
+	newObstaclePosition += int2str(position.x + offset);
+	newObstaclePosition += ",";
+	newObstaclePosition += int2str(position.y);
+	newObstaclePosition += ")";
+	object_string_Data.push_back(newObstaclePosition);
+	newThing->GetX() -= offset;//顯示時需抵補回來
+
+	Thing_BitmapLoader(newThing,classType);
+	object_type_data.push_back((ObjectData)classType);
+	things.push_back(newThing);
+	SystemSync();
+
+}
 
 
 void LevelEditor::SystemSync()
@@ -221,6 +250,10 @@ void LevelEditor::SystemSync()
 	{
 		scroll_system->AddObject(obstacles[obstacles.size()-1]);
 		collision_system->Add_ObstacleCollisions(obstacles[obstacles.size()-1]);
+	}
+	else if(classType == ArmorThing)
+	{
+		scroll_system->AddObject(things[things.size()-1]);
 	}
 	else
 	{
@@ -238,14 +271,17 @@ vector<Obstacle*>* LevelEditor::GetObstaclsDatas()
 vector<Enemy*>* LevelEditor::GetEnemysDatas()
 {return &enemys;}
 
+vector<Thing*>* LevelEditor::GetThingsDatas()
+{return &things;}
+
 void LevelEditor::SetCharcterPosition(Human *charcter){}
 void LevelEditor::KeyDownChange(UINT keyin)
 {
-	const char KEY_Z  = 90; // z
-	const char KEY_X  = 88; // x
-	const char KEY_C  = 67; // c
-	const char KEY_V  = 86; // v
-	const char KEY_SPACE = 0x20;
+	const char KEY_Z  = 90; // z col
+	const char KEY_X  = 88; // x row
+	const char KEY_C  = 67; // c mushroom
+	const char KEY_V  = 86; // v Armorthing
+	const char KEY_SPACE = 0x20;// save
 	if(keyin == KEY_SPACE)
 	saveData();
 	if(keyin == KEY_Z)
@@ -254,13 +290,17 @@ void LevelEditor::KeyDownChange(UINT keyin)
 		classType = RowBlock;
 	if(keyin == KEY_C)
 		classType = MushRoom;
+	if(keyin == KEY_V)
+		classType = ArmorThing;
 }
 void LevelEditor::LMouseOnClick(bool on,CPoint position)
 {
 	if(classType < 3)
 	addObstacles(position);
-	else
+	else if(classType == MushRoom)
 	addEnemys(position);
+	else if(classType == ArmorThing)
+	addThings(position);
 }
 void LevelEditor::LMouseUpClick(bool off){}
 void LevelEditor::RMouseOnClick(bool on,CPoint position)
@@ -291,6 +331,7 @@ void LevelEditor::RMouseOnClick(bool on,CPoint position)
 	int y =  position.y;
 	int obstacle_index = 0;
 	int enemy_index = 0;
+	int thing_index = 0;
 	for(size_t i = 0;i<object_type_data.size();i++)
 	{
 		switch(object_type_data[i])
@@ -311,6 +352,14 @@ void LevelEditor::RMouseOnClick(bool on,CPoint position)
 					if(DelEnemy(i,enemy_index,x,y,offset))
 						return;
 					enemy_index++;
+				break;
+			case ArmorThing:
+				if(things.empty())
+					break;
+				if(things[enemy_index])
+					if(DelEnemy(i,thing_index,x,y,offset))
+						return;
+					thing_index++;
 				break;
 			default:
 				ASSERT(0);
@@ -352,6 +401,27 @@ bool LevelEditor::DelEnemy(int recorder_index ,int object_index,int x,int y,int 
 			   //collision_system->Del_EnemyCollisions(enemys[object_index]);
 			   //scroll_system->DelEnemy(enemys[object_index]);
 			   enemys.erase(enemys.begin()+object_index);
+			   object_type_data.erase(object_type_data.begin()+recorder_index);
+			   object_string_Data.erase(object_string_Data.begin()+recorder_index);
+			   return true;
+	}
+	return false;
+}
+
+
+bool LevelEditor::DelThing(int recorder_index ,int object_index,int x,int y,int offset)
+{
+	int width = things[object_index]->GetRect().Get_Width()+5;
+	int heigth = things[object_index]->GetRect().Get_Heigth()+5;
+	if(x <= things[object_index]->GetX() + width&&
+		y <= things[object_index]->GetY() + heigth&&
+		x >= things[object_index]->GetX()&&
+		y >= things[object_index]->GetY())
+	{
+			   //collision_system->Del_EnemyCollisions(enemys[object_index]);
+			   //scroll_system->DelEnemy(enemys[object_index]);
+			   scroll_system->DelObject(things[object_index]);
+			   things.erase(things.begin()+object_index);
 			   object_type_data.erase(object_type_data.begin()+recorder_index);
 			   object_string_Data.erase(object_string_Data.begin()+recorder_index);
 			   return true;

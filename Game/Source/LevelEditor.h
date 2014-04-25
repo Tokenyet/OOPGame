@@ -11,6 +11,7 @@ enum ObjectData
 	ColBlock = 0,//"Bitmaps/block-5.bmp"
 	RowBlock = 1,//"Bitmaps/block-4.bmp"
 	MushRoom = 3,//"Bitmaps/l_mushroom.bmp"
+	ArmorThing = 5,//"Bitmaps/ball1.bmp"
 };
 
 class LevelEditor
@@ -30,12 +31,20 @@ private:
 
 	vector<Obstacle*> obstacles;//container
 	vector<Enemy*> enemys;
+	vector<Thing*> things;
+
 	void Obstacle_BitmapLoader(Obstacle*,ObjectData);
 	void Enemy_BitmapLoader(Enemy*,ObjectData);
+	void Thing_BitmapLoader(Thing*,ObjectData);
+
 	void addObstacles(CPoint); 
 	void addEnemys(CPoint);
+	void addThings(CPoint); 
+
 	bool DelObstacle(int recorder_index,int object_index,int x,int y,int offset);
 	bool DelEnemy(int recorder_index ,int object_index,int x,int y,int offset);
+	bool DelThing(int recorder_index ,int object_index,int x,int y,int offset);
+
 	void saveData();
 	ObjectData classType;//KeyBoardSelect
 	void SystemSync();
@@ -52,6 +61,7 @@ public:
 	void Reset();
 	vector<Obstacle*>* GetObstaclsDatas();
 	vector<Enemy*>* GetEnemysDatas();
+	vector<Thing*>* GetThingsDatas();
 };
 
 string int2str(int i);
