@@ -41,7 +41,10 @@
 	{
 		for(size_t i=0;i<enemyBoxes->size();i++)
 			if((*enemyBoxes)[i]==enemy)
+			{
+				delete enemy;
 				enemyBoxes->erase(enemyBoxes->begin()+i);
+			}
 	}
 
 	void Collision_System::Load_ObstacleCollisions (vector<ICollision*>* obstacleBoxes)

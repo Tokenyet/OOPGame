@@ -98,21 +98,22 @@
 		Item->MakeOwnerBy(this);
 		myThing = Item;
 		Animation *tempAnimation = new Animation();
-		char *RWalking[5] = {"Bitmaps/R/r_walk-1.bmp","Bitmaps/R/r_walk-2.bmp","Bitmaps/R/r_walk-3.bmp","Bitmaps/R/r_walk-2.bmp","Bitmaps/R/r_walk-1.bmp"};
-		char *LWalking[5] = {"Bitmaps/L/l_walk-1.bmp","Bitmaps/L/l_walk-2.bmp","Bitmaps/L/l_walk-3.bmp","Bitmaps/L/l_walk-2.bmp","Bitmaps/L/l_walk-1.bmp"};
-		char *RJumping[2] = {"Bitmaps/R/r_jump-1.bmp","Bitmaps/R/r_jump-2.bmp"};
-		char *LJumping[2] = {"Bitmaps/L/l_jump-1.bmp","Bitmaps/L/l_jump-2.bmp"};
-		char *RAttack[4] =  {"Bitmaps/R/r_attack-1.bmp","Bitmaps/R/r_attack-2.bmp","Bitmaps/R/r_attack-3.bmp","Bitmaps/R/r_attack-4.bmp"};
-		char *LAttack[4] =  {"Bitmaps/L/l_attack-1.bmp","Bitmaps/L/l_attack-2.bmp","Bitmaps/L/l_attack-3.bmp","Bitmaps/L/l_attack-4.bmp"};
-		tempAnimation->LoadAnimation(R_Walking,LWalking,5,1);
-		tempAnimation->LoadAnimation(L_Walking,RWalking,5,1);
-		tempAnimation->LoadAnimation(R_Jumping,LJumping,2,1);
-		tempAnimation->LoadAnimation(L_Jumping,RJumping,2,1);
-		tempAnimation->LoadAnimation(R_Attacking,LAttack,4,0);
-		tempAnimation->LoadAnimation(L_Attacking,RAttack,4,0);
+		char *RWalking[2] = {"Bitmaps/R/r_walk-1ar.bmp","Bitmaps/R/r_walk-2ar.bmp"};
+		char *LWalking[2] = {"Bitmaps/L/l_walk-1ar.bmp","Bitmaps/L/l_walk-2ar.bmp"};
+		char *RJumping[2] = {"Bitmaps/R/r_jump-1ar.bmp","Bitmaps/R/r_jump-2ar.bmp"};
+		char *LJumping[2] = {"Bitmaps/L/l_jump-1ar.bmp","Bitmaps/L/l_jump-2ar.bmp"};
+		char *RAttack[4] =  {"Bitmaps/R/r_attack-1ar.bmp","Bitmaps/R/r_attack-2ar.bmp","Bitmaps/R/r_attack-3ar.bmp","Bitmaps/R/r_attack-4ar.bmp"};
+		char *LAttack[4] =  {"Bitmaps/L/l_attack-1ar.bmp","Bitmaps/L/l_attack-2ar.bmp","Bitmaps/L/l_attack-3ar.bmp","Bitmaps/L/l_attack-4ar.bmp"};
+		tempAnimation->LoadAnimation(R_Walking,RWalking,2,0);
+		tempAnimation->LoadAnimation(L_Walking,LWalking,2,0);
+		tempAnimation->LoadAnimation(R_Jumping,RJumping,2,0);
+		tempAnimation->LoadAnimation(L_Jumping,LJumping,2,0);
+		tempAnimation->LoadAnimation(R_Attacking,RAttack,4,0);
+		tempAnimation->LoadAnimation(L_Attacking,LAttack,4,0);
 		tempAnimation->StateInitialize();
 		tempAnimation->SetTopLeft(GetX(),GetY());
 		delete picture_animation;
+		setMySize(tempAnimation->Width(),tempAnimation->Height());
 		if(myThing->GetName() == "New")
 			picture_animation = tempAnimation;
 	}
