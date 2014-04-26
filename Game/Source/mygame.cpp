@@ -593,7 +593,7 @@ CGameStateRun::CGameStateRun(CGame *g)
 	enemytest = new Enemy(300,100);
 	testX = testY = 0;
 
-	thingTests = new vector<Thing*>();
+	//thingTests = new vector<Thing*>();
 	/*thingtest = new Thing(400,400);
 	thingTests->push_back(thingtest);*/
 	/*ball = new CBall [NUMBALLS];*/
@@ -619,12 +619,12 @@ CGameStateRun::~CGameStateRun()
 	for(size_t i=0;i<obstacles->size();i++)
 	delete (*obstacles)[i];
 */	
-	delete enemytest;
 
 	delete obtest;
 
 	delete rowObtest;
 
+	delete enemytest;
 //	delete charcter;
 }
 

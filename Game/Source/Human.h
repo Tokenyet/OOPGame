@@ -26,7 +26,7 @@ private:
 	Thing* myThing; 
 protected : 
 	HeadDirection head_Direction;
-	Animation picture_animation;
+	Animation *picture_animation;
 	game_framework::CMovingBitmap picture;//繼承換圖用
 	bool upRestriction,downRestriction,rightRestriction,leftRestriction; //藉由Method提供外部設定
 	int upBoundedValue,downBoundedValue,rightBoundedValue,leftBoundedValue; //Restriction true give direction臨界值

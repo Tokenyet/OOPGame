@@ -9,6 +9,11 @@
 		y= init_y;
 		owner = NULL;
 	}
+	Thing::~Thing()
+	{
+		if(owner==NULL)
+		delete owner;
+	}
 	int& Thing::GetX(){ return x;}
 	int& Thing::GetY(){ return y;}
 	void Thing::OnMove()

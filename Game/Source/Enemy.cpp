@@ -19,8 +19,8 @@
 
 	void Enemy::walking_nearby()
 	{
-		int width = picture_animation.Width();
-		picture_animation.OnMove(R_Walking);
+		int width = picture_animation->Width();
+		picture_animation->OnMove(R_Walking);
 		walk_Behavior->Walk(GetX(),GetY(),rightRestriction,leftRestriction
 			,rightBoundedValue,leftBoundedValue,1,width,head_Direction);
 		//GetX() += 5;
@@ -39,22 +39,22 @@
 		downMoving();
 	/*	if(!leftMove&&!rightMove&&!upMove&&!downMove)
 			picture_animation.Reset();*/
-		myRect.SetOriginRectangle(GetX(),GetY(),picture_animation.Width(),picture_animation.Height(),5);//SIZE_X/2-50
+		myRect.SetOriginRectangle(GetX(),GetY(),picture_animation->Width(),picture_animation->Height(),5);//SIZE_X/2-50
 	}
 	void Enemy::LoadBitmap()
 	{
 		char *RWalking[2] = {"Bitmaps/r_mushroom.bmp","Bitmaps/l_mushroom.bmp"};
 		char *LWalking[2] = {"Bitmaps/l_mushroom.bmp","Bitmaps/r_mushroom.bmp"};
 
-		picture_animation.LoadAnimation(R_Walking,RWalking,2);
-		picture_animation.LoadAnimation(L_Walking,LWalking,2);
-		picture_animation.StateInitialize();
-		picture_animation.SetTopLeft(GetX(),GetY());
+		picture_animation->LoadAnimation(R_Walking,RWalking,2);
+		picture_animation->LoadAnimation(L_Walking,LWalking,2);
+		picture_animation->StateInitialize();
+		picture_animation->SetTopLeft(GetX(),GetY());
 	}
 	void Enemy::OnShow()
 	{
-		picture_animation.SetTopLeft(GetX(),GetY());//SIZE_X/2-50
-		picture_animation.OnShow();
+		picture_animation->SetTopLeft(GetX(),GetY());//SIZE_X/2-50
+		picture_animation->OnShow();
 	}
 
 
@@ -62,5 +62,5 @@
 	{
 		myGravity_Behavior->JumpOrFall(GetY(),upRestriction,downRestriction,upBoundedValue,
 			downBoundedValue,timeRestriction,timeNow,timePast,
-			interval_time,picture_animation.Height(),false);
+			interval_time,picture_animation->Height(),false);
 	}

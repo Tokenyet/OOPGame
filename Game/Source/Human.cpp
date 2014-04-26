@@ -13,9 +13,15 @@
 		x = origin_X;
 		y = origin_Y;
 		//y = SIZE_Y/2; //Must Know My Width Of Picture
-
+		myThing = NULL;
+		picture_animation = new Animation();
 	}
-	Human::~Human()	{}
+	Human::~Human()
+	{
+		if(myThing ==NULL)
+			delete myThing;
+		delete picture_animation;
+	}
 	void Human::SetLocation(int x,int y)
 	{
 /*		this->x = (SIZE_X - picture.Width())/2;
@@ -105,9 +111,10 @@
 		tempAnimation->LoadAnimation(R_Attacking,LAttack,4,0);
 		tempAnimation->LoadAnimation(L_Attacking,RAttack,4,0);
 		tempAnimation->StateInitialize();
-		tempAnimation->SetTopLeft(x,y);
+		tempAnimation->SetTopLeft(GetX(),GetY());
+		delete picture_animation;
 		if(myThing->GetName() == "New")
-			picture_animation = *tempAnimation;
+			picture_animation = tempAnimation;
 	}
 	void Human::LoadBitmap(char * path,COLORREF RGB)//For test to side scrolling
 	{

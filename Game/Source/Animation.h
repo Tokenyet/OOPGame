@@ -22,6 +22,8 @@ private:
 	map<Animax_act,game_framework::CAnimation> animations;
 	void AddAnimation(Animax_act,string);
 public:
+	Animation();
+	~Animation();
 	void StateInitialize();
 	void SetTopLeft(int x,int y);
 	void OnShow();

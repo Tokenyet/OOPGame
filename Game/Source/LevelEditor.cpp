@@ -356,8 +356,8 @@ void LevelEditor::RMouseOnClick(bool on,CPoint position)
 			case ArmorThing:
 				if(things.empty())
 					break;
-				if(things[enemy_index])
-					if(DelEnemy(i,thing_index,x,y,offset))
+				if(things[thing_index])
+					if(DelThing(i,thing_index,x,y,offset))
 						return;
 					thing_index++;
 				break;
@@ -380,7 +380,8 @@ bool LevelEditor::DelObstacle(int recorder_index,int object_index,int x,int y,in
 			{
 			   collision_system->Del_ObstacleCollisions(obstacles[object_index]);
 			   scroll_system->DelObject(obstacles[object_index]);
-			   obstacles.erase(obstacles.begin()+object_index);
+			   delete obstacles[object_index];
+			   obstacles.erase(obstacles.begin()+object_index); 
 			   object_type_data.erase(object_type_data.begin()+recorder_index);
 			   object_string_Data.erase(object_string_Data.begin()+recorder_index);
 			   return true;
@@ -400,6 +401,7 @@ bool LevelEditor::DelEnemy(int recorder_index ,int object_index,int x,int y,int 
 	{
 			   //collision_system->Del_EnemyCollisions(enemys[object_index]);
 			   //scroll_system->DelEnemy(enemys[object_index]);
+			   delete enemys[object_index];
 			   enemys.erase(enemys.begin()+object_index);
 			   object_type_data.erase(object_type_data.begin()+recorder_index);
 			   object_string_Data.erase(object_string_Data.begin()+recorder_index);
@@ -421,6 +423,7 @@ bool LevelEditor::DelThing(int recorder_index ,int object_index,int x,int y,int 
 			   //collision_system->Del_EnemyCollisions(enemys[object_index]);
 			   //scroll_system->DelEnemy(enemys[object_index]);
 			   scroll_system->DelObject(things[object_index]);
+			   delete things[object_index];
 			   things.erase(things.begin()+object_index);
 			   object_type_data.erase(object_type_data.begin()+recorder_index);
 			   object_string_Data.erase(object_string_Data.begin()+recorder_index);

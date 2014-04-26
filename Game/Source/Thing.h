@@ -20,6 +20,7 @@ private:
 	Human *owner;
 public:
 	Thing(const int init_x,const int init_y);
+	~Thing();
 	int &GetX();
 	int &GetY();
 	void OnMove();

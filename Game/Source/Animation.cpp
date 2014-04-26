@@ -2,6 +2,10 @@
 #include "Animation.h"
 #include <string>
 
+
+Animation::Animation(){}
+Animation::~Animation(){}
+
 void Animation::StateInitialize()
 {
 	myState = R_Walking;

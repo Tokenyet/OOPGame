@@ -42,8 +42,8 @@
 			attackAnimation();
 		}
 		if(!leftMove&&!rightMove&&!upMove&&!downMove&&!attackMove)
-			picture_animation.Reset();
-		//myRect.SetOriginRectangle(SIZE_X/2-50,GetY(),picture_animation.Width(),picture_animation.Height(),5);//SIZE_X/2-50
+			picture_animation->Reset();
+		//myRect.SetOriginRectangle(SIZE_X/2-50,GetY(),picture_animation->Width(),picture_animation->Height(),5);//SIZE_X/2-50
 		myRect.SetOriginRectangle(SIZE_X/2-50,GetY(),GetWidth(),GetHeight(),5);
 	}
 	void Charcter::LoadBitmap()
@@ -55,20 +55,20 @@
 		char *RAttack[4] =  {"Bitmaps/R/r_attack-1.bmp","Bitmaps/R/r_attack-2.bmp","Bitmaps/R/r_attack-3.bmp","Bitmaps/R/r_attack-4.bmp"};
 		char *LAttack[4] =  {"Bitmaps/L/l_attack-1.bmp","Bitmaps/L/l_attack-2.bmp","Bitmaps/L/l_attack-3.bmp","Bitmaps/L/l_attack-4.bmp"};
 		
-		picture_animation.LoadAnimation(R_Walking,RWalking,5,1);
-		picture_animation.LoadAnimation(L_Walking,LWalking,5,1);
-		picture_animation.LoadAnimation(R_Jumping,RJumping,2,1);
-		picture_animation.LoadAnimation(L_Jumping,LJumping,2,1);
-		picture_animation.LoadAnimation(R_Attacking,RAttack,4,0);
-		picture_animation.LoadAnimation(L_Attacking,LAttack,4,0);
-		picture_animation.StateInitialize();
-		setMySize(picture_animation.Width(),picture_animation.Height());
-		picture_animation.SetTopLeft(GetX(),GetY());
+		picture_animation->LoadAnimation(R_Walking,RWalking,5,1);
+		picture_animation->LoadAnimation(L_Walking,LWalking,5,1);
+		picture_animation->LoadAnimation(R_Jumping,RJumping,2,1);
+		picture_animation->LoadAnimation(L_Jumping,LJumping,2,1);
+		picture_animation->LoadAnimation(R_Attacking,RAttack,4,0);
+		picture_animation->LoadAnimation(L_Attacking,LAttack,4,0);
+		picture_animation->StateInitialize();
+		setMySize(picture_animation->Width(),picture_animation->Height());
+		picture_animation->SetTopLeft(GetX(),GetY());
 	}
 	void Charcter::OnShow()
 	{
-		picture_animation.SetTopLeft(SIZE_X/2-50,GetY());//SIZE_X/2-50
-		picture_animation.OnShow();
+		picture_animation->SetTopLeft(SIZE_X/2-50,GetY());//SIZE_X/2-50
+		picture_animation->OnShow();
 	}
 	void Charcter::leftMoving()
 	{
@@ -89,7 +89,7 @@
 	{
 
 		int speed = 5;
-		int width = picture_animation.Width();
+		int width = picture_animation->Width();
 		if(getRightRestriction())
 		{
 			if(!(SIZE_X/2-50 + width>= rightBoundedValue))//SIZE_X/2-50 + width >= rightBoundedValue
@@ -138,7 +138,7 @@
 		int deltaY = gravity(0,4.4,timeNow,timePast);
 		if(deltaY < -10)
 			deltaY = -10;
-		//int height = picture_animation.Height();
+		//int height = picture_animation->Height();
 		int height = GetHeight();
 		if(getDownRestriction())
 		{
@@ -172,7 +172,7 @@
 		if(!rightMove&&gothrough)
 		{
 			head_Direction = Head_Left;
-			picture_animation.OnMove(L_Walking);
+			picture_animation->OnMove(L_Walking);
 		}
 	}
 	void Charcter::rightAnimation()
@@ -183,7 +183,7 @@
 		if(!leftMove&&gothrough)
 		{
 			head_Direction = Head_Right;
-			picture_animation.OnMove(R_Walking);
+			picture_animation->OnMove(R_Walking);
 		}
 	}
 	void Charcter::upAnimation()
@@ -192,9 +192,9 @@
 		if(attackMove)
 			gothrough = false;
 		if(head_Direction == Head_Left&&gothrough)
-			picture_animation.OnMove(L_Jumping);
+			picture_animation->OnMove(L_Jumping);
 		if(head_Direction == Head_Right&&gothrough)
-			picture_animation.OnMove(R_Jumping);
+			picture_animation->OnMove(R_Jumping);
 	}
 	void Charcter::downAnimation()
 	{
@@ -206,9 +206,9 @@
 			if(!isOnGround)
 			{
 				if(head_Direction == Head_Left)
-					picture_animation.OnMove(L_Jumping);
+					picture_animation->OnMove(L_Jumping);
 				if(head_Direction == Head_Right)
-					picture_animation.OnMove(R_Jumping);
+					picture_animation->OnMove(R_Jumping);
 			}
 			else
 			{
@@ -216,18 +216,18 @@
 				if(isOnGround&&!attackMove)
 					check = true;
 				if(head_Direction == Head_Left&&check)
-					picture_animation.OnMove(L_Walking);
+					picture_animation->OnMove(L_Walking);
 				if(head_Direction == Head_Right&&check)
-					picture_animation.OnMove(R_Walking);
+					picture_animation->OnMove(R_Walking);
 			}
 		}
 	}
 	void Charcter::attackAnimation()
 	{
 			if(head_Direction == Head_Left)
-				picture_animation.OnMove(L_Attacking);
+				picture_animation->OnMove(L_Attacking);
 			if(head_Direction == Head_Right)
-				picture_animation.OnMove(R_Attacking);
+				picture_animation->OnMove(R_Attacking);
 	}
 
 

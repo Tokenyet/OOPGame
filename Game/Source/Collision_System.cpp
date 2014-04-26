@@ -87,16 +87,20 @@
 		for(size_t i=0;i<heroBoxes.size();i++)
 			for(size_t j = 0;j<thingBoxes->size();j++)
 			{
-				checkHuman_ThingCollision(heroBoxes[i],(*thingBoxes)[j]);
+				if(!(*thingBoxes)[j]->HasOwner())
+					checkHuman_ThingCollision(heroBoxes[i],(*thingBoxes)[j]);
 			}
 	}
-	void Collision_System::checkHuman_ThingCollision(Human* humanBox,Thing* thingBox)
+	bool Collision_System::checkHuman_ThingCollision(Human* humanBox,Thing* thingBox)
 	{
 		CRectangle charcterBody = humanBox->GetRect().GetOriginRect();
 		CRectangle thingBody = thingBox->GetRect();
 		if(charcterBody.Intersect(thingBody))
 			if(!thingBox->HasOwner())
+			{
 				humanBox->AddThing(thingBox);//不做多餘事!!!
+			}
+		return false;
 	}
 
 	void Collision_System::checkHuman_ObstacleWhereCollision(Human* humanBox,ICollision* obstacleBox)
