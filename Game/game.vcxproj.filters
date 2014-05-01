@@ -80,6 +80,12 @@
     <ClCompile Include="Source\Inventory.cpp">
       <Filter>GameClass\HumanElements</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ArrowBox.cpp">
+      <Filter>GameClass\DynamicObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Archer.cpp">
+      <Filter>GameClass\HumanElements\Hero</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\mygame.h" />
@@ -172,6 +178,12 @@
     </ClInclude>
     <ClInclude Include="Source\Inventory.h">
       <Filter>GameClass\HumanElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ArrowBox.h">
+      <Filter>GameClass\DynamicObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Archer.h">
+      <Filter>GameClass\HumanElements\Hero</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -302,6 +314,9 @@
     </Filter>
     <Filter Include="GameClass\HumanElements\Enemy">
       <UniqueIdentifier>{88d9faf1-a8e4-4eec-9a77-feed8538ea02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClass\DynamicObjects">
+      <UniqueIdentifier>{e32852f3-e324-44e8-98ea-791ed2be6e8f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

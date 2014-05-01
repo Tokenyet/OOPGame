@@ -242,3 +242,7 @@
 		this->x = origin_X;
 		this->y = origin_Y;
 	}
+	string Human::WhatMyPoisition()
+	{
+		return "Human";
+	}

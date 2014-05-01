@@ -47,6 +47,7 @@ public:
 	int &GetY();
 	int GetWidth();
 	int GetHeight();
+	virtual void LoadBitmap();
 	virtual void LoadBitmap(char * path,COLORREF RGB);//For test to side scrolling
 	void KeyDownDetect(UINT keyin);
 	void KeyUpDetect(UINT keyin);
@@ -68,6 +69,9 @@ public:
 	bool getLeftRestriction();
 	void ResetRestriction();
 	void Reset();
+	virtual bool GetAttacking();
+	virtual bool GetRestartGame();
+	virtual string WhatMyPoisition();
 	///Dynamic///
 	/*bool& setUpRestriction(int bounded_Up,int speed);
 	bool& setDownRestriction(int bounded_Down,int speed);

@@ -1,8 +1,8 @@
 #include "StdAfx.h"
-#include "Charcter.h"
+#include "Archer.h"
 #include "audio.h"
 
-	Charcter::Charcter():Human(SIZE_X/2-50,0)
+	Archer::Archer():Human(SIZE_X/2-50,0)
 	{
 		head_Direction = Head_Right;
 		upMove = downMove = rightMove = leftMove = false;
@@ -14,7 +14,7 @@
 		resetTimeParameter(true);
 		//g = 10;
 	}
-	void Charcter::OnMove()
+	void Archer::OnMove()
 	{
 		if (leftMove)
 		{
@@ -46,31 +46,31 @@
 		//myRect.SetOriginRectangle(SIZE_X/2-50,GetY(),picture_animation->Width(),picture_animation->Height(),5);//SIZE_X/2-50
 		myRect.SetOriginRectangle(SIZE_X/2-50,GetY(),GetWidth(),GetHeight(),5);
 	}
-	void Charcter::LoadBitmap()
+	void Archer::LoadBitmap()
 	{
-		char *RWalking[5] = {"Bitmaps/R/r_walk-1.bmp","Bitmaps/R/r_walk-2.bmp","Bitmaps/R/r_walk-3.bmp","Bitmaps/R/r_walk-2.bmp","Bitmaps/R/r_walk-1.bmp"};
-		char *LWalking[5] = {"Bitmaps/L/l_walk-1.bmp","Bitmaps/L/l_walk-2.bmp","Bitmaps/L/l_walk-3.bmp","Bitmaps/L/l_walk-2.bmp","Bitmaps/L/l_walk-1.bmp"};
-		char *RJumping[2] = {"Bitmaps/R/r_jump-1.bmp","Bitmaps/R/r_jump-2.bmp"};
-		char *LJumping[2] = {"Bitmaps/L/l_jump-1.bmp","Bitmaps/L/l_jump-2.bmp"};
-		char *RAttack[4] =  {"Bitmaps/R/r_attack-1.bmp","Bitmaps/R/r_attack-2.bmp","Bitmaps/R/r_attack-3.bmp","Bitmaps/R/r_attack-4.bmp"};
-		char *LAttack[4] =  {"Bitmaps/L/l_attack-1.bmp","Bitmaps/L/l_attack-2.bmp","Bitmaps/L/l_attack-3.bmp","Bitmaps/L/l_attack-4.bmp"};
-		
-		picture_animation->LoadAnimation(R_Walking,RWalking,5,1);
-		picture_animation->LoadAnimation(L_Walking,LWalking,5,1);
-		picture_animation->LoadAnimation(R_Jumping,RJumping,2,1);
-		picture_animation->LoadAnimation(L_Jumping,LJumping,2,1);
+		char *RWalking[2] = {"Bitmaps/R/r_walk-1ar.bmp","Bitmaps/R/r_walk-2ar.bmp"};
+		char *LWalking[2] = {"Bitmaps/L/l_walk-1ar.bmp","Bitmaps/L/l_walk-2ar.bmp"};
+		char *RJumping[2] = {"Bitmaps/R/r_jump-1ar.bmp","Bitmaps/R/r_jump-2ar.bmp"};
+		char *LJumping[2] = {"Bitmaps/L/l_jump-1ar.bmp","Bitmaps/L/l_jump-2ar.bmp"};
+		char *RAttack[4] =  {"Bitmaps/R/r_attack-1ar.bmp","Bitmaps/R/r_attack-2ar.bmp","Bitmaps/R/r_attack-3ar.bmp","Bitmaps/R/r_attack-4ar.bmp"};
+		char *LAttack[4] =  {"Bitmaps/L/l_attack-1ar.bmp","Bitmaps/L/l_attack-2ar.bmp","Bitmaps/L/l_attack-3ar.bmp","Bitmaps/L/l_attack-4ar.bmp"};
+
+		picture_animation->LoadAnimation(R_Walking,RWalking,2,0);
+		picture_animation->LoadAnimation(L_Walking,LWalking,2,0);
+		picture_animation->LoadAnimation(R_Jumping,RJumping,2,0);
+		picture_animation->LoadAnimation(L_Jumping,LJumping,2,0);
 		picture_animation->LoadAnimation(R_Attacking,RAttack,4,0);
 		picture_animation->LoadAnimation(L_Attacking,LAttack,4,0);
 		picture_animation->StateInitialize();
 		setMySize(picture_animation->Width(),picture_animation->Height());
 		picture_animation->SetTopLeft(GetX(),GetY());
 	}
-	void Charcter::OnShow()
+	void Archer::OnShow()
 	{
 		picture_animation->SetTopLeft(SIZE_X/2-50,GetY());//SIZE_X/2-50
 		picture_animation->OnShow();
 	}
-	void Charcter::leftMoving()
+	void Archer::leftMoving()
 	{
 		rightRestriction = false;
 		int speed = 5;
@@ -85,7 +85,7 @@
 			/*else
 				x -= speed;*/
 	}
-	void Charcter::rightMoving()
+	void Archer::rightMoving()
 	{
 
 		int speed = 5;
@@ -101,7 +101,7 @@
 			/*else
 				x += speed;*/
 	}
-	void Charcter::upMoving()
+	void Archer::upMoving()
 	{
 		jumpUptimeParameter();
 		//int speed = 5;
@@ -131,7 +131,7 @@
 	/*		else
 				y -= speed;*/
 	}
-	void Charcter::downMoving()
+	void Archer::downMoving()
 	{
 		timeNow+= interval_time;
 		int speed = 5;
@@ -161,10 +161,10 @@
 		}
 		timePast = timeNow;
 	}
-	void Charcter::attackMoving()
+	void Archer::attackMoving()
 	{
 	}
-	void Charcter::leftAnimation()
+	void Archer::leftAnimation()
 	{	
 		bool gothrough = true;
 		if(attackMove)
@@ -175,7 +175,7 @@
 			picture_animation->OnMove(L_Walking);
 		}
 	}
-	void Charcter::rightAnimation()
+	void Archer::rightAnimation()
 	{
 		bool gothrough = true;
 		if(attackMove)
@@ -186,7 +186,7 @@
 			picture_animation->OnMove(R_Walking);
 		}
 	}
-	void Charcter::upAnimation()
+	void Archer::upAnimation()
 	{
 		bool gothrough = true;
 		if(attackMove)
@@ -196,7 +196,7 @@
 		if(head_Direction == Head_Right&&gothrough)
 			picture_animation->OnMove(R_Jumping);
 	}
-	void Charcter::downAnimation()
+	void Archer::downAnimation()
 	{
 		bool gothrough = true;
 		if(attackMove)
@@ -222,7 +222,7 @@
 			}
 		}
 	}
-	void Charcter::attackAnimation()
+	void Archer::attackAnimation()
 	{
 			if(head_Direction == Head_Left)
 				picture_animation->OnMove(L_Attacking);
@@ -233,7 +233,7 @@
 
 
 
-	void Charcter::jumpUptimeParameter()
+	void Archer::jumpUptimeParameter()
 	{
 		if(timeUpLimit > interval_time * 15)
 			timeUpLimit = interval_time * 15;
@@ -251,19 +251,19 @@
 			isOnSky = false;
 		}
 	}
-	void Charcter::resetTimeParameter(bool JumpOrFall)
+	void Archer::resetTimeParameter(bool JumpOrFall)
 	{
 		timeNow = timePast  = 0;
 		timeUpLimit = interval_time * 10;
 	}
-	int Charcter::gravity(double Vo,double g,double Time,double PriTime)
+	int Archer::gravity(double Vo,double g,double Time,double PriTime)
     {
 		double delta_t = Time-PriTime;
         int GravityX = 0;
         GravityX = (int)((Vo * delta_t) - (g / 2) *((Time * Time)-(PriTime*PriTime)));
         return GravityX;
     }
-	bool Charcter::dojump()
+	bool Archer::dojump()
 	{
 		if(isOnGround&&upMove)
 		{
@@ -280,18 +280,19 @@
 	}
 
 
-	bool Charcter::GetAttacking()
+	bool Archer::GetAttacking()
 	{
 		return attackMove;
 	}
-	bool Charcter::GetRestartGame()
+	bool Archer::GetRestartGame()
 	{
 		if(GetY() > SIZE_Y)
 			return true;
 		return false;
 	}
 
-	string Charcter::WhatMyPoisition()
+	
+	string Archer::WhatMyPoisition()
 	{
-		return "Sword";
+		return "Archer";
 	}

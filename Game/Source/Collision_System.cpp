@@ -19,8 +19,8 @@
 			delete (*enemyBoxes)[i];*/
 		/*for(size_t i = 0;i< obstacleBoxes->size();i++)
 			delete (*obstacleBoxes)[i];*/
-		for(size_t i = 0;i< bulletBoxes.size();i++)
-			delete bulletBoxes[i];
+		for(size_t i = 0;i< arrowBoxes.size();i++)
+			delete arrowBoxes[i];
 	}
 	void Collision_System::OnCheck()
 	{

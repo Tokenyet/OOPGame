@@ -1,9 +1,9 @@
-#ifndef CHARCTER_H
-#define CHARCTER_H
+#ifndef ARCHER_H
+#define ARCHER_H
 #include "StdAfx.h"
 #include "Human.h"
 
-class Charcter : public Human
+class Archer : public Human
 {
 private :
 	double interval_time;
@@ -26,7 +26,7 @@ protected:
 	void attackMoving();
 	void attackAnimation();
 public:
-	Charcter();
+	Archer();
 	void OnMove();
 	void OnShow();
 	void LoadBitmap();

@@ -260,6 +260,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Animation.cpp" />
+    <ClCompile Include="Source\Archer.cpp" />
+    <ClCompile Include="Source\ArrowBox.cpp" />
     <ClCompile Include="Source\audio.cpp" />
     <ClCompile Include="Source\Bounding_Obs.cpp" />
     <ClCompile Include="Source\Charcter.cpp" />
@@ -323,6 +325,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation.h" />
+    <ClInclude Include="Source\Archer.h" />
+    <ClInclude Include="Source\ArrowBox.h" />
     <ClInclude Include="Source\audio.h" />
     <ClInclude Include="Source\Bounding_Obs.h" />
     <ClInclude Include="Source\Charcter.h" />
