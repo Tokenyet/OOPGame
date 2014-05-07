@@ -83,8 +83,11 @@
     <ClCompile Include="Source\ArrowBox.cpp">
       <Filter>GameClass\DynamicObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Archer.cpp">
-      <Filter>GameClass\HumanElements\Hero</Filter>
+    <ClCompile Include="Source\Gravity.cpp">
+      <Filter>GameClass\Gravity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\IRoleType.cpp">
+      <Filter>GameClass\Interface\IRoleType</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -182,8 +185,11 @@
     <ClInclude Include="Source\ArrowBox.h">
       <Filter>GameClass\DynamicObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Archer.h">
-      <Filter>GameClass\HumanElements\Hero</Filter>
+    <ClInclude Include="Source\Gravity.h">
+      <Filter>GameClass\Gravity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IRoleType.h">
+      <Filter>GameClass\Interface\IRoleType</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -317,6 +323,12 @@
     </Filter>
     <Filter Include="GameClass\DynamicObjects">
       <UniqueIdentifier>{e32852f3-e324-44e8-98ea-791ed2be6e8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClass\Interface\IRoleType">
+      <UniqueIdentifier>{b6e2018f-7c81-49db-909b-51d91be8b21a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClass\Gravity">
+      <UniqueIdentifier>{3d6474b2-f62f-413a-80a5-8bda60e35d03}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

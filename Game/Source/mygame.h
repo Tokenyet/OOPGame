@@ -252,7 +252,7 @@ private:
 
 	Obstacle *obtest;
 	Obstacle *rowObtest;
-	Human *charcter;
+	Charcter *charcter;
 	//ScreenMap screenMap;
 	Scroll_System scroll_System;
 	Collision_System collision_System;

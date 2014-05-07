@@ -13,8 +13,8 @@
 	Collision_System::Collision_System(){}
 	Collision_System::~Collision_System()
 	{
-		for(size_t i = 0;i< heroBoxes.size();i++)
-			delete heroBoxes[i];
+		/*for(size_t i = 0;i< heroBoxes.size();i++)
+			delete heroBoxes[i];*/
 	/*	for(size_t i = 0;i< enemyBoxes->size();i++)
 			delete (*enemyBoxes)[i];*/
 		/*for(size_t i = 0;i< obstacleBoxes->size();i++)
@@ -58,7 +58,7 @@
 				(*obstacleBoxes).erase((*obstacleBoxes).begin()+i);
 	}
 	void Collision_System::Load_bulletCollisions (vector<ICollision*> bulletBoxes)
-	{this->bulletBoxes = bulletBoxes;}
+	{/*this->bulletBoxes = bulletBoxes;*/}
 
 	//檢查與設定物體人物(Human)碰撞位置
 	void Collision_System::checkHuman_Obstacle()

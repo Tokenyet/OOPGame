@@ -117,6 +117,7 @@
 		if(myThing->GetName() == "New")
 			picture_animation = tempAnimation;
 	}
+	void Human::LoadBitmap(){}
 	void Human::LoadBitmap(char * path,COLORREF RGB)//For test to side scrolling
 	{
 		picture.LoadBitmapA(path,RGB);
@@ -242,7 +243,11 @@
 		this->x = origin_X;
 		this->y = origin_Y;
 	}
+	bool Human::GetAttacking(){return false;}
+	bool Human::GetRestartGame(){return false;}
 	string Human::WhatMyPoisition()
 	{
 		return "Human";
 	}
+
+	HeadDirection Human::GetHeadDirection(){return head_Direction;}

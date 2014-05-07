@@ -601,6 +601,7 @@ CGameStateRun::CGameStateRun(CGame *g)
 
 CGameStateRun::~CGameStateRun()
 {
+	delete charcter;
 	iperforms_obs.clear();
 	icollisions_obs.clear();
 	humans.clear();
@@ -625,7 +626,7 @@ CGameStateRun::~CGameStateRun()
 	delete rowObtest;
 
 	delete enemytest;
-//	delete charcter;
+
 }
 
 void CGameStateRun::OnBeginState()

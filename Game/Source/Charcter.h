@@ -2,18 +2,14 @@
 #define CHARCTER_H
 #include "StdAfx.h"
 #include "Human.h"
+#include "Gravity.h"
+#include "IRoleType.h"
 
 class Charcter : public Human
 {
 private :
-	double interval_time;
-	double timeUpLimit;
-	double timeNow,timePast;
-	void resetTimeParameter(bool JumpOrFall);
-	int gravity(double Vo,double g,double Time,double PriTime);
-	void jumpUptimeParameter();
-	bool isOnGround,isOnSky,isKeepUpMove;
-	bool dojump();
+	Gravity *myGravity;
+	IRoleType *myType;
 protected:
 	void leftMoving();
 	void leftAnimation();
@@ -27,6 +23,7 @@ protected:
 	void attackAnimation();
 public:
 	Charcter();
+	~Charcter();
 	void OnMove();
 	void OnShow();
 	void LoadBitmap();
