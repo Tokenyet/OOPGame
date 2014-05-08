@@ -57,7 +57,7 @@
 			nextMap->GetY()++;
 			offset_Heigth ++;
 		}
-		if (downMove&&!GetBottomRestriction())
+		if (!upMove&&!GetBottomRestriction())
 		{
 			pastMap -> GetY()--;
 			currentMap->GetY()--;

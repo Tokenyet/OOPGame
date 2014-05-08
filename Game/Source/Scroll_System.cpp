@@ -141,7 +141,7 @@
 			object_Right(locations[i]);*/
 		if (upMove)
 			object_Up((*locations)[i]);
-		if (downMove)
+		if (!upMove)
 			object_Down((*locations)[i]);
 		object_Right((*locations)[i]);
 		(*locations)[i] ->OnMove();
@@ -160,7 +160,7 @@
 			(*enemys)[i]->GetX() -= 5;
 		if (upMove)
 			(*enemys)[i]-> GetY()++;
-		if (downMove)
+		if (!upMove)
 			(*enemys)[i] -> GetY()--;
 		}
 	}
@@ -177,7 +177,7 @@
 			(*arrowBoxes)[i]->GetX() -= 5;
 		if (upMove)
 			(*arrowBoxes)[i]-> GetY()++;
-		if (downMove)
+		if (!upMove)
 			(*arrowBoxes)[i] -> GetY()--;
 		}
 	}
