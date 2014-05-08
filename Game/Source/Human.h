@@ -71,7 +71,7 @@ public:
 	void Reset();
 	virtual bool GetAttacking();
 	virtual bool GetRestartGame();
-	virtual string WhatMyPoisition();
+	virtual int MyType();
 	HeadDirection GetHeadDirection();
 	///Dynamic///
 	/*bool& setUpRestriction(int bounded_Up,int speed);

@@ -15,7 +15,7 @@ private:
 	vector<Enemy*> *enemyBoxes;
 	vector<Thing*> *thingBoxes;
 	vector<ICollision*> *obstacleBoxes;
-	vector<ArrowBox*> arrowBoxes;
+	vector<ArrowBox*> *arrowBoxes;
 	void checkHuman_Obstacle();
 	void checkEnemy_Obstacle();
 	void checkHuman_Thing();
@@ -27,8 +27,8 @@ private:
 	bool checkHuman_ThingCollision(Human* humanBoxes,Thing* obstacleBoxes);
 	bool checkHuman_EnemyCollision(Human* charcter,Human* enemy);
 	void resetHuman_Collision(ICollision* resetBoxes);
-	void checkArrow_ObstacleCollision(ICollision* obstacleBoxes,ArrowBox arrowBox);
-	void checkArrow_EnemyCollision(Human* humanBoxes,ArrowBox arrowBox);
+	bool checkArrow_ObstacleCollision(ICollision* obstacleBoxes,ArrowBox *arrowBox);
+	bool checkArrow_EnemyCollision(Human* humanBoxes,ArrowBox *arrowBox);
 
 public:
 	Collision_System();

@@ -301,6 +301,7 @@
     <ClCompile Include="Source\Obstacle.cpp" />
     <ClCompile Include="Source\ScreenMap.cpp" />
     <ClCompile Include="Source\Scroll_System.cpp" />
+    <ClCompile Include="Source\SkillSets.cpp" />
     <ClCompile Include="Source\StdAfx.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -355,6 +356,7 @@
     <ClInclude Include="Source\Resource.h" />
     <ClInclude Include="Source\ScreenMap.h" />
     <ClInclude Include="Source\Scroll_System.h" />
+    <ClInclude Include="Source\SkillSets.h" />
     <ClInclude Include="Source\StdAfx.h" />
     <ClInclude Include="Source\gamelib.h" />
     <ClInclude Include="Source\mygame.h" />

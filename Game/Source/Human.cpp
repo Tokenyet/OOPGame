@@ -5,6 +5,7 @@
 #include "IPerform.h"
 #include "Human.h"
 #include "Bounding_Obs.h"
+#include "IRoleType.h"
 
 	Human::Human(int initial_X,int initial_Y):origin_X(initial_X),origin_Y(initial_Y)
 	{
@@ -245,9 +246,9 @@
 	}
 	bool Human::GetAttacking(){return false;}
 	bool Human::GetRestartGame(){return false;}
-	string Human::WhatMyPoisition()
+	int Human::MyType()
 	{
-		return "Human";
+		return Type_Null;
 	}
 
 	HeadDirection Human::GetHeadDirection(){return head_Direction;}

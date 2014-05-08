@@ -89,6 +89,9 @@
     <ClCompile Include="Source\IRoleType.cpp">
       <Filter>GameClass\Interface\IRoleType</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SkillSets.cpp">
+      <Filter>GameClass\SkillSets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\mygame.h" />
@@ -190,6 +193,9 @@
     </ClInclude>
     <ClInclude Include="Source\IRoleType.h">
       <Filter>GameClass\Interface\IRoleType</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SkillSets.h">
+      <Filter>GameClass\SkillSets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -329,6 +335,9 @@
     </Filter>
     <Filter Include="GameClass\Gravity">
       <UniqueIdentifier>{3d6474b2-f62f-413a-80a5-8bda60e35d03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClass\SkillSets">
+      <UniqueIdentifier>{f95ca87f-b684-4d3c-a19a-45c7224c572d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

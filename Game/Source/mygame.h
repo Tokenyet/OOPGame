@@ -57,6 +57,7 @@
 #include "Charcter.h"
 #include "LevelEditor.h"
 #include "Enemy.h"
+#include "SkillSets.h"
 
 enum AUDIO_ID {				// 定義各種音效的編號
 	AUDIO_DING,				// 0
@@ -249,6 +250,8 @@ private:
 	vector<Thing*> *thingTests;
 	Thing * thingtest;
 
+	vector<ArrowBox*> arrowBoxes;
+	SkillSets skillSets;
 
 	Obstacle *obtest;
 	Obstacle *rowObtest;

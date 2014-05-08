@@ -19,8 +19,8 @@
 			delete (*enemyBoxes)[i];*/
 		/*for(size_t i = 0;i< obstacleBoxes->size();i++)
 			delete (*obstacleBoxes)[i];*/
-		for(size_t i = 0;i< arrowBoxes.size();i++)
-			delete arrowBoxes[i];
+		for(size_t i = 0;i< arrowBoxes->size();i++)
+			delete (*arrowBoxes)[i];
 	}
 	void Collision_System::OnCheck()
 	{
@@ -28,6 +28,8 @@
 		checkEnemy_Obstacle();
 		checkHuman_AttackEnemy();
 		checkHuman_Thing();
+		checkArrow_Obstacle();
+		checkArrow_Enemy();
 	}
 	void Collision_System::Load_HeroCollisions (vector<Human*> heroBoxes)
 	{this->heroBoxes = heroBoxes;}
@@ -57,8 +59,10 @@
 			if((*obstacleBoxes)[i]==obstacle)
 				(*obstacleBoxes).erase((*obstacleBoxes).begin()+i);
 	}
-	void Collision_System::Load_bulletCollisions (vector<ICollision*> bulletBoxes)
-	{/*this->bulletBoxes = bulletBoxes;*/}
+	void Collision_System::Load_ArrowCollisions(vector<ArrowBox*>* arrowBoxes)
+	{
+		this->arrowBoxes = arrowBoxes;
+	}
 
 	//檢查與設定物體人物(Human)碰撞位置
 	void Collision_System::checkHuman_Obstacle()
@@ -94,6 +98,40 @@
 					checkHuman_ThingCollision(heroBoxes[i],(*thingBoxes)[j]);
 			}
 	}
+	void Collision_System::checkArrow_Obstacle()
+	{
+		for(size_t i=0;i<arrowBoxes->size();i++)
+			for(size_t j = 0;j<obstacleBoxes->size();j++)
+			{
+				if(checkArrow_ObstacleCollision((*obstacleBoxes)[j],(*arrowBoxes)[i]))
+				{
+					ArrowBox* arrow = (*arrowBoxes)[i];
+					arrowBoxes->erase(arrowBoxes->begin()+i);
+					delete arrow;
+					return;
+				}
+			}
+	}
+
+	void Collision_System::checkArrow_Enemy()
+	{
+		for(size_t i=0;i<arrowBoxes->size();i++)
+			for(size_t j = 0;j<enemyBoxes->size();j++)
+			{
+				if(checkArrow_EnemyCollision((*enemyBoxes)[j],(*arrowBoxes)[i]))
+				{
+					ArrowBox* arrow = (*arrowBoxes)[i];
+					arrowBoxes->erase(arrowBoxes->begin()+i);
+					delete arrow;
+					Enemy* enemy = (*enemyBoxes)[j];
+					enemyBoxes->erase(enemyBoxes->begin()+j);
+					delete enemy;
+					return;
+				}
+			}
+	}
+
+
 	bool Collision_System::checkHuman_ThingCollision(Human* humanBox,Thing* thingBox)
 	{
 		CRectangle charcterBody = humanBox->GetRect().GetOriginRect();
@@ -178,6 +216,32 @@
 		}
 		return false;
 	}
+
+	bool Collision_System::checkArrow_ObstacleCollision(ICollision* obstacleBoxes,ArrowBox* arrowBox)
+	{
+		CRectangle obstacleBody = obstacleBoxes->GetRect();
+		CRectangle arrowBody = arrowBox->GetRect();
+		bool intersect = arrowBody.Intersect(obstacleBody);
+		if(intersect)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	bool Collision_System::checkArrow_EnemyCollision(Human* humanBoxes,ArrowBox *arrowBox)
+	{
+		CRectangle enemyBody = humanBoxes->GetRect().GetOriginRect();
+		CRectangle arrowBody = arrowBox->GetRect();
+		bool intersect = arrowBody.Intersect(enemyBody);
+		if(intersect)
+		{
+			return true;
+		}
+		return false;
+	}
+
+
 	/*
 	void Collision_System::resetHuman_Collision(ICollision* resetBoxes)
 	{

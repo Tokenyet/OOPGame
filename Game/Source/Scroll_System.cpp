@@ -81,6 +81,11 @@
 			this->enemys->push_back((*enemys)[i]);
 	}
 
+	void Scroll_System::LoadArrows(vector<ArrowBox*>* arrowBoxes)
+	{
+		this->arrowBoxes = arrowBoxes;
+	}
+
 	void Scroll_System::KeyDownUpdate(UINT keyin)
 	{
 		const char KEY_LEFT  = 0x25; // keyboard¥ª½bÀY
@@ -121,6 +126,7 @@
 	{
 		enemy_Sync_Move();
 		object_Sync_Move();
+		arrow_Sync_Move();
 		screenMap.SetCharcterUpRestriction(charcter->getUpRestriction());
 		screenMap.SetCharcterDownRestriction(charcter->getDownRestriction());
 		screenMap.OnMove();
@@ -158,6 +164,24 @@
 			(*enemys)[i] -> GetY()--;
 		}
 	}
+
+	void Scroll_System::arrow_Sync_Move()
+	{
+		bool right_restriction = charcter->getRightRestriction();
+		bool left_restriction = charcter->getLeftRestriction();
+		for(size_t i = 0;i<arrowBoxes->size();i++)
+		{
+		if (leftMove&&!left_restriction)
+			(*arrowBoxes)[i]->GetX() += 5;
+		if (rightMove&&!right_restriction)
+			(*arrowBoxes)[i]->GetX() -= 5;
+		if (upMove)
+			(*arrowBoxes)[i]-> GetY()++;
+		if (downMove)
+			(*arrowBoxes)[i] -> GetY()--;
+		}
+	}
+
 
 	void Scroll_System::object_Up(IPerform* object)
 	{

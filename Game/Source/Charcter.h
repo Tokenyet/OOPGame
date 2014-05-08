@@ -29,6 +29,6 @@ public:
 	void LoadBitmap();
 	bool GetAttacking();
 	bool GetRestartGame();
-	string WhatMyPoisition();
+	int MyType();
 };
 #endif

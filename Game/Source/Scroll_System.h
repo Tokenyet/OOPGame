@@ -7,17 +7,20 @@
 #include "ScreenMap.h"
 #include <vector>
 #include "Enemy.h"
+#include "ArrowBox.h"
 class Scroll_System
 {
 private:
 	vector<Map> maps;
 	vector<IPerform*> *locations;
 	vector<Enemy*> *enemys;
+	vector<ArrowBox*>* arrowBoxes;
 	ScreenMap screenMap;
 	Human* charcter;
 	int windows_X,windows_Y;
 	void object_Sync_Move();
 	void enemy_Sync_Move();
+	void arrow_Sync_Move();
 	bool upMove,downMove,rightMove,leftMove;
 	void mapSettingInitialize();
 	void object_Up(IPerform*);
@@ -37,6 +40,7 @@ public:
 	void DelEnemy(Enemy *enemy);
 	void LoadEnemy(vector<Enemy*> *enemys);
 	void AddEnemy(vector<Enemy*> *enemys);
+	void LoadArrows(vector<ArrowBox*>* arrowBoxes);
 	void KeyDownUpdate(UINT keyin);
 	void KeyUpUpdate(UINT keyin);
 	void OnShowMap();

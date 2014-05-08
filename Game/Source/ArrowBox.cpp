@@ -12,9 +12,9 @@
 	void ArrowBox::LoadBitmap(HeadDirection head)
 	{
 		if(head == Head_Left)
-			picture.LoadBitmapA("Bitmaps/L/l_arror-1");
+			picture.LoadBitmapA("Bitmaps/L/l_arror-1.bmp",RGB(0,0,0));
 		else if (head == Head_Right)
-			picture.LoadBitmapA("Bitmaps/R/r_arror-1");
+			picture.LoadBitmapA("Bitmaps/R/r_arror-1.bmp",RGB(0,0,0));
 		myRect.SetRectangle(x,y,picture.Width(),picture.Height());
 	}
 	void ArrowBox::LoadBitmap(char * path)
@@ -28,6 +28,11 @@
 	}
 	void ArrowBox::OnMove()
 	{
+		if(head == Head_Left)
+		GetX()-= 10; 
+		else
+		GetX()+= 10; 
+
 		if(!picture.isBitmapLoaded)
 			ASSERT(0);
 		picture.SetTopLeft(x,y);

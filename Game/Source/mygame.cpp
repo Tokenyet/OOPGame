@@ -73,6 +73,8 @@
 #include "Human.h"
 #include "Charcter.h"
 #include "LevelEditor.h"
+#include "SkillSets.h"
+
 
 namespace game_framework {
 
@@ -717,7 +719,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	map.SetMapLocation(0,testY);*/
 	//screenMap.OnMove();
 	//obtest->OnMove();
-
+	
+	skillSets.OnMove();
 	collision_System.OnCheck();
 	/*charcter->OnMove();
 	enemytest->OnMove();*/
@@ -727,6 +730,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		humans[i]->OnMove();
 	for(size_t i = 0;i<thingTests->size();i++)
 		(*thingTests)[i]->OnMove();
+	for(size_t i = 0;i<arrowBoxes.size();i++)
+		arrowBoxes[i]->OnMove();
 	scroll_System.OnMove();
 	/*charcter->ResetRestriction();
 	enemytest->ResetRestriction();*/
@@ -782,6 +787,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	rowObtest->LoadBitmap("Bitmaps/block-4.bmp");
 	//enemytest->LoadBitmapA();
 	charcter->LoadBitmapA();
+	skillSets.Initialization(charcter,&arrowBoxes);
 	level_Editor.Initialization(&scroll_System,&collision_System,charcter);
 	vector<Obstacle*> *data_Obstacle = level_Editor.GetObstaclsDatas();
 	for(size_t i = 0;i<data_Obstacle->size();i++)
@@ -802,7 +808,9 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	collision_System.Load_EnemyCollisions(enemys);
 	collision_System.Load_HeroCollisions(humans);
 	collision_System.Load_ObstacleCollisions(&icollisions_obs);
+	collision_System.Load_ArrowCollisions(&arrowBoxes);
 	scroll_System.LoadEnemy(enemys);
+	scroll_System.LoadArrows(&arrowBoxes);
 	//scroll_System.AddEnemy(enemytest);
 	/*scroll_System.AddEnemy(enemys);*/
 	scroll_System.Initialize(&iperforms_obs);
@@ -950,6 +958,9 @@ void CGameStateRun::OnShow()
 		humans[i]->OnShow();
 	for(size_t i = 0;i<thingTests->size();i++)
 		(*thingTests)[i]->OnShow();
+	for(size_t i = 0;i<arrowBoxes.size();i++)
+		arrowBoxes[i]->OnShow();
+	
 	/*charcter->OnShow();
 	enemytest->OnShow();*/
 }
