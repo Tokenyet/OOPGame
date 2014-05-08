@@ -294,13 +294,26 @@ void LevelEditor::KeyDownChange(UINT keyin)
 		classType = ArmorThing;
 }
 void LevelEditor::LMouseOnClick(bool on,CPoint position)
-{
+{	
+
+	int offset = (charcter->GetX() - SIZE_X/2 +50); 
+	if(offset > 0)
+		offset%=32;
+	else
+		offset = (0-offset)%32;
+	/*int charcter_offset;
+	charcter_offset = %32;*/
+	int origin_x = position.x;
+	int origin_y = position.y;
+	int offset_x = position.x%32 + offset;//-charcter_offset;
+	int offset_y = position.y%32;
+	CPoint newPosition(origin_x-offset_x,origin_y-offset_y);
 	if(classType < 3)
-	addObstacles(position);
+	addObstacles(newPosition);
 	else if(classType == MushRoom)
-	addEnemys(position);
+	addEnemys(newPosition);
 	else if(classType == ArmorThing)
-	addThings(position);
+	addThings(newPosition);
 }
 void LevelEditor::LMouseUpClick(bool off){}
 void LevelEditor::RMouseOnClick(bool on,CPoint position)
@@ -327,8 +340,8 @@ void LevelEditor::RMouseOnClick(bool on,CPoint position)
 
 		*/
 	int offset = charcter->GetDistanceFromOriginX();
-	int x =  position.x;
-	int y =  position.y;
+	int x =  position.x ;
+	int y =  position.y ;
 	int obstacle_index = 0;
 	int enemy_index = 0;
 	int thing_index = 0;
