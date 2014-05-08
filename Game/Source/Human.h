@@ -53,7 +53,7 @@ public:
 	void KeyUpDetect(UINT keyin);
 	virtual void OnMove();
 	virtual void OnShow();
-	void AddThing(Thing* Item);
+	virtual void AddThing(Thing* Item);
 	const int GetOriginX();
 	const int GetOriginY();
 	const int GetDistanceFromOriginX();

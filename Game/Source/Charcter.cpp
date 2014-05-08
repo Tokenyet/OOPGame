@@ -7,7 +7,7 @@
 	Charcter::Charcter():Human(SIZE_X/2-50,0)
 	{
 		//myGravity = new Gravity(&GetY());
-		myType = new Archer(this);
+		myType = new SwordMan(this);
 		head_Direction = Head_Right;
 		upMove = downMove = rightMove = leftMove = false;
 		upRestriction=downRestriction=rightRestriction=leftRestriction = false;
@@ -255,6 +255,18 @@
 			if(head_Direction == Head_Right)
 				picture_animation->OnMove(R_Attacking);*/
 	}
+
+	void Charcter::AddThing(Thing *Item)
+	{
+		Item->MakeOwnerBy(this);
+		if(Item->GetName() == "New")
+		{
+			myType = new Archer(this);
+			myType->LoadBitmapA();
+		}
+		setMySize(myType->GetWidth(),myType->GetHeight());
+	}
+
 
 	bool Charcter::GetAttacking()
 	{

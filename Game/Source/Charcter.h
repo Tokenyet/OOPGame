@@ -26,6 +26,7 @@ public:
 	~Charcter();
 	void OnMove();
 	void OnShow();
+	void AddThing(Thing*);
 	void LoadBitmap();
 	bool GetAttacking();
 	bool GetRestartGame();

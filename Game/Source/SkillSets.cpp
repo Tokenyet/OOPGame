@@ -20,7 +20,7 @@
 		if(charcter->MyType() == Type_Archer&&attacking)
 		{
 			if(delayTime != 0)
-				delayTime = (delayTime + 1)%50;
+				delayTime = (delayTime + 1)%22;
 			if(delayTime == 0)
 				arrowBoxes->push_back(skillPower());
 		}

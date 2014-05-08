@@ -3,7 +3,7 @@
 
 
 
-	ArrowBox::ArrowBox(const int init_x,const int init_y,const HeadDirection head):origin_x(init_x),origin_y(init_y),head(this->head)
+	ArrowBox::ArrowBox(const int init_x,const int init_y,const HeadDirection head):origin_x(init_x),origin_y(init_y),head(head)
 	{
 		x= init_x;
 		y= init_y;
