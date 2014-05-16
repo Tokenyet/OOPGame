@@ -252,3 +252,10 @@
 	}
 
 	HeadDirection Human::GetHeadDirection(){return head_Direction;}
+
+
+	SkillSheet Human::MySkillSheet()
+	{
+		mySkill.AddSkill(Type_NoSkill,0);
+		return mySkill;
+	}

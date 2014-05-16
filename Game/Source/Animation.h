@@ -36,5 +36,6 @@ public:
 	int Height();
 	int Width();
 	Animax_act GetNowState();
+	int GetCurrentAnitmationBitmap();
 };
 #endif

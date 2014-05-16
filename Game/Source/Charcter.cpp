@@ -25,6 +25,9 @@
 		bool UpRestricion =  myType->GetUpController(upMove);
 		bool DownRestricion =  myType->GetDownController(downMove);
 
+		if(myType->GetContinueAttack())
+			attackMove = true;
+
 		if (LeftRestricion)
 		{
 			leftMoving();
@@ -61,6 +64,9 @@
 			attackMoving();
 			attackAnimation();
 		}
+
+
+
 		if(!leftMove&&!rightMove&&!upMove&&!downMove&&!attackMove)
 			myType->AnimationReset();
 		//myRect.SetOriginRectangle(SIZE_X/2-50,GetY(),picture_animation->Width(),picture_animation->Height(),5);//SIZE_X/2-50
@@ -175,10 +181,12 @@
 	}
 	void Charcter::attackMoving()
 	{
+		mySkill.EnableSkill(Type_Arrow);
 	}
 	void Charcter::leftAnimation()
 	{	
 		bool gothrough = true;
+
 		if(attackMove)
 			gothrough = false;
 		if(!rightMove&&gothrough)
@@ -282,4 +290,13 @@
 	int Charcter::MyType()
 	{
 		return myType->MyType();
+	}
+
+
+	SkillSheet Charcter::MySkillSheet()
+	{
+		mySkill.AddSkill(Type_NoSkill,0);
+		if(myType->MyType() == Type_Archer)
+			mySkill.AddSkill(Type_Arrow,10);
+		return mySkill;
 	}

@@ -58,6 +58,7 @@ public:
 	virtual void OnShow(int x,int y);
 	virtual void LoadBitmap();
 	virtual void AnimationReset();
+	virtual bool GetContinueAttack();
 	void ResetAnimation();
 	int GetWidth();
 	int GetHeight();
@@ -84,6 +85,7 @@ public:
 	virtual void OnShow(int x,int y);
 	virtual void LoadBitmap();
 	virtual CharcterType MyType();
+	virtual bool GetContinueAttack();
 	virtual bool GetUpController(bool);
 	virtual bool GetDownController(bool);
 	virtual bool GetLeftController(bool);

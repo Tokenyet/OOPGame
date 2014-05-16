@@ -92,6 +92,9 @@
     <ClCompile Include="Source\SkillSets.cpp">
       <Filter>GameClass\SkillSets</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SkillSheet.cpp">
+      <Filter>GameClass\SkillSets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\mygame.h" />
@@ -195,6 +198,9 @@
       <Filter>GameClass\Interface\IRoleType</Filter>
     </ClInclude>
     <ClInclude Include="Source\SkillSets.h">
+      <Filter>GameClass\SkillSets</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SkillSheet.h">
       <Filter>GameClass\SkillSets</Filter>
     </ClInclude>
   </ItemGroup>

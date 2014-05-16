@@ -9,6 +9,8 @@
 #include "Bounding_Obs.h"
 #include "Animation.h"
 #include "Ewalk.h"
+#include "SkillSheet.h"
+
 
 class Thing;
 class Human
@@ -17,15 +19,10 @@ private:
 	int x,y;
 	const int origin_X,origin_Y;
 	int width,height;
-	//int slove_origin_X;//MyRect需要用到
-	//CRectangle myRect;
-	//Status status;
-	//CAnimation humanAnimation;
-	/*Equipment equipment;
-	Inventory inventory;*/
 	Thing* myThing; 
 protected : 
 	HeadDirection head_Direction;
+	SkillSheet mySkill;
 	Animation *picture_animation;
 	game_framework::CMovingBitmap picture;//繼承換圖用
 	bool upRestriction,downRestriction,rightRestriction,leftRestriction; //藉由Method提供外部設定
@@ -72,6 +69,7 @@ public:
 	virtual bool GetAttacking();
 	virtual bool GetRestartGame();
 	virtual int MyType();
+	virtual SkillSheet MySkillSheet();
 	HeadDirection GetHeadDirection();
 	///Dynamic///
 	/*bool& setUpRestriction(int bounded_Up,int speed);

@@ -31,5 +31,6 @@ public:
 	bool GetAttacking();
 	bool GetRestartGame();
 	int MyType();
+	SkillSheet MySkillSheet();
 };
 #endif

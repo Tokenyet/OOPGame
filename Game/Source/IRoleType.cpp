@@ -153,6 +153,10 @@ void IRoleType::AnimationReset()
 	picture_animation.Reset();
 }
 
+bool IRoleType::GetContinueAttack()
+{
+	return false;
+}
 
 
 
@@ -288,6 +292,18 @@ bool SwordMan::GetRightController(bool rightMove)
 	bool gothrough = false;
 	return rightMove;
 }
+
+bool SwordMan::GetContinueAttack()
+{
+	Animax_act nowState = picture_animation.GetNowState();
+	int picture_interval = picture_animation.GetCurrentAnitmationBitmap();
+	if(nowState == L_Attacking ||nowState == R_Attacking)
+		if(picture_interval <= 2)
+			return true;
+	return false;
+}
+
+
 
 
 

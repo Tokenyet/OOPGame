@@ -37,7 +37,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>Dynamic</UseOfMfc>
-    <PlatformToolset>v100</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">
     <PlatformToolset>v110</PlatformToolset>
@@ -302,6 +302,7 @@
     <ClCompile Include="Source\ScreenMap.cpp" />
     <ClCompile Include="Source\Scroll_System.cpp" />
     <ClCompile Include="Source\SkillSets.cpp" />
+    <ClCompile Include="Source\SkillSheet.cpp" />
     <ClCompile Include="Source\StdAfx.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -357,6 +358,7 @@
     <ClInclude Include="Source\ScreenMap.h" />
     <ClInclude Include="Source\Scroll_System.h" />
     <ClInclude Include="Source\SkillSets.h" />
+    <ClInclude Include="Source\SkillSheet.h" />
     <ClInclude Include="Source\StdAfx.h" />
     <ClInclude Include="Source\gamelib.h" />
     <ClInclude Include="Source\mygame.h" />
