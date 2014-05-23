@@ -9,7 +9,7 @@ private:
 	Human *charcter;
 	vector<ArrowBox*>* arrowBoxes;
 	int delayTime;
-	ArrowBox* skillPower();
+	ArrowBox* skillPower(Skill_Type,int);
 public:
 	SkillSets();
 	void Initialization(Human* charcter,vector<ArrowBox*>* arrowBoxes);

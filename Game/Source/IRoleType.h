@@ -101,6 +101,7 @@ private:
 public:
 	Archer(Human *human);
 	~Archer();
+	void AttackMoving();
 	virtual void LoadBitmap();
 	virtual CharcterType MyType();
 };

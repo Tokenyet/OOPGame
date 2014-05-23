@@ -4,6 +4,8 @@
 #include "Charcter.h"
 #include "Animation.h"
 #include "Gravity.h"
+#include "SkillSheet.h"
+
 
 void IRoleType::LeftMoving()
 {
@@ -220,7 +222,10 @@ void SwordMan::DownAnimation()
 		picture_animation.OnMove(R_Jumping);
 }
 void SwordMan::AttackMoving()
-{}
+{
+	SkillSheet mySkillSheet =  human->MySkillSheet();
+	mySkillSheet.EnableSkill(Type_NoSkill);
+}
 void SwordMan::AttackAnimation()
 {
 	HeadDirection head_Direction = human->GetHeadDirection();
@@ -330,6 +335,13 @@ void Archer::LoadBitmap()
 		//setMySize(picture_animation->Width(),picture_animation->Height());
 		picture_animation.SetTopLeft(x,y);
 }
+
+void Archer::AttackMoving()
+{
+	SkillSheet mySkillSheet =  human->MySkillSheet();
+	mySkillSheet.EnableSkill(Type_Arrow);
+}
+
 CharcterType Archer::MyType()
 {
 	return Type_Archer;

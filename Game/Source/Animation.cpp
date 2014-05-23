@@ -93,6 +93,7 @@ Animax_act Animation::GetNowState()
 }
 
 
+
 int Animation::GetCurrentAnitmationBitmap()
 {
 	return animations[myState].GetCurrentBitmapNumber();

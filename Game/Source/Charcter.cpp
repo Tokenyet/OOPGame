@@ -63,12 +63,19 @@
 		{
 			attackMoving();
 			attackAnimation();
+			attackMove = false;
 		}
 
 
 
-		if(!leftMove&&!rightMove&&!upMove&&!downMove&&!attackMove)
+		if(!leftMove&&!rightMove&&!upMove&&!downMove&&!myType->GetContinueAttack())
+		{
 			myType->AnimationReset();
+			if(head_Direction == Head_Left)
+				myType->LeftAnimation();
+			else
+				myType->RightAnimation();
+		}
 		//myRect.SetOriginRectangle(SIZE_X/2-50,GetY(),picture_animation->Width(),picture_animation->Height(),5);//SIZE_X/2-50
 		myRect.SetOriginRectangle(SIZE_X/2-50,GetY(),GetWidth(),GetHeight(),5);
 	}
@@ -181,7 +188,7 @@
 	}
 	void Charcter::attackMoving()
 	{
-		mySkill.EnableSkill(Type_Arrow);
+		//mySkill.EnableSkill(mySkill.UsedSkill);
 	}
 	void Charcter::leftAnimation()
 	{	
@@ -266,15 +273,15 @@
 
 	void Charcter::AddThing(Thing *Item)
 	{
-		Item->MakeOwnerBy(this);
 		if(Item->GetName() == "New")
 		{
+			delete myType;
 			myType = new Archer(this);
 			myType->LoadBitmapA();
 		}
+		Item->MakeOwnerBy(this);
 		setMySize(myType->GetWidth(),myType->GetHeight());
 	}
-
 
 	bool Charcter::GetAttacking()
 	{
@@ -297,6 +304,9 @@
 	{
 		mySkill.AddSkill(Type_NoSkill,0);
 		if(myType->MyType() == Type_Archer)
+		{
 			mySkill.AddSkill(Type_Arrow,10);
+			mySkill.EnableSkill(Type_Arrow);
+		}
 		return mySkill;
 	}
