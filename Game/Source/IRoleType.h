@@ -2,7 +2,9 @@
 #define IROLETYPE_H
 #include "Human.h"
 #include "Animation.h"
+#include "SkillSheet.h"
 #include "Gravity.h"
+#include "SkillSheet.h"
 class Human;
 
 enum CharcterType
@@ -28,6 +30,7 @@ private :
 protected:
 	Human *human;
 	Animation picture_animation;
+	SkillSheet mySkill;
 	/*bool upRestriction,downRestriction,rightRestriction,leftRestriction; //藉由Method提供外部設定
 	int upBoundedValue,downBoundedValue,rightBoundedValue,leftBoundedValue; //Restriction true give direction臨界值
 	bool upMove,downMove,rightMove,leftMove;//key 鍵盤偵測  --電腦自行設定
@@ -63,6 +66,7 @@ public:
 	int GetWidth();
 	int GetHeight();
 	virtual CharcterType MyType();
+	virtual SkillSheet MySkillSheet();
 };
 
 class SwordMan :public IRoleType

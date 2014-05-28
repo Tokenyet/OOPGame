@@ -188,6 +188,7 @@
 	}
 	void Charcter::attackMoving()
 	{
+		myType->AttackMoving();
 		//mySkill.EnableSkill(mySkill.UsedSkill);
 	}
 	void Charcter::leftAnimation()
@@ -302,11 +303,12 @@
 
 	SkillSheet Charcter::MySkillSheet()
 	{
+		/*
 		mySkill.AddSkill(Type_NoSkill,0);
 		if(myType->MyType() == Type_Archer)
 		{
 			mySkill.AddSkill(Type_Arrow,10);
 			mySkill.EnableSkill(Type_Arrow);
-		}
-		return mySkill;
+		}*/
+		return 	myType->MySkillSheet();;
 	}

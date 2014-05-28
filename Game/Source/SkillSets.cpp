@@ -24,7 +24,7 @@
 		if(attacking)
 		{
 			if(delayTime != 0)
-				delayTime = (delayTime + 1)%22;
+				delayTime = (delayTime + 1)%20;
 			if(delayTime == 0)
 			{
 				ArrowBox* arrow = skillPower(typeOfSkill,damage);
@@ -33,7 +33,8 @@
 			}
 		}
 		else
-			delayTime = 0;
+			if(delayTime != 0)
+				delayTime = (delayTime + 1)%20;
 	}
 	ArrowBox* SkillSets::skillPower(Skill_Type typeOfSkill,int damage)
 	{

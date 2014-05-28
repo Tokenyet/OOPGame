@@ -97,6 +97,7 @@ void IRoleType::AttackAnimation()
 IRoleType::IRoleType(Human *human)
 {
 	this->human = human;
+	mySkill.AddSkill(Type_NoSkill,0);
 }
 IRoleType::~IRoleType(){}
 void IRoleType::OnShow(int x,int y)
@@ -159,7 +160,10 @@ bool IRoleType::GetContinueAttack()
 {
 	return false;
 }
-
+SkillSheet IRoleType::MySkillSheet()
+{
+	return mySkill;
+}
 
 
 
@@ -223,8 +227,8 @@ void SwordMan::DownAnimation()
 }
 void SwordMan::AttackMoving()
 {
-	SkillSheet mySkillSheet =  human->MySkillSheet();
-	mySkillSheet.EnableSkill(Type_NoSkill);
+	/*SkillSheet mySkillSheet =  human->MySkillSheet();
+	//mySkillSheet.EnableSkill(Type_NoSkill);*/
 }
 void SwordMan::AttackAnimation()
 {
@@ -268,6 +272,7 @@ SwordMan::SwordMan(Human *human):IRoleType(human)
 {
 	int *y = &human->GetY();
 	myGravity = new Gravity(y);
+	//mySkill.AddSkill(Type_NoSkill,0);
 }
 SwordMan::~SwordMan()
 {
@@ -312,7 +317,10 @@ bool SwordMan::GetContinueAttack()
 
 
 
-Archer::Archer(Human *human):SwordMan(human){}
+Archer::Archer(Human *human):SwordMan(human)
+{
+	mySkill.AddSkill(Type_Arrow,0);
+}
 Archer::~Archer(){}
 void Archer::LoadBitmap()
 {
@@ -338,8 +346,7 @@ void Archer::LoadBitmap()
 
 void Archer::AttackMoving()
 {
-	SkillSheet mySkillSheet =  human->MySkillSheet();
-	mySkillSheet.EnableSkill(Type_Arrow);
+	mySkill.EnableSkill(Type_Arrow);
 }
 
 CharcterType Archer::MyType()
