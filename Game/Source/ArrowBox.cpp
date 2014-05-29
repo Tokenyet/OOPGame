@@ -1,15 +1,14 @@
 #include "StdAfx.h"
 #include "ArrowBox.h"
-
+#include <cmath>
 
 
 	ArrowBox::ArrowBox(const int init_x,const int init_y,const HeadDirection head):origin_x(init_x),origin_y(init_y),head(head)
 	{
 		x= init_x;
 		y= init_y;
-		LoadBitmap(head);
 	}
-	void ArrowBox::LoadBitmap(HeadDirection head)
+	void ArrowBox::LoadBitmap()
 	{
 		if(head == Head_Left)
 			picture.LoadBitmapA("Bitmaps/L/l_arror-1.bmp",RGB(0,0,0));
@@ -47,4 +46,49 @@
 	CRectangle ArrowBox::GetRect()
 	{
 		return myRect;
+	}
+
+
+
+
+
+
+	
+
+	MagicBall::MagicBall(const int init_x,const int init_y,const HeadDirection head):ArrowBox(init_x,init_y,head)
+	{
+		magicSine = 0;
+	}
+
+	void MagicBall::LoadBitmap()
+	{
+		if(head == Head_Left)
+			picture.LoadBitmapA("Bitmaps/L/l_magicball.bmp",RGB(255,255,255));
+		else if (head == Head_Right)
+			picture.LoadBitmapA("Bitmaps/R/r_magicball.bmp",RGB(255,255,255));
+		myRect.SetRectangle(GetX(),GetY(),picture.Width(),picture.Height());
+	}
+
+	void MagicBall::OnMove()
+	{
+		double result;
+		magicSine+=10;
+
+		int x = GetX();
+		int y = GetY();
+		if(head == Head_Left)
+		GetX()-= 10; 
+		else
+		GetX()+= 10; 
+
+		result = sin (magicSine*3.14/180);
+		int delta_y = (int)(5*sin(result));
+		GetY()+= delta_y;
+		
+		
+
+		if(!picture.isBitmapLoaded)
+			ASSERT(0);
+		picture.SetTopLeft(x,y);
+		myRect.SetRectangle(x,y,picture.Width(),picture.Height());
 	}

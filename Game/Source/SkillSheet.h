@@ -8,6 +8,7 @@ enum Skill_Type
 {
 	Type_NoSkill = 0,
 	Type_Arrow = 1,
+	Type_MagicBall = 2,
 };
 
 

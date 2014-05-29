@@ -353,3 +353,53 @@ CharcterType Archer::MyType()
 {
 	return Type_Archer;
 }
+
+
+
+
+Mage::Mage(Human *human):SwordMan(human)
+{
+	mySkill.AddSkill(Type_MagicBall,0);
+}
+Mage::~Mage(){}
+void Mage::LoadBitmap()
+{
+		int &x = human->GetX();
+		int &y = human->GetY();
+		char *RWalking[4] = {"Bitmaps/R/r_walk-1mg.bmp","Bitmaps/R/r_walk-2mg.bmp","Bitmaps/R/r_walk-3mg.bmp","Bitmaps/R/r_walk-4mg.bmp"};
+		char *LWalking[4] = {"Bitmaps/L/l_walk-1mg.bmp","Bitmaps/L/l_walk-2mg.bmp","Bitmaps/L/l_walk-3mg.bmp","Bitmaps/L/l_walk-4mg.bmp"};
+		char *RJumping[2] = {"Bitmaps/R/r_jump-1mg.bmp","Bitmaps/R/r_jump-2mg.bmp"};
+		char *LJumping[2] = {"Bitmaps/L/l_jump-1mg.bmp","Bitmaps/L/l_jump-2mg.bmp"};
+		char *RAttack[3] =  {"Bitmaps/R/r_attack-1mg.bmp","Bitmaps/R/r_attack-2mg.bmp","Bitmaps/R/r_attack-3mg.bmp"};
+		char *LAttack[3] =  {"Bitmaps/L/l_attack-1mg.bmp","Bitmaps/L/l_attack-2mg.bmp","Bitmaps/L/l_attack-3mg.bmp"};
+
+		picture_animation.LoadAnimation(R_Walking,RWalking,4,1);
+		picture_animation.LoadAnimation(L_Walking,LWalking,4,1);
+		picture_animation.LoadAnimation(R_Jumping,RJumping,2,1);
+		picture_animation.LoadAnimation(L_Jumping,LJumping,2,1);
+		picture_animation.LoadAnimation(R_Attacking,RAttack,3,1);
+		picture_animation.LoadAnimation(L_Attacking,LAttack,3,1);
+		picture_animation.StateInitialize();
+		//setMySize(picture_animation->Width(),picture_animation->Height());
+		picture_animation.SetTopLeft(x,y);
+}
+
+void Mage::AttackMoving()
+{
+	mySkill.EnableSkill(Type_MagicBall);
+}
+
+CharcterType Mage::MyType()
+{
+	return Type_Mage;
+}
+
+bool Mage::GetContinueAttack()
+{
+	Animax_act nowState = picture_animation.GetNowState();
+	int picture_interval = picture_animation.GetCurrentAnitmationBitmap();
+	if(nowState == L_Attacking ||nowState == R_Attacking)
+		if(picture_interval <= 1)
+			return true;
+	return false;
+}

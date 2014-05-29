@@ -43,14 +43,24 @@
 		int x = charcter->GetX() - delta;
 		int y = charcter->GetY() + 30;
 		HeadDirection head = charcter->GetHeadDirection();
-
 		switch(typeOfSkill)
 		{
 			case Type_NoSkill:
 				return NULL;
 				break;
 			case Type_Arrow:
-				return new ArrowBox(x,y,head);
+				ArrowBox* tempArrow;
+				tempArrow = new ArrowBox(x,y,head);
+				tempArrow ->LoadBitmapA();
+				return tempArrow;
+				break;
+			case Type_MagicBall:
+				MagicBall *tempMagicBall;
+				tempMagicBall = new MagicBall(x,y,head);
+				tempMagicBall->LoadBitmapA();
+				return tempMagicBall;
+				break;
+			default:
 				break;
 		}
 		return NULL;

@@ -7,7 +7,7 @@
 	Charcter::Charcter():Human(SIZE_X/2-50,0)
 	{
 		//myGravity = new Gravity(&GetY());
-		myType = new SwordMan(this);
+		myType = new Mage(this);
 		head_Direction = Head_Right;
 		upMove = downMove = rightMove = leftMove = false;
 		upRestriction=downRestriction=rightRestriction=leftRestriction = false;
@@ -63,6 +63,7 @@
 		{
 			attackMoving();
 			attackAnimation();
+			if(!myType->GetContinueAttack())
 			attackMove = false;
 		}
 

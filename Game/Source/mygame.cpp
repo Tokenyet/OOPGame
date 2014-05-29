@@ -340,8 +340,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	map.SetMapLocation(0,testY);*/
 	//screenMap.OnMove();
 	//obtest->OnMove();
-	
-	skillSets.OnMove();
+
 	collision_System.OnCheck();
 	/*charcter->OnMove();
 	enemytest->OnMove();*/
@@ -349,6 +348,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		(*enemys)[i]->OnMove();
 	for(size_t i = 0;i<humans.size();i++)
 		humans[i]->OnMove();
+	skillSets.OnMove();
 	for(size_t i = 0;i<thingTests->size();i++)
 		(*thingTests)[i]->OnMove();
 	for(size_t i = 0;i<arrowBoxes.size();i++)

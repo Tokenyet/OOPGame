@@ -12,19 +12,31 @@ class ArrowBox : public IPerform
 private:
 	int x,y;
 	const int origin_x,origin_y;
+protected:
 	const HeadDirection head;
 	game_framework::CMovingBitmap picture;
 	CRectangle myRect;
 public:
 	ArrowBox(const int init_x,const int init_y,const HeadDirection head);
-	void LoadBitmap(HeadDirection);
-	void LoadBitmap(char *);
+	virtual void LoadBitmap();
+	virtual void LoadBitmap(char *);
 	void OnShow();
-	void OnMove();
+	virtual void OnMove();
 	int& GetX();
 	int& GetY();
 	const int GetOriginX();
 	const int GetOriginY();
 	CRectangle GetRect();
 };
+
+class MagicBall : public ArrowBox
+{
+private :
+	double magicSine;
+public:
+	MagicBall(const int init_x,const int init_y,const HeadDirection head);
+	void LoadBitmap();
+	void OnMove();
+};
+
 #endif

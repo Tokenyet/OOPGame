@@ -12,6 +12,7 @@ enum CharcterType
 	Type_Null = 0,
 	Type_SwordMan = 1,
 	Type_Archer = 2,
+	Type_Mage = 3,
 };
 
 class IRoleType
@@ -109,5 +110,20 @@ public:
 	virtual void LoadBitmap();
 	virtual CharcterType MyType();
 };
+
+
+class Mage :public SwordMan
+{
+private:
+	Gravity *myGravity;
+public:
+	Mage(Human *human);
+	~Mage();
+	void AttackMoving();
+	virtual void LoadBitmap();
+	virtual CharcterType MyType();
+	virtual bool GetContinueAttack();
+};
+
 
 #endif
