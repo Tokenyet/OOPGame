@@ -275,10 +275,23 @@
 
 	void Charcter::AddThing(Thing *Item)
 	{
-		if(Item->GetName() == "New")
+		UsingItem item_type = Item->GetThingType();
+		if(item_type == Type_Archer_Suit)
 		{
 			delete myType;
 			myType = new Archer(this);
+			myType->LoadBitmapA();
+		}
+		else if(item_type == Type_Mage_Suit)
+		{
+			delete myType;
+			myType = new Mage(this);
+			myType->LoadBitmapA();
+		}
+		else if(item_type == Type_SwordMan_Suit)
+		{
+			delete myType;
+			myType = new SwordMan(this);
 			myType->LoadBitmapA();
 		}
 		Item->MakeOwnerBy(this);

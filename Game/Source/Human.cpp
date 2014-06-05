@@ -115,8 +115,8 @@
 		tempAnimation->SetTopLeft(GetX(),GetY());
 		delete picture_animation;
 		setMySize(tempAnimation->Width(),tempAnimation->Height());
-		if(myThing->GetName() == "New")
-			picture_animation = tempAnimation;
+		/*if(myThing->GetName() == "New")
+			picture_animation = tempAnimation;*/
 	}
 	void Human::LoadBitmap(){}
 	void Human::LoadBitmap(char * path,COLORREF RGB)//For test to side scrolling

@@ -14,6 +14,7 @@ private:
 	int gravity(double Vo,double g,double Time,double PriTime);
 	void jumpUptimeParameter(bool);
 	bool isOnGround,isOnSky,isKeepUpMove;
+	bool soundOn;
 public:
 	Gravity(int*);
 	~Gravity();
@@ -26,7 +27,7 @@ public:
 	void Falling();
 	bool Dojump(bool);
 	void Jumping();
-
+	void SetSound(bool OnOff);
 };
 
 #endif

@@ -4,10 +4,10 @@
 #include "IRoleType.h"
 
 
-	Enemy::Enemy(int initial_X,int initial_Y):Human(initial_X,initial_Y)
+	Enemy::Enemy(int initial_X,int initial_Y,CharcterType TypeOfCharcter):Human(initial_X,initial_Y)
 	{
 		//myGravity = new Gravity(&GetY());
-		myType = new MushRoom(this);
+		myType = GetMyType(TypeOfCharcter);
 		head_Direction = Head_Right;
 		upMove = downMove = rightMove = leftMove = false;
 		upRestriction=downRestriction=rightRestriction=leftRestriction = false;
@@ -19,23 +19,51 @@
 		delete myType;
 		//delete myGravity;
 	}
-	void Enemy::OnMove()
+	IRoleType* Enemy::GetMyType(CharcterType TypeOfCharcter)
+	{
+		switch(TypeOfCharcter)
+		{
+		case Type_MushRoom:
+			return new MushRoom(this);
+		case Type_Enemy1:
+			return new Enemy1(this);
+		case Type_Enemy2:
+			return new Enemy2(this);
+		case Type_Enemy3:
+			return new Enemy3(this);
+		case Type_Enemy4:
+			return new Enemy4(this);
+		default:
+			return new IRoleType(this);
+		}
+		ASSERT(0);
+		return NULL;
+	}
+	void Enemy::MovingAI()
 	{
 		if(getLeftRestriction())
 		{
+			head_Direction = Head_Right;
 			rightMove = true;
 			leftMove = false;
 		}
 		if(getRightRestriction())
 		{
+			head_Direction = Head_Left;
 			rightMove = false;
 			leftMove = true;
 		}
+	}
+
+
+	void Enemy::OnMove()
+	{
+		MovingAI();
 		bool LeftRestricion =  myType->GetLeftController(leftMove);
 		bool RightRestricion =  myType->GetRightController(rightMove);
 		bool UpRestricion =  myType->GetUpController(upMove);
 		bool DownRestricion =  myType->GetDownController(downMove);
-
+		
 		if(myType->GetContinueAttack())
 			attackMove = true;
 
@@ -286,12 +314,12 @@
 
 	void Enemy::AddThing(Thing *Item)
 	{
-		if(Item->GetName() == "New")
+	/*	if(Item->GetName() == "New")
 		{
 			delete myType;
 			myType = new Archer(this);
 			myType->LoadBitmapA();
-		}
+		}*/
 		Item->MakeOwnerBy(this);
 		setMySize(myType->GetWidth(),myType->GetHeight());
 	}
@@ -323,4 +351,27 @@
 			mySkill.EnableSkill(Type_Arrow);
 		}*/
 		return 	myType->MySkillSheet();;
+	}
+
+
+	Enemy_OverWall::Enemy_OverWall(int initial_X,int initial_Y,CharcterType TypeOfCharcter):Enemy(initial_X,initial_Y,TypeOfCharcter){}
+	Enemy_OverWall::~Enemy_OverWall(){}
+	void Enemy_OverWall::MovingAI()
+	{
+		if(getLeftRestriction())
+		{
+			head_Direction = Head_Right;
+			upMove = true;
+			rightMove = true;
+			leftMove = false;
+		}
+		else if(getRightRestriction())
+		{
+			head_Direction = Head_Left;
+			upMove = true;
+			rightMove = false;
+			leftMove = true;
+		}
+		else
+			upMove = false;
 	}

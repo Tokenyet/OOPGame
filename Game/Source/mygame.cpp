@@ -213,7 +213,7 @@ CGameStateRun::CGameStateRun(CGame *g)
 	charcter = new Charcter();
 	obtest = new Obstacle(200,200);
 	rowObtest = new Obstacle(300,300);
-	enemytest = new Enemy(300,100);
+	enemytest = new Enemy(300,100,Type_MushRoom);
 	testX = testY = 0;
 
 	//thingTests = new vector<Thing*>();

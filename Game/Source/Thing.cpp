@@ -8,6 +8,7 @@
 		x= init_x;
 		y= init_y;
 		owner = NULL;
+		myItemType = Type_NoItem;
 	}
 	Thing::~Thing()
 	{
@@ -53,10 +54,41 @@
 	{
 		return myRect;
 	}
-	const string Thing::GetName(){return "New";}
+	const UsingItem Thing::GetThingType()
+	{
+		return myItemType;
+	}
 	bool Thing::HasOwner()
 	{
 		if(owner==NULL)
 			return false;
 		return true;
 	}
+
+
+		
+	
+	Arrow_Equip::Arrow_Equip(const int init_x,const int init_y):Thing(init_x,init_y)
+	{
+		myItemType = Type_Archer_Suit;
+	}
+
+
+	void Arrow_Equip::LoadBitmap(char *,COLORREF RGB)
+	{
+		Thing::LoadBitmap("Bitmaps/L/l_arror-1.bmp",RGB(0,0,0));
+	}
+
+
+	Mage_Equip::Mage_Equip(const int init_x,const int init_y):Thing(init_x,init_y)
+	{
+		myItemType = Type_Mage_Suit;
+	}
+
+	void Mage_Equip::LoadBitmap(char *,COLORREF RGB)
+	{
+		Thing::LoadBitmap("Bitmaps/L/l_magicball.bmp",RGB(0,0,0));
+	}
+
+
+

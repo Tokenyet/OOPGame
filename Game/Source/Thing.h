@@ -8,6 +8,15 @@
 #include "CRectangle.h"
 #include <string>
 
+enum UsingItem
+{
+	Type_NoItem = 0,
+	Type_SwordMan_Suit = 1,
+	Type_Archer_Suit = 2,
+	Type_Mage_Suit = 3,
+};
+
+
 class Human;
 class Thing : public IPerform
 {
@@ -18,6 +27,8 @@ private:
 	game_framework::CMovingBitmap picture;
 	CRectangle myRect;
 	Human *owner;
+protected:
+	UsingItem myItemType;
 public:
 	Thing(const int init_x,const int init_y);
 	~Thing();
@@ -25,13 +36,27 @@ public:
 	int &GetY();
 	void OnMove();
 	void OnShow();
-	void LoadBitmap(char *,COLORREF RGB);
+	virtual void LoadBitmap(char *,COLORREF RGB);
 	void MakeOwnerBy(Human*);
 	const int GetOriginX();
 	const int GetOriginY();
 	CRectangle GetRect();
-	const string GetName();
+	const UsingItem GetThingType();
 	bool HasOwner();
-	
 };
+
+class Arrow_Equip : public Thing
+{
+public:
+	Arrow_Equip(const int init_x,const int init_y);
+	void LoadBitmap(char *,COLORREF RGB);
+};
+
+class Mage_Equip :public Thing
+{
+public:
+	Mage_Equip(const int init_x,const int init_y);
+	void LoadBitmap(char *,COLORREF RGB);
+};
+
 #endif

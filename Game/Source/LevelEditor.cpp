@@ -83,12 +83,17 @@ void LevelEditor::fileAnaylizer(string source_String)
 	}
 	else if(class_type == 3)
 	{
-		Enemy *TempEnemy = new Enemy(position_x_y[0],position_x_y[1]);
+		Enemy *TempEnemy = new Enemy_OverWall(position_x_y[0],position_x_y[1],Type_Enemy1);
 		enemys.push_back(TempEnemy);
 	}
 	else if(class_type == ArmorThing)
 	{
-		Thing *TempThing = new Thing(position_x_y[0],position_x_y[1]);
+		Arrow_Equip *TempThing = new Arrow_Equip(position_x_y[0],position_x_y[1]);
+		things.push_back(TempThing);
+	}
+	else if(class_type == MageThing)
+	{
+		Mage_Equip *TempThing = new Mage_Equip(position_x_y[0],position_x_y[1]);
 		things.push_back(TempThing);
 	}
 	//TempObstacle->LoadBitmapA("Bitmaps/block-5.bmp");
@@ -138,6 +143,10 @@ void LevelEditor::Initialization(Scroll_System* scroll,Collision_System* collisi
 			Thing_BitmapLoader(things[thing_index],object_type_data[i]);
 			thing_index++;
 			break;
+		case 6:
+			Thing_BitmapLoader(things[thing_index],object_type_data[i]);
+			thing_index++;
+			break;
 		}
 	}
 }
@@ -171,7 +180,10 @@ void LevelEditor::Thing_BitmapLoader(Thing* thing,ObjectData obData)
 	switch(obData)
 	{
 		case ArmorThing:
-		thing->LoadBitmapA("Bitmaps/ball1.bmp",RGB(0,0,0));
+		thing->LoadBitmapA("Bitmaps/L/l_arror-1.bmp",RGB(0,0,0));
+		break;
+		case MageThing:
+		thing->LoadBitmapA("Bitmaps/L/l_magicball.bmp",RGB(0,0,0));
 		break;
 		default:
 			ASSERT(1);
@@ -204,7 +216,7 @@ void LevelEditor::addObstacles(CPoint position)
 void LevelEditor::addEnemys(CPoint position)
 {
 	int offset = charcter->GetX() - SIZE_X/2 +50; 
-	Enemy* newEnemy = new Enemy(position.x + offset,position.y);
+	Enemy* newEnemy = new Enemy(position.x + offset,position.y,Type_MushRoom);
 
 	string newObstaclePosition = "";
 	newObstaclePosition += int2str(classType);
@@ -224,8 +236,12 @@ void LevelEditor::addEnemys(CPoint position)
 void LevelEditor::addThings(CPoint position)
 {
 	int offset = charcter->GetX() - SIZE_X/2 +50; 
-	Thing* newThing = new Thing(position.x + offset,position.y);
-
+	Thing * newThing;
+	if(classType == ArmorThing)
+		newThing = new Arrow_Equip(position.x + offset,position.y);
+	else
+		newThing = new Mage_Equip(position.x + offset,position.y);
+	//newThing->LoadBitmapA("",RGB(0,0,0));
 	string newObstaclePosition = "";
 	newObstaclePosition += int2str(classType);
 	newObstaclePosition += "@(";
@@ -251,7 +267,7 @@ void LevelEditor::SystemSync()
 		scroll_system->AddObject(obstacles[obstacles.size()-1]);
 		collision_system->Add_ObstacleCollisions(obstacles[obstacles.size()-1]);
 	}
-	else if(classType == ArmorThing)
+	else if(classType == ArmorThing||classType == MageThing)
 	{
 		scroll_system->AddObject(things[things.size()-1]);
 	}
@@ -281,6 +297,9 @@ void LevelEditor::KeyDownChange(UINT keyin)
 	const char KEY_X  = 88; // x row
 	const char KEY_C  = 67; // c mushroom
 	const char KEY_V  = 86; // v Armorthing
+	const char KEY_B = 66;  // b mageThing
+	const char KEY_N = 78;
+	const char KEY_M = 77;
 	const char KEY_SPACE = 0x20;// save
 	if(keyin == KEY_SPACE)
 	saveData();
@@ -292,6 +311,8 @@ void LevelEditor::KeyDownChange(UINT keyin)
 		classType = MushRoom;
 	if(keyin == KEY_V)
 		classType = ArmorThing;
+	if(keyin == KEY_B)
+		classType = MageThing;
 }
 void LevelEditor::LMouseOnClick(bool on,CPoint position)
 {	
@@ -312,7 +333,7 @@ void LevelEditor::LMouseOnClick(bool on,CPoint position)
 	addObstacles(newPosition);
 	else if(classType == MushRoom)
 	addEnemys(newPosition);
-	else if(classType == ArmorThing)
+	else if(classType == ArmorThing||classType == MageThing)
 	addThings(newPosition);
 }
 void LevelEditor::LMouseUpClick(bool off){}
@@ -367,6 +388,7 @@ void LevelEditor::RMouseOnClick(bool on,CPoint position)
 					enemy_index++;
 				break;
 			case ArmorThing:
+			case MageThing:
 				if(things.empty())
 					break;
 				if(things[thing_index])

@@ -7,9 +7,9 @@
 
 class Enemy : public Human
 {
-private :
-	IRoleType *myType;
+//private :
 protected:
+	IRoleType *myType;
 	void leftMoving();
 	void leftAnimation();
 	void rightMoving();
@@ -21,8 +21,9 @@ protected:
 	void attackMoving();
 	void attackAnimation();
 	IRoleType* GetMyType(CharcterType);
+	virtual void MovingAI();
 public:
-	Enemy(int initial_X,int initial_Y);
+	Enemy(int initial_X,int initial_Y,CharcterType);
 	~Enemy();
 	void OnMove();
 	void OnShow();
@@ -35,6 +36,11 @@ public:
 };
 
 
-
-
+class Enemy_OverWall :public Enemy
+{
+public:
+	Enemy_OverWall(int initial_X,int initial_Y,CharcterType);
+	~Enemy_OverWall();
+	void MovingAI();
+};
 #endif

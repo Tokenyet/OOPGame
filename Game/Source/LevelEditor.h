@@ -12,6 +12,7 @@ enum ObjectData
 	RowBlock = 1,//"Bitmaps/block-4.bmp"
 	MushRoom = 3,//"Bitmaps/l_mushroom.bmp"
 	ArmorThing = 5,//"Bitmaps/ball1.bmp"
+	MageThing = 6,//"Bitmaps/L/l_magicball.bmp"
 };
 
 class LevelEditor

@@ -11,6 +11,7 @@
 		isKeepUpMove = false;
 		interval_time = 0.5f;
 		resetTimeParameter(true);
+		soundOn = false; 
 		//g = 10;
 	}
 	Gravity::~Gravity()
@@ -83,8 +84,11 @@
 		this->trigger_upMove = upMove;
 		if(isOnGround&&upMove)
 		{
-			game_framework::CAudio::Instance()->Play(1,true);
-			game_framework::CAudio::Instance()->Play(1,false);
+			if(soundOn)
+			{
+				game_framework::CAudio::Instance()->Play(1,true);
+				game_framework::CAudio::Instance()->Play(1,false);
+			}
 			isOnGround = false;
 			isOnSky = true;
 			isKeepUpMove = true;
@@ -113,4 +117,8 @@
 	void Gravity::SetKeepUpMove(bool keepUpMove)
 	{
 		isKeepUpMove = keepUpMove;
+	}
+	void Gravity::SetSound(bool OnOff)
+	{
+		soundOn = OnOff;
 	}

@@ -248,6 +248,7 @@ void SwordMan::OnShow(int x,int y)
 }
 void SwordMan::LoadBitmap()
 {
+		ExtraSetting_SetJumpSound(true);
 		int &x = human->GetX();
 		int &y = human->GetY();
 		char *RWalking[5] = {"Bitmaps/R/r_walk-1.bmp","Bitmaps/R/r_walk-2.bmp","Bitmaps/R/r_walk-3.bmp","Bitmaps/R/r_walk-2.bmp","Bitmaps/R/r_walk-1.bmp"};
@@ -312,6 +313,10 @@ bool SwordMan::GetContinueAttack()
 			return true;
 	return false;
 }
+void SwordMan::ExtraSetting_SetJumpSound(bool onOff)
+{
+	myGravity->SetSound(onOff);
+}
 
 
 
@@ -324,6 +329,7 @@ Archer::Archer(Human *human):SwordMan(human)
 Archer::~Archer(){}
 void Archer::LoadBitmap()
 {
+		ExtraSetting_SetJumpSound(true);
 		int &x = human->GetX();
 		int &y = human->GetY();
 		char *RWalking[2] = {"Bitmaps/R/r_walk-1ar.bmp","Bitmaps/R/r_walk-2ar.bmp"};
@@ -364,6 +370,7 @@ Mage::Mage(Human *human):SwordMan(human)
 Mage::~Mage(){}
 void Mage::LoadBitmap()
 {
+		ExtraSetting_SetJumpSound(true);
 		int &x = human->GetX();
 		int &y = human->GetY();
 		char *RWalking[4] = {"Bitmaps/R/r_walk-1mg.bmp","Bitmaps/R/r_walk-2mg.bmp","Bitmaps/R/r_walk-3mg.bmp","Bitmaps/R/r_walk-4mg.bmp"};
@@ -452,3 +459,258 @@ bool MushRoom::GetContinueAttack()
 {
 	return true;
 }
+
+
+
+
+Enemy1::Enemy1(Human *human):MushRoom(human)
+{}
+Enemy1::~Enemy1()
+{}
+void Enemy1::LoadBitmap()
+{
+		int &x = human->GetX();
+		int &y = human->GetY();
+		char *RWalking[3] = {"Bitmaps/Enemy/R/r_enemy1_walk-1.bmp","Bitmaps/Enemy/R/r_enemy1_walk-2.bmp","Bitmaps/Enemy/R/r_enemy1_walk-3.bmp"};
+		char *LWalking[3] = {"Bitmaps/Enemy/L/l_enemy1_walk-1.bmp","Bitmaps/Enemy/L/l_enemy1_walk-2.bmp","Bitmaps/Enemy/L/l_enemy1_walk-3.bmp"};
+/*		char *RJumping[2] = {"Bitmaps/R/r_jump-1mg.bmp","Bitmaps/R/r_jump-2mg.bmp"};
+		char *LJumping[2] = {"Bitmaps/L/l_jump-1mg.bmp","Bitmaps/L/l_jump-2mg.bmp"};
+		char *RAttack[3] =  {"Bitmaps/R/r_attack-1mg.bmp","Bitmaps/R/r_attack-2mg.bmp","Bitmaps/R/r_attack-3mg.bmp"};
+		char *LAttack[3] =  {"Bitmaps/L/l_attack-1mg.bmp","Bitmaps/L/l_attack-2mg.bmp","Bitmaps/L/l_attack-3mg.bmp"};
+*/
+		picture_animation.LoadAnimation(R_Walking,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Walking,LWalking,3,1);
+		picture_animation.LoadAnimation(R_Jumping,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Jumping,LWalking,3,1);
+		picture_animation.LoadAnimation(R_Attacking,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Attacking,LWalking,3,1);
+		picture_animation.StateInitialize();
+		//setMySize(picture_animation->Width(),picture_animation->Height());
+		picture_animation.SetTopLeft(x,y);
+}
+CharcterType Enemy1::MyType()
+{
+	return Type_Enemy1;
+}
+
+Enemy2::Enemy2(Human *human):MushRoom(human)
+{}
+Enemy2::~Enemy2()
+{}
+void Enemy2::LoadBitmap()
+{
+		int &x = human->GetX();
+		int &y = human->GetY();
+		char *RWalking[4] = {"Bitmaps/Enemy/R/r_enemy2_walk-1.bmp","Bitmaps/Enemy/R/r_enemy2_walk-2.bmp","Bitmaps/Enemy/R/r_enemy2_walk-3.bmp"};
+		char *LWalking[4] = {"Bitmaps/Enemy/L/l_enemy2_walk-1.bmp","Bitmaps/Enemy/L/l_enemy2_walk-2.bmp","Bitmaps/Enemy/L/l_enemy2_walk-3.bmp"};
+/*		char *RJumping[2] = {"Bitmaps/R/r_jump-1mg.bmp","Bitmaps/R/r_jump-2mg.bmp"};
+		char *LJumping[2] = {"Bitmaps/L/l_jump-1mg.bmp","Bitmaps/L/l_jump-2mg.bmp"};
+		char *RAttack[3] =  {"Bitmaps/R/r_attack-1mg.bmp","Bitmaps/R/r_attack-2mg.bmp","Bitmaps/R/r_attack-3mg.bmp"};
+		char *LAttack[3] =  {"Bitmaps/L/l_attack-1mg.bmp","Bitmaps/L/l_attack-2mg.bmp","Bitmaps/L/l_attack-3mg.bmp"};
+*/
+		picture_animation.LoadAnimation(R_Walking,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Walking,LWalking,3,1);
+		picture_animation.LoadAnimation(R_Jumping,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Jumping,LWalking,3,1);
+		picture_animation.LoadAnimation(R_Attacking,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Attacking,LWalking,3,1);
+		picture_animation.StateInitialize();
+		//setMySize(picture_animation->Width(),picture_animation->Height());
+		picture_animation.SetTopLeft(x,y);
+}
+CharcterType Enemy2::MyType()
+{
+	return Type_Enemy2;
+}
+
+
+Enemy3::Enemy3(Human *human):MushRoom(human)
+{}
+Enemy3::~Enemy3()
+{}
+void Enemy3::LoadBitmap()
+{
+		int &x = human->GetX();
+		int &y = human->GetY();
+		char *RWalking[4] = {"Bitmaps/Enemy/R/r_enemy3_walk-1.bmp","Bitmaps/Enemy/R/r_enemy3_walk-2.bmp","Bitmaps/Enemy/R/r_enemy3_walk-3.bmp"};
+		char *LWalking[4] = {"Bitmaps/Enemy/L/l_enemy3_walk-1.bmp","Bitmaps/Enemy/L/l_enemy3_walk-2.bmp","Bitmaps/Enemy/L/l_enemy3_walk-3.bmp"};
+/*		char *RJumping[2] = {"Bitmaps/R/r_jump-1mg.bmp","Bitmaps/R/r_jump-2mg.bmp"};
+		char *LJumping[2] = {"Bitmaps/L/l_jump-1mg.bmp","Bitmaps/L/l_jump-2mg.bmp"};
+		char *RAttack[3] =  {"Bitmaps/R/r_attack-1mg.bmp","Bitmaps/R/r_attack-2mg.bmp","Bitmaps/R/r_attack-3mg.bmp"};
+		char *LAttack[3] =  {"Bitmaps/L/l_attack-1mg.bmp","Bitmaps/L/l_attack-2mg.bmp","Bitmaps/L/l_attack-3mg.bmp"};
+*/
+		picture_animation.LoadAnimation(R_Walking,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Walking,LWalking,3,1);
+		picture_animation.LoadAnimation(R_Jumping,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Jumping,LWalking,3,1);
+		picture_animation.LoadAnimation(R_Attacking,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Attacking,LWalking,3,1);
+		picture_animation.StateInitialize();
+		//setMySize(picture_animation->Width(),picture_animation->Height());
+		picture_animation.SetTopLeft(x,y);
+}
+CharcterType Enemy3::MyType()
+{
+	return Type_Enemy3;
+}
+
+
+Enemy4::Enemy4(Human *human):MushRoom(human)
+{}
+Enemy4::~Enemy4()
+{}
+void Enemy4::LoadBitmap()
+{
+		int &x = human->GetX();
+		int &y = human->GetY();
+		char *RWalking[4] = {"Bitmaps/Enemy/R/r_enemy4_walk-1.bmp","Bitmaps/Enemy/R/r_enemy4_walk-2.bmp","Bitmaps/Enemy/R/r_enemy4_walk-3.bmp"};
+		char *LWalking[4] = {"Bitmaps/Enemy/L/l_enemy4_walk-1.bmp","Bitmaps/Enemy/L/l_enemy4_walk-2.bmp","Bitmaps/Enemy/L/l_enemy4_walk-3.bmp"};
+/*		char *RJumping[2] = {"Bitmaps/R/r_jump-1mg.bmp","Bitmaps/R/r_jump-2mg.bmp"};
+		char *LJumping[2] = {"Bitmaps/L/l_jump-1mg.bmp","Bitmaps/L/l_jump-2mg.bmp"};
+		char *RAttack[3] =  {"Bitmaps/R/r_attack-1mg.bmp","Bitmaps/R/r_attack-2mg.bmp","Bitmaps/R/r_attack-3mg.bmp"};
+		char *LAttack[3] =  {"Bitmaps/L/l_attack-1mg.bmp","Bitmaps/L/l_attack-2mg.bmp","Bitmaps/L/l_attack-3mg.bmp"};
+*/
+		picture_animation.LoadAnimation(R_Walking,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Walking,LWalking,3,1);
+		picture_animation.LoadAnimation(R_Jumping,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Jumping,LWalking,3,1);
+		picture_animation.LoadAnimation(R_Attacking,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Attacking,LWalking,3,1);
+		picture_animation.StateInitialize();
+		//setMySize(picture_animation->Width(),picture_animation->Height());
+		picture_animation.SetTopLeft(x,y);
+}
+CharcterType Enemy4::MyType()
+{
+	return Type_Enemy4;
+}
+
+
+Enemy5::Enemy5(Human *human):MushRoom(human)
+{}
+Enemy5::~Enemy5()
+{}
+void Enemy5::LoadBitmap()
+{
+		int &x = human->GetX();
+		int &y = human->GetY();
+		char *RWalking[4] = {"Bitmaps/Enemy/R/r_enemy5_walk-1.bmp","Bitmaps/Enemy/R/r_enemy5_walk-2.bmp","Bitmaps/Enemy/R/r_enemy5_walk-3.bmp"};
+		char *LWalking[4] = {"Bitmaps/Enemy/L/l_enemy5_walk-1.bmp","Bitmaps/Enemy/L/l_enemy5_walk-2.bmp","Bitmaps/Enemy/L/l_enemy5_walk-3.bmp"};
+/*		char *RJumping[2] = {"Bitmaps/R/r_jump-1mg.bmp","Bitmaps/R/r_jump-2mg.bmp"};
+		char *LJumping[2] = {"Bitmaps/L/l_jump-1mg.bmp","Bitmaps/L/l_jump-2mg.bmp"};
+		char *RAttack[3] =  {"Bitmaps/R/r_attack-1mg.bmp","Bitmaps/R/r_attack-2mg.bmp","Bitmaps/R/r_attack-3mg.bmp"};
+		char *LAttack[3] =  {"Bitmaps/L/l_attack-1mg.bmp","Bitmaps/L/l_attack-2mg.bmp","Bitmaps/L/l_attack-3mg.bmp"};
+*/
+		picture_animation.LoadAnimation(R_Walking,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Walking,LWalking,3,1);
+		picture_animation.LoadAnimation(R_Jumping,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Jumping,LWalking,3,1);
+		picture_animation.LoadAnimation(R_Attacking,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Attacking,LWalking,3,1);
+		picture_animation.StateInitialize();
+		//setMySize(picture_animation->Width(),picture_animation->Height());
+		picture_animation.SetTopLeft(x,y);
+}
+CharcterType Enemy5::MyType()
+{
+	return Type_Enemy5;
+}
+
+
+Enemy6::Enemy6(Human *human):MushRoom(human)
+{}
+Enemy6::~Enemy6()
+{}
+void Enemy6::LoadBitmap()
+{
+		int &x = human->GetX();
+		int &y = human->GetY();
+		char *RWalking[4] = {"Bitmaps/Enemy/R/r_enemy6_walk-1.bmp","Bitmaps/Enemy/R/r_enemy6_walk-2.bmp","Bitmaps/Enemy/R/r_enemy6_walk-3.bmp"};
+		char *LWalking[4] = {"Bitmaps/Enemy/L/l_enemy6_walk-1.bmp","Bitmaps/Enemy/L/l_enemy6_walk-2.bmp","Bitmaps/Enemy/L/l_enemy6_walk-3.bmp"};
+/*		char *RJumping[2] = {"Bitmaps/R/r_jump-1mg.bmp","Bitmaps/R/r_jump-2mg.bmp"};
+		char *LJumping[2] = {"Bitmaps/L/l_jump-1mg.bmp","Bitmaps/L/l_jump-2mg.bmp"};
+		char *RAttack[3] =  {"Bitmaps/R/r_attack-1mg.bmp","Bitmaps/R/r_attack-2mg.bmp","Bitmaps/R/r_attack-3mg.bmp"};
+		char *LAttack[3] =  {"Bitmaps/L/l_attack-1mg.bmp","Bitmaps/L/l_attack-2mg.bmp","Bitmaps/L/l_attack-3mg.bmp"};
+*/
+		picture_animation.LoadAnimation(R_Walking,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Walking,LWalking,3,1);
+		picture_animation.LoadAnimation(R_Jumping,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Jumping,LWalking,3,1);
+		picture_animation.LoadAnimation(R_Attacking,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Attacking,LWalking,3,1);
+		picture_animation.StateInitialize();
+		//setMySize(picture_animation->Width(),picture_animation->Height());
+		picture_animation.SetTopLeft(x,y);
+}
+CharcterType Enemy6::MyType()
+{
+	return Type_Enemy6;
+}
+
+
+Enemy7::Enemy7(Human *human):MushRoom(human)
+{}
+Enemy7::~Enemy7()
+{}
+void Enemy7::LoadBitmap()
+{
+		int &x = human->GetX();
+		int &y = human->GetY();
+		char *RWalking[4] = {"Bitmaps/Enemy/R/r_enemy7_walk-1.bmp","Bitmaps/Enemy/R/r_enemy7_walk-2.bmp","Bitmaps/Enemy/R/r_enemy7_walk-3.bmp"};
+		char *LWalking[4] = {"Bitmaps/Enemy/L/l_enemy7_walk-1.bmp","Bitmaps/Enemy/L/l_enemy7_walk-2.bmp","Bitmaps/Enemy/L/l_enemy7_walk-3.bmp"};
+/*		char *RJumping[2] = {"Bitmaps/R/r_jump-1mg.bmp","Bitmaps/R/r_jump-2mg.bmp"};
+		char *LJumping[2] = {"Bitmaps/L/l_jump-1mg.bmp","Bitmaps/L/l_jump-2mg.bmp"};
+		char *RAttack[3] =  {"Bitmaps/R/r_attack-1mg.bmp","Bitmaps/R/r_attack-2mg.bmp","Bitmaps/R/r_attack-3mg.bmp"};
+		char *LAttack[3] =  {"Bitmaps/L/l_attack-1mg.bmp","Bitmaps/L/l_attack-2mg.bmp","Bitmaps/L/l_attack-3mg.bmp"};
+*/
+		picture_animation.LoadAnimation(R_Walking,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Walking,LWalking,3,1);
+		picture_animation.LoadAnimation(R_Jumping,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Jumping,LWalking,3,1);
+		picture_animation.LoadAnimation(R_Attacking,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Attacking,LWalking,3,1);
+		picture_animation.StateInitialize();
+		//setMySize(picture_animation->Width(),picture_animation->Height());
+		picture_animation.SetTopLeft(x,y);
+}
+CharcterType Enemy7::MyType()
+{
+	return Type_Enemy7;
+}
+
+
+Enemy8::Enemy8(Human *human):MushRoom(human)
+{}
+Enemy8::~Enemy8()
+{}
+void Enemy8::LoadBitmap()
+{
+		int &x = human->GetX();
+		int &y = human->GetY();
+		char *RWalking[4] = {"Bitmaps/Enemy/R/r_enemy8_walk-1.bmp","Bitmaps/Enemy/R/r_enemy8_walk-2.bmp","Bitmaps/Enemy/R/r_enemy8_walk-3.bmp"};
+		char *LWalking[4] = {"Bitmaps/Enemy/L/l_enemy8_walk-1.bmp","Bitmaps/Enemy/L/l_enemy8_walk-2.bmp","Bitmaps/Enemy/L/l_enemy8_walk-3.bmp"};
+/*		char *RJumping[2] = {"Bitmaps/R/r_jump-1mg.bmp","Bitmaps/R/r_jump-2mg.bmp"};
+		char *LJumping[2] = {"Bitmaps/L/l_jump-1mg.bmp","Bitmaps/L/l_jump-2mg.bmp"};
+		char *RAttack[3] =  {"Bitmaps/R/r_attack-1mg.bmp","Bitmaps/R/r_attack-2mg.bmp","Bitmaps/R/r_attack-3mg.bmp"};
+		char *LAttack[3] =  {"Bitmaps/L/l_attack-1mg.bmp","Bitmaps/L/l_attack-2mg.bmp","Bitmaps/L/l_attack-3mg.bmp"};
+*/
+		picture_animation.LoadAnimation(R_Walking,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Walking,LWalking,3,1);
+		picture_animation.LoadAnimation(R_Jumping,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Jumping,LWalking,3,1);
+		picture_animation.LoadAnimation(R_Attacking,RWalking,3,1);
+		picture_animation.LoadAnimation(L_Attacking,LWalking,3,1);
+		picture_animation.StateInitialize();
+		//setMySize(picture_animation->Width(),picture_animation->Height());
+		picture_animation.SetTopLeft(x,y);
+}
+CharcterType Enemy8::MyType()
+{
+	return Type_Enemy8;
+}
+
+
+
+
+
+

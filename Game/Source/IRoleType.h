@@ -14,6 +14,15 @@ enum CharcterType
 	Type_Archer = 2,
 	Type_Mage = 3,
 	Type_MushRoom = 10,
+	Type_Enemy1 =11,
+	Type_Enemy2 =12,
+	Type_Enemy3 =13,
+	Type_Enemy4 =14,
+	Type_Enemy5 =15,
+	Type_Enemy6 =16,
+	Type_Enemy7 =17,
+	Type_Enemy8 =18,
+
 };
 
 class IRoleType
@@ -96,6 +105,7 @@ public:
 	virtual bool GetDownController(bool);
 	virtual bool GetLeftController(bool);
 	virtual bool GetRightController(bool);
+	virtual void ExtraSetting_SetJumpSound(bool);
 };
 
 
@@ -139,5 +149,79 @@ public:
 	virtual bool GetContinueAttack();
 };
 
+
+
+class Enemy1 :public MushRoom
+{
+public:
+	Enemy1(Human *human);
+	~Enemy1();
+	virtual void LoadBitmap();
+	virtual CharcterType MyType();
+};
+
+
+class Enemy2 :public MushRoom
+{
+public:
+	Enemy2(Human *human);
+	~Enemy2();
+	virtual void LoadBitmap();
+	virtual CharcterType MyType();
+};
+
+class Enemy3 :public MushRoom
+{
+public:
+	Enemy3(Human *human);
+	~Enemy3();
+	virtual void LoadBitmap();
+	virtual CharcterType MyType();
+};
+
+class Enemy4 :public MushRoom
+{
+public:
+	Enemy4(Human *human);
+	~Enemy4();
+	virtual void LoadBitmap();
+	virtual CharcterType MyType();
+};
+
+class Enemy5 :public MushRoom
+{
+public:
+	Enemy5(Human *human);
+	~Enemy5();
+	virtual void LoadBitmap();
+	virtual CharcterType MyType();
+};
+
+class Enemy6 :public MushRoom
+{
+public:
+	Enemy6(Human *human);
+	~Enemy6();
+	virtual void LoadBitmap();
+	virtual CharcterType MyType();
+};
+
+class Enemy7 :public MushRoom
+{
+public:
+	Enemy7(Human *human);
+	~Enemy7();
+	virtual void LoadBitmap();
+	virtual CharcterType MyType();
+};
+
+class Enemy8 :public MushRoom
+{
+public:
+	Enemy8(Human *human);
+	~Enemy8();
+	virtual void LoadBitmap();
+	virtual CharcterType MyType();
+};
 
 #endif
