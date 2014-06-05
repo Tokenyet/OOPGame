@@ -403,3 +403,52 @@ bool Mage::GetContinueAttack()
 			return true;
 	return false;
 }
+
+
+
+
+
+
+
+
+MushRoom::MushRoom(Human *human):SwordMan(human)
+{
+	mySkill.AddSkill(Type_NoSkill,0);
+}
+MushRoom::~MushRoom(){}
+void MushRoom::LoadBitmap()
+{
+		int &x = human->GetX();
+		int &y = human->GetY();
+		char *RWalking[4] = {"Bitmaps/r_mushroom.bmp","Bitmaps/l_mushroom.bmp"};
+		char *LWalking[4] = {"Bitmaps/l_mushroom.bmp","Bitmaps/r_mushroom.bmp"};
+/*		char *RJumping[2] = {"Bitmaps/R/r_jump-1mg.bmp","Bitmaps/R/r_jump-2mg.bmp"};
+		char *LJumping[2] = {"Bitmaps/L/l_jump-1mg.bmp","Bitmaps/L/l_jump-2mg.bmp"};
+		char *RAttack[3] =  {"Bitmaps/R/r_attack-1mg.bmp","Bitmaps/R/r_attack-2mg.bmp","Bitmaps/R/r_attack-3mg.bmp"};
+		char *LAttack[3] =  {"Bitmaps/L/l_attack-1mg.bmp","Bitmaps/L/l_attack-2mg.bmp","Bitmaps/L/l_attack-3mg.bmp"};
+*/
+		picture_animation.LoadAnimation(R_Walking,RWalking,2,0);
+		picture_animation.LoadAnimation(L_Walking,LWalking,2,0);
+		picture_animation.LoadAnimation(R_Jumping,RWalking,2,0);
+		picture_animation.LoadAnimation(L_Jumping,LWalking,2,0);
+		picture_animation.LoadAnimation(R_Attacking,RWalking,2,0);
+		picture_animation.LoadAnimation(L_Attacking,LWalking,2,0);
+		picture_animation.StateInitialize();
+		//setMySize(picture_animation->Width(),picture_animation->Height());
+		picture_animation.SetTopLeft(x,y);
+}
+
+void MushRoom::AttackMoving()
+{
+	mySkill.EnableSkill(Type_NoSkill);
+}
+
+CharcterType MushRoom::MyType()
+{
+	return Type_MushRoom;
+}
+
+bool MushRoom::GetContinueAttack()
+{
+	return true;
+}

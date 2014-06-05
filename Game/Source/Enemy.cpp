@@ -1,66 +1,326 @@
 #include "StdAfx.h"
 #include "Enemy.h"
-#include "Ewalk.h"
+#include "audio.h"
+#include "IRoleType.h"
+
 
 	Enemy::Enemy(int initial_X,int initial_Y):Human(initial_X,initial_Y)
 	{
-		interval_time = 0.5f;
-		timeNow = timePast = 0;
-		walk_Behavior = new Nomal_Walking();
-		myGravity_Behavior = new Normal_Gravity();
-		head_Direction = Head_Left;
+		//myGravity = new Gravity(&GetY());
+		myType = new MushRoom(this);
+		head_Direction = Head_Right;
+		upMove = downMove = rightMove = leftMove = false;
+		upRestriction=downRestriction=rightRestriction=leftRestriction = false;
+		leftMove =true;
+		//g = 10;
 	}
-
 	Enemy::~Enemy()
 	{
-		delete walk_Behavior;
-		delete myGravity_Behavior;
+		delete myType;
+		//delete myGravity;
 	}
-
-	void Enemy::walking_nearby()
-	{
-		int width = picture_animation->Width();
-		picture_animation->OnMove(R_Walking);
-		walk_Behavior->Walk(GetX(),GetY(),rightRestriction,leftRestriction
-			,rightBoundedValue,leftBoundedValue,1,width,head_Direction);
-		//GetX() += 5;
-	}
-
 	void Enemy::OnMove()
 	{
-		walking_nearby();/*
-		if (leftMove)
+		if(getLeftRestriction())
+		{
+			rightMove = true;
+			leftMove = false;
+		}
+		if(getRightRestriction())
+		{
+			rightMove = false;
+			leftMove = true;
+		}
+		bool LeftRestricion =  myType->GetLeftController(leftMove);
+		bool RightRestricion =  myType->GetRightController(rightMove);
+		bool UpRestricion =  myType->GetUpController(upMove);
+		bool DownRestricion =  myType->GetDownController(downMove);
+
+		if(myType->GetContinueAttack())
+			attackMove = true;
+
+		if (LeftRestricion)
+		{
 			leftMoving();
-		if (rightMove)
+			leftAnimation();
+		}
+		if (RightRestricion)
+		{
 			rightMoving();
-		/*if (dojump())
+			rightAnimation();
+		}
+		if(UpRestricion)
+		{
 			upMoving();
-		if (!isOnSky)*/
-		downMoving();
-	/*	if(!leftMove&&!rightMove&&!upMove&&!downMove)
-			picture_animation.Reset();*/
-		myRect.SetOriginRectangle(GetX(),GetY(),picture_animation->Width(),picture_animation->Height(),5);//SIZE_X/2-50
+			upAnimation();
+		}
+		if(DownRestricion)
+		{
+			downMoving();
+			downAnimation();
+		}
+		/*
+		if (myGravity->Dojump(upMove))
+		{
+			upMoving();
+			upAnimation();
+		}
+		if (!myGravity->GetOnSky())
+		{
+			downMoving();
+			downAnimation();
+		}*/
+		if(attackMove)
+		{
+			attackMoving();
+			attackAnimation();
+			if(!myType->GetContinueAttack())
+			attackMove = false;
+		}
+
+
+
+		if(!leftMove&&!rightMove&&!upMove&&!downMove&&!myType->GetContinueAttack())
+		{
+			myType->AnimationReset();
+			if(head_Direction == Head_Left)
+				myType->LeftAnimation();
+			else
+				myType->RightAnimation();
+		}
+		//myRect.SetOriginRectangle(SIZE_X/2-50,GetY(),picture_animation->Width(),picture_animation->Height(),5);//SIZE_X/2-50
+		myRect.SetOriginRectangle(GetX(),GetY(),GetWidth(),GetHeight(),5);
 	}
 	void Enemy::LoadBitmap()
 	{
-		char *RWalking[2] = {"Bitmaps/r_mushroom.bmp","Bitmaps/l_mushroom.bmp"};
-		char *LWalking[2] = {"Bitmaps/l_mushroom.bmp","Bitmaps/r_mushroom.bmp"};
-
-		picture_animation->LoadAnimation(R_Walking,RWalking,2);
-		picture_animation->LoadAnimation(L_Walking,LWalking,2);
+		/*
+		char *RWalking[5] = {"Bitmaps/R/r_walk-1.bmp","Bitmaps/R/r_walk-2.bmp","Bitmaps/R/r_walk-3.bmp","Bitmaps/R/r_walk-2.bmp","Bitmaps/R/r_walk-1.bmp"};
+		char *LWalking[5] = {"Bitmaps/L/l_walk-1.bmp","Bitmaps/L/l_walk-2.bmp","Bitmaps/L/l_walk-3.bmp","Bitmaps/L/l_walk-2.bmp","Bitmaps/L/l_walk-1.bmp"};
+		char *RJumping[2] = {"Bitmaps/R/r_jump-1.bmp","Bitmaps/R/r_jump-2.bmp"};
+		char *LJumping[2] = {"Bitmaps/L/l_jump-1.bmp","Bitmaps/L/l_jump-2.bmp"};
+		char *RAttack[4] =  {"Bitmaps/R/r_attack-1.bmp","Bitmaps/R/r_attack-2.bmp","Bitmaps/R/r_attack-3.bmp","Bitmaps/R/r_attack-4.bmp"};
+		char *LAttack[4] =  {"Bitmaps/L/l_attack-1.bmp","Bitmaps/L/l_attack-2.bmp","Bitmaps/L/l_attack-3.bmp","Bitmaps/L/l_attack-4.bmp"};
+		
+		picture_animation->LoadAnimation(R_Walking,RWalking,5,1);
+		picture_animation->LoadAnimation(L_Walking,LWalking,5,1);
+		picture_animation->LoadAnimation(R_Jumping,RJumping,2,1);
+		picture_animation->LoadAnimation(L_Jumping,LJumping,2,1);
+		picture_animation->LoadAnimation(R_Attacking,RAttack,4,0);
+		picture_animation->LoadAnimation(L_Attacking,LAttack,4,0);
 		picture_animation->StateInitialize();
-		picture_animation->SetTopLeft(GetX(),GetY());
+		setMySize(picture_animation->Width(),picture_animation->Height());
+		picture_animation->SetTopLeft(GetX(),GetY());*/
+		myType->LoadBitmapA();
+		setMySize(myType->GetWidth(),myType->GetHeight());
 	}
 	void Enemy::OnShow()
 	{
-		picture_animation->SetTopLeft(GetX(),GetY());//SIZE_X/2-50
-		picture_animation->OnShow();
+		myType->OnShow(GetX(),GetY());
+		/*picture_animation->SetTopLeft(SIZE_X/2-50,GetY());//SIZE_X/2-50
+		picture_animation->OnShow();*/
+	}
+	void Enemy::leftMoving()
+	{
+		rightRestriction = false;
+		int speed = 5;
+		if(getLeftRestriction())
+		{
+			if(!(GetX() <= leftBoundedValue)) // SIZE_X/2-50 <= leftBoundedValue
+				myType->LeftMoving();
+		}
+		else
+			myType->LeftMoving();
+
+			/*else
+				x -= speed;*/
+	}
+	void Enemy::rightMoving()
+	{
+
+		int speed = 5;
+		int width = myType->GetWidth();//picture_animation->Width();
+		if(getRightRestriction())
+		{
+			if(!(GetX() + width>= rightBoundedValue))//SIZE_X/2-50 + width >= rightBoundedValue
+				myType->RightMoving();
+		}
+		else
+			myType->RightMoving();
+
+			/*else
+				x += speed;*/
+	}
+	void Enemy::upMoving()
+	{
+		if(getUpRestriction())
+		{
+			if(!(GetY() <= upBoundedValue))
+			{
+				myType->UpMoving(true);
+				//myGravity->Jumping();
+			}
+			if(GetY() <= upBoundedValue)
+			{
+				myType->UpMoving(false);
+				/*myGravity->SetOnSky(false);
+				myGravity->SetKeepUpMove(false);*/
+			}
+		}
+		else
+		{
+			myType->UpMoving(true);
+			//myGravity->Jumping();
+		}
+	}
+	void Enemy::downMoving()
+	{
+		//int height = picture_animation->Height();
+		int height = GetHeight();
+		if(getDownRestriction())
+		{
+			if(!(GetY() + height > downBoundedValue))
+			{
+				myType->DownMoving(true);
+				/*myGravity->Falling();
+				myGravity->SetOnGround(false);*/
+			}
+			if((GetY() + height >= downBoundedValue))
+			{
+				myType->DownMoving(false);
+				GetY() = downBoundedValue - height;
+				//myGravity->SetOnGround(true);
+			}
+		}
+		else
+		{
+			myType->DownMoving(true);
+				/*myGravity->Falling();
+				myGravity->SetOnGround(false);*/
+		}
+	}
+	void Enemy::attackMoving()
+	{
+		myType->AttackMoving();
+		//mySkill.EnableSkill(mySkill.UsedSkill);
+	}
+	void Enemy::leftAnimation()
+	{	
+		bool gothrough = true;
+
+		if(attackMove)
+			gothrough = false;
+		if(!rightMove&&gothrough)
+		{
+			head_Direction = Head_Left;
+			//picture_animation->OnMove(L_Walking);
+			myType->LeftAnimation();
+		}
+	}
+	void Enemy::rightAnimation()
+	{
+		bool gothrough = true;
+		if(attackMove)
+			gothrough = false;
+		if(!leftMove&&gothrough)
+		{
+			head_Direction = Head_Right;
+			//picture_animation->OnMove(R_Walking);
+			myType->RightAnimation();
+		}
+	}
+	void Enemy::upAnimation()
+	{
+		bool gothrough = true;
+		if(attackMove)
+			gothrough = false;
+		/*if(head_Direction == Head_Left&&gothrough)
+			picture_animation->OnMove(L_Jumping);
+		if(head_Direction == Head_Right&&gothrough)
+			picture_animation->OnMove(R_Jumping);*/
+		if(gothrough)
+		myType->UpAnimation();
+	}
+	void Enemy::downAnimation()
+	{
+		bool isOnGround = getDownRestriction();//myGravity->GetOnGround();
+		bool gothrough = true;
+		if(attackMove)
+			gothrough = false;
+		if(gothrough)
+		{
+			if(!isOnGround)
+			{
+				myType->DownAnimation();/*
+				if(head_Direction == Head_Left)
+					picture_animation->OnMove(L_Jumping);
+				if(head_Direction == Head_Right)
+					picture_animation->OnMove(R_Jumping);*/
+			}
+			else
+			{
+				bool check = false;
+				if(isOnGround&&!attackMove)
+					check = true;
+				if(head_Direction == Head_Left&&check)
+				{
+					myType->LeftAnimation();
+				//	picture_animation->OnMove(L_Walking);
+				}
+				if(head_Direction == Head_Right&&check)
+				{
+					myType->RightAnimation();
+					//picture_animation->OnMove(R_Walking);
+				}
+			}
+		}
+	}
+	void Enemy::attackAnimation()
+	{
+		myType->AttackAnimation();
+		/*
+			if(head_Direction == Head_Left)
+				picture_animation->OnMove(L_Attacking);
+			if(head_Direction == Head_Right)
+				picture_animation->OnMove(R_Attacking);*/
+	}
+
+	void Enemy::AddThing(Thing *Item)
+	{
+		if(Item->GetName() == "New")
+		{
+			delete myType;
+			myType = new Archer(this);
+			myType->LoadBitmapA();
+		}
+		Item->MakeOwnerBy(this);
+		setMySize(myType->GetWidth(),myType->GetHeight());
+	}
+
+	bool Enemy::GetAttacking()
+	{
+		return attackMove;
+	}
+	bool Enemy::GetRestartGame()
+	{
+		if(GetY() > SIZE_Y)
+			return true;
+		return false;
+	}
+
+	int Enemy::MyType()
+	{
+		return myType->MyType();
 	}
 
 
-	void Enemy::downMoving()
+	SkillSheet Enemy::MySkillSheet()
 	{
-		myGravity_Behavior->JumpOrFall(GetY(),upRestriction,downRestriction,upBoundedValue,
-			downBoundedValue,timeRestriction,timeNow,timePast,
-			interval_time,picture_animation->Height(),false);
+		/*
+		mySkill.AddSkill(Type_NoSkill,0);
+		if(myType->MyType() == Type_Archer)
+		{
+			mySkill.AddSkill(Type_Arrow,10);
+			mySkill.EnableSkill(Type_Arrow);
+		}*/
+		return 	myType->MySkillSheet();;
 	}

@@ -13,6 +13,7 @@ enum CharcterType
 	Type_SwordMan = 1,
 	Type_Archer = 2,
 	Type_Mage = 3,
+	Type_MushRoom = 10,
 };
 
 class IRoleType
@@ -119,6 +120,19 @@ private:
 public:
 	Mage(Human *human);
 	~Mage();
+	void AttackMoving();
+	virtual void LoadBitmap();
+	virtual CharcterType MyType();
+	virtual bool GetContinueAttack();
+};
+
+class MushRoom :public SwordMan
+{
+private:
+	Gravity *myGravity;
+public:
+	MushRoom(Human *human);
+	~MushRoom();
 	void AttackMoving();
 	virtual void LoadBitmap();
 	virtual CharcterType MyType();

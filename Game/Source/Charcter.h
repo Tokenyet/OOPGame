@@ -8,7 +8,6 @@
 class Charcter : public Human
 {
 private :
-	Gravity *myGravity;
 	IRoleType *myType;
 protected:
 	void leftMoving();

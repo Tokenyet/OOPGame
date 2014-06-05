@@ -2,34 +2,39 @@
 #define ENEMY_H
 
 #include "Human.h"
-#include "Ewalk.h"
-#include "EGravity.h"
+#include "Gravity.h"
+#include "IRoleType.h"
 
 class Enemy : public Human
 {
 private :
-	Ewalk *walk_Behavior;
-	EGravity *myGravity_Behavior;
-	double interval_time;
-	double timeNow,timePast;
-	double timeRestriction;
-	void resetTimeParameter(bool JumpOrFall);
-	void walking_nearby();
-	/*double timeUpLimit;
-	void jumpUptimeParameter();
-	bool isOnGround,isOnSky,isKeepUpMove;
-	bool dojump();*/
-/*protected:
+	IRoleType *myType;
+protected:
 	void leftMoving();
+	void leftAnimation();
 	void rightMoving();
-	void upMoving();*/
+	void rightAnimation();
+	void upMoving();
+	void upAnimation();
 	void downMoving();
+	void downAnimation();
+	void attackMoving();
+	void attackAnimation();
+	IRoleType* GetMyType(CharcterType);
 public:
-	Enemy(int,int);
+	Enemy(int initial_X,int initial_Y);
 	~Enemy();
 	void OnMove();
 	void OnShow();
+	void AddThing(Thing*);
 	void LoadBitmap();
+	bool GetAttacking();
+	bool GetRestartGame();
+	int MyType();
+	SkillSheet MySkillSheet();
 };
+
+
+
 
 #endif
