@@ -10,7 +10,7 @@
 #include "Animation.h"
 #include "Ewalk.h"
 #include "SkillSheet.h"
-
+#include <sstream>
 
 class Thing;
 class Human
@@ -19,8 +19,9 @@ private:
 	int x,y;
 	const int origin_X,origin_Y;
 	int width,height;
-	Thing* myThing; 
+	Thing* myThing;
 protected : 
+	int health;
 	HeadDirection head_Direction;
 	SkillSheet mySkill;
 	Animation *picture_animation;
@@ -71,6 +72,7 @@ public:
 	virtual int MyType();
 	virtual SkillSheet MySkillSheet();
 	HeadDirection GetHeadDirection();
+	bool GetHurt(int hurtValue);
 	///Dynamic///
 	/*bool& setUpRestriction(int bounded_Up,int speed);
 	bool& setDownRestriction(int bounded_Down,int speed);
@@ -78,4 +80,18 @@ public:
 	bool& setLeftRestriction(int bounded_Left,int speed);*/
 	
 };
+static 	void MessageShow(int x ,int y,int health)
+	{
+		CDC *pDC = game_framework::CDDraw::GetBackCDC();
+		CFont f,*fp;
+		f.CreatePointFont(160,"Times New Roman");	// 產生 font f; 160表示16 point的字
+		fp=pDC->SelectObject(&f);					// 選用 font f
+		pDC->SetBkColor(RGB(0,0,0));
+		pDC->SetTextColor(RGB(255,255,0));
+		stringstream ss;
+		ss << health;
+		string str = ss.str();
+		pDC->TextOut(x,y,str.c_str());
+		game_framework::CDDraw::ReleaseBackCDC();
+	}
 #endif

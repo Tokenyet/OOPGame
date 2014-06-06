@@ -124,8 +124,9 @@
 					arrowBoxes->erase(arrowBoxes->begin()+i);
 					delete arrow;
 					Enemy* enemy = (*enemyBoxes)[j];
+					if((*enemyBoxes)[j]->GetHurt(20)){
 					enemyBoxes->erase(enemyBoxes->begin()+j);
-					delete enemy;
+					delete enemy;}
 					return;
 				}
 			}
@@ -199,13 +200,16 @@
 			for(size_t j = 0;j<enemyBoxes->size();j++)
 			{
 				if(checkHuman_EnemyCollision(heroBoxes[i],(*enemyBoxes)[j]))
-					Del_EnemyCollisions((*enemyBoxes)[j]);
+					if((*enemyBoxes)[j]->GetHurt(100)){
+						Del_EnemyCollisions((*enemyBoxes)[j]);
+					}
 			}
 	}
 	bool Collision_System::checkHuman_EnemyCollision(Human* charcter,Human* enemy)
 	{
 		Charcter* Ccharcter = dynamic_cast<Charcter*>(charcter);
 		CRectangle enemyBody = enemy->GetRect().GetOriginRect();
+
 		if(Ccharcter != NULL)
 		{
 		bool intersect = charcter->GetRect().GetOriginRect().Intersect(enemyBody);

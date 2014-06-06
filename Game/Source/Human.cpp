@@ -9,6 +9,7 @@
 
 	Human::Human(int initial_X,int initial_Y):origin_X(initial_X),origin_Y(initial_Y)
 	{
+		health = 100;
 		upMove = downMove = rightMove = leftMove = attackMove = false;
 		upRestriction=downRestriction=rightRestriction=leftRestriction = false;
 		x = origin_X;
@@ -259,3 +260,12 @@
 		mySkill.AddSkill(Type_NoSkill,0);
 		return mySkill;
 	}
+
+	bool Human::GetHurt(int hurtingValue)
+	{
+		health -= hurtingValue;
+		if(health <= 0)
+			return true;
+		return false;
+	}
+

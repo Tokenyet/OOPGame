@@ -392,6 +392,7 @@ void CGameStateRun::reset()
 	scroll_System.LoadEnemy(enemys);
 	scroll_System.Initialize(&iperforms_obs);
 	scroll_System.SetCharcter(charcter);
+
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -581,7 +582,9 @@ void CGameStateRun::OnShow()
 		(*thingTests)[i]->OnShow();
 	for(size_t i = 0;i<arrowBoxes.size();i++)
 		arrowBoxes[i]->OnShow();
-	
+			// 取得 Back Plain 的 CDC 
+
+
 	/*charcter->OnShow();
 	enemytest->OnShow();*/
 }

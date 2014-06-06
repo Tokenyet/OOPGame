@@ -33,6 +33,14 @@
 			return new Enemy3(this);
 		case Type_Enemy4:
 			return new Enemy4(this);
+		case Type_Enemy5:
+			return new Enemy5(this);
+		case Type_Enemy6:
+			return new Enemy6(this);
+		case Type_Enemy7:
+			return new Enemy7(this);
+		case Type_Enemy8:
+			return new Enemy8(this);
 		default:
 			return new IRoleType(this);
 		}
@@ -144,6 +152,7 @@
 	void Enemy::OnShow()
 	{
 		myType->OnShow(GetX(),GetY());
+		MessageShow(GetX(),GetY()-20,health);
 		/*picture_animation->SetTopLeft(SIZE_X/2-50,GetY());//SIZE_X/2-50
 		picture_animation->OnShow();*/
 	}

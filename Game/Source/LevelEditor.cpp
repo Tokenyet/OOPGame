@@ -83,7 +83,14 @@ void LevelEditor::fileAnaylizer(string source_String)
 	}
 	else if(class_type == 3)
 	{
-		Enemy *TempEnemy = new Enemy_OverWall(position_x_y[0],position_x_y[1],Type_Enemy1);
+		int EnemyAI = rand()%2;
+		int EnemyType = rand()%9+10;
+		CharcterType enemyType = (CharcterType)EnemyType;
+		Enemy *TempEnemy;
+		if(EnemyAI == 0)
+		TempEnemy = new Enemy(position_x_y[0],position_x_y[1],enemyType);
+		else
+		TempEnemy = new Enemy_OverWall(position_x_y[0],position_x_y[1],enemyType);
 		enemys.push_back(TempEnemy);
 	}
 	else if(class_type == ArmorThing)

@@ -104,7 +104,9 @@
 	}
 	void Charcter::OnShow()
 	{
+
 		myType->OnShow(SIZE_X/2-50,GetY());
+		MessageShow(SIZE_X/2 -50,GetY()-20,health);
 		/*picture_animation->SetTopLeft(SIZE_X/2-50,GetY());//SIZE_X/2-50
 		picture_animation->OnShow();*/
 	}
