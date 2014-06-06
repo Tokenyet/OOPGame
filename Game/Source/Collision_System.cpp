@@ -26,6 +26,7 @@
 	{
 		checkHuman_Obstacle();
 		checkEnemy_Obstacle();
+		checkEnemy_AttackHuman();
 		checkHuman_AttackEnemy();
 		checkHuman_Thing();
 		checkArrow_Obstacle();
@@ -205,6 +206,22 @@
 					}
 			}
 	}
+	void Collision_System::checkEnemy_AttackHuman()
+	{
+		for(size_t i=0;i<heroBoxes.size();i++)
+			for(size_t j = 0;j<enemyBoxes->size();j++)
+			{
+				CRectangle CharcterRect = heroBoxes[i]->GetRect().GetOriginRect();
+				CRectangle EnemyRect = (*enemyBoxes)[j]->GetRect().GetOriginRect();
+				if(CharcterRect.Intersect(EnemyRect))
+				{
+					if(heroBoxes[i]->GetHurt(2)){
+						ASSERT(0);//kill myself
+					}
+				}
+			}
+	}
+
 	bool Collision_System::checkHuman_EnemyCollision(Human* charcter,Human* enemy)
 	{
 		Charcter* Ccharcter = dynamic_cast<Charcter*>(charcter);

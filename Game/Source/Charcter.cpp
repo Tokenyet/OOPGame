@@ -11,6 +11,7 @@
 		head_Direction = Head_Right;
 		upMove = downMove = rightMove = leftMove = false;
 		upRestriction=downRestriction=rightRestriction=leftRestriction = false;
+		health = 134;
 		//g = 10;
 	}
 	Charcter::~Charcter()
@@ -296,6 +297,7 @@
 			myType = new SwordMan(this);
 			myType->LoadBitmapA();
 		}
+		health = 100;
 		Item->MakeOwnerBy(this);
 		setMySize(myType->GetWidth(),myType->GetHeight());
 	}

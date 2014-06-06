@@ -22,6 +22,7 @@ private:
 	void checkHuman_AttackEnemy();
 	void checkArrow_Obstacle();
 	void checkArrow_Enemy();
+	void checkEnemy_AttackHuman();
 
 	void checkHuman_ObstacleWhereCollision(Human* humanBoxes,ICollision* obstacleBoxes);
 	bool checkHuman_ThingCollision(Human* humanBoxes,Thing* obstacleBoxes);
@@ -29,6 +30,7 @@ private:
 	void resetHuman_Collision(ICollision* resetBoxes);
 	bool checkArrow_ObstacleCollision(ICollision* obstacleBoxes,ArrowBox *arrowBox);
 	bool checkArrow_EnemyCollision(Human* humanBoxes,ArrowBox *arrowBox);
+
 
 public:
 	Collision_System();
