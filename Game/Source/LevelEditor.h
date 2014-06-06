@@ -60,6 +60,7 @@ public:
 	void RMouseOnClick(bool,CPoint);
 	void LMouseUpClick(bool);
 	void Reset();
+	void NextStage();
 	vector<Obstacle*>* GetObstaclsDatas();
 	vector<Enemy*>* GetEnemysDatas();
 	vector<Thing*>* GetThingsDatas();

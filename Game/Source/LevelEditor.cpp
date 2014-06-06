@@ -59,6 +59,31 @@ void LevelEditor::Reset()
 	Initialization(this->scroll_system,this->collision_system,this->charcter);
 }
 
+void LevelEditor::NextStage()
+{
+	delete fileManager;
+	fileManager = new FileManager("level-2.dat");
+	fileStatementTemp = fileManager->GetData();
+	object_string_Data.clear();
+	object_type_data.clear();
+
+	for(size_t i = 0;i<obstacles.size();i++)
+	delete obstacles[i];//container
+	for(size_t i = 0;i<enemys.size();i++)
+	delete enemys[i];
+	for(size_t i = 0;i<things.size();i++)
+	delete things[i];
+	obstacles.clear();
+	enemys.clear();
+	things.clear();
+
+
+	for(int i = 0;i < fileManager->GetLine();i++)
+		fileAnaylizer(fileStatementTemp[i]);
+	this->scroll_system->ChangeMap("Bitmaps/stage2.bmp");
+	Initialization(this->scroll_system,this->collision_system,this->charcter);
+}
+
 
 void LevelEditor::fileAnaylizer(string source_String)
 {

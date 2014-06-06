@@ -18,19 +18,30 @@
 	{
 		maps.clear();
 		this->locations = locations;
-		mapSettingInitialize();
+		mapSettingInitialize("Bitmaps/bg2-1.bmp");
 		screenMap.Initialization(maps);
 	}
-	void Scroll_System::mapSettingInitialize()
+	void Scroll_System::ReInitialize(vector<IPerform*> *locations)
+	{
+		this->locations = locations;
+	}
+
+	void Scroll_System::mapSettingInitialize(char* MapPath)//"Bitmaps/bg2-1.bmp"
 	{
 		Map map,map2,map3;
-		map.Initialize((int)SIZE_X,(int)SIZE_Y,"Bitmaps/bg2-1.bmp");
-		map2.Initialize((int)SIZE_X,(int)SIZE_Y,"Bitmaps/bg2-1.bmp");
-		map3.Initialize((int)SIZE_X,(int)SIZE_Y,"Bitmaps/bg2-1.bmp");
+		map.Initialize((int)SIZE_X,(int)SIZE_Y,MapPath);
+		map2.Initialize((int)SIZE_X,(int)SIZE_Y,MapPath);
+		map3.Initialize((int)SIZE_X,(int)SIZE_Y,MapPath);
 		maps.push_back(map);
 		maps.push_back(map2);
 		maps.push_back(map3);
 	}
+	void Scroll_System::ChangeMap(char* MapPath)
+	{
+		maps.clear();
+		mapSettingInitialize(MapPath);
+	}
+
 	void Scroll_System::SetCharcter(Human *mainCharcter)
 	{
 		charcter = mainCharcter;

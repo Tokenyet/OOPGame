@@ -21,6 +21,7 @@
 			delete (*obstacleBoxes)[i];*/
 		for(size_t i = 0;i< arrowBoxes->size();i++)
 			delete (*arrowBoxes)[i];
+		//delete sync_Score;
 	}
 	void Collision_System::OnCheck()
 	{
@@ -121,6 +122,7 @@
 			{
 				if(checkArrow_EnemyCollision((*enemyBoxes)[j],(*arrowBoxes)[i]))
 				{
+					*sync_Score += 10;
 					ArrowBox* arrow = (*arrowBoxes)[i];
 					arrowBoxes->erase(arrowBoxes->begin()+i);
 					delete arrow;
@@ -201,9 +203,12 @@
 			for(size_t j = 0;j<enemyBoxes->size();j++)
 			{
 				if(checkHuman_EnemyCollision(heroBoxes[i],(*enemyBoxes)[j]))
+				{
+					*sync_Score += 50;
 					if((*enemyBoxes)[j]->GetHurt(100)){
 						Del_EnemyCollisions((*enemyBoxes)[j]);
 					}
+				}
 			}
 	}
 	void Collision_System::checkEnemy_AttackHuman()
@@ -215,8 +220,9 @@
 				CRectangle EnemyRect = (*enemyBoxes)[j]->GetRect().GetOriginRect();
 				if(CharcterRect.Intersect(EnemyRect))
 				{
+					*sync_Score -= 1;
 					if(heroBoxes[i]->GetHurt(2)){
-						ASSERT(0);//kill myself
+						//ASSERT(0);//kill myself
 					}
 				}
 			}

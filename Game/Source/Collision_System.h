@@ -11,6 +11,7 @@ using namespace std;
 class Collision_System
 {
 private:
+	int *sync_Score;
 	vector<Human*> heroBoxes;
 	vector<Enemy*> *enemyBoxes;
 	vector<Thing*> *thingBoxes;
@@ -46,6 +47,13 @@ public:
 	void Add_ObstacleCollisions(ICollision*);
 	void Del_ObstacleCollisions(ICollision*);
 	void Load_bulletCollisions (vector<ICollision*>);
+
+
+	void Extra_GameScoreChecking(int* realScore)
+	{
+		sync_Score = realScore;
+		*sync_Score = 17;
+	}
 
 };
 

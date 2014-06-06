@@ -22,7 +22,7 @@ private:
 	void enemy_Sync_Move();
 	void arrow_Sync_Move();
 	bool upMove,downMove,rightMove,leftMove;
-	void mapSettingInitialize();
+	void mapSettingInitialize(char *);
 	void object_Up(IPerform*);
 	void object_Down(IPerform*);
 	void object_Right(IPerform*);
@@ -30,7 +30,8 @@ private:
 public:
 	Scroll_System();
 	~Scroll_System();
-	void Initialize(vector<IPerform*>* locations);
+	void Initialize(vector<IPerform*>* );
+	void ReInitialize(vector<IPerform*>*);
 	void SetCharcter(Human *mainCharcter);
 	void SetWindowsSize(int windows_X,int windows_Y);
 	void AddObject(IPerform *things);
@@ -43,6 +44,7 @@ public:
 	void LoadArrows(vector<ArrowBox*>* arrowBoxes);
 	void KeyDownUpdate(UINT keyin);
 	void KeyUpUpdate(UINT keyin);
+	void ChangeMap(char* path);
 	void OnShowMap();
 	void OnMove();
 };

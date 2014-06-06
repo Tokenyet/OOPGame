@@ -215,6 +215,7 @@ CGameStateRun::CGameStateRun(CGame *g)
 	rowObtest = new Obstacle(300,300);
 	enemytest = new Enemy(300,100,Type_MushRoom);
 	testX = testY = 0;
+	score = 0;
 
 	//thingTests = new vector<Thing*>();
 	/*thingtest = new Thing(400,400);
@@ -364,12 +365,14 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	if(charcter->GetRestartGame())
 	{
 		GotoGameState(GAME_STATE_OVER);
-		reset();
+		//reset();
+		nextStage();
 	}
 }
 
 void CGameStateRun::reset()
 {
+	score = 0;
 	//enemytest->LoadBitmapA();
 	level_Editor.Reset();
 	iperforms_obs.clear();
@@ -394,6 +397,32 @@ void CGameStateRun::reset()
 	scroll_System.SetCharcter(charcter);
 
 }
+
+void CGameStateRun::nextStage()
+{
+	level_Editor.NextStage();
+	iperforms_obs.clear();
+	icollisions_obs.clear();
+	humans.clear();
+	enemys = level_Editor.GetEnemysDatas();
+	vector<Obstacle*> *data_Obstacle = level_Editor.GetObstaclsDatas();
+	for(size_t i = 0;i<data_Obstacle->size();i++)
+	{
+		iperforms_obs.push_back((*data_Obstacle)[i]);
+		icollisions_obs.push_back((*data_Obstacle)[i]);
+	}
+	humans.push_back(charcter);
+	for(size_t i = 0;i<humans.size();i++)
+		humans[i]->Reset();
+
+	collision_System.Load_EnemyCollisions(enemys);
+	collision_System.Load_HeroCollisions(humans);
+	collision_System.Load_ObstacleCollisions(&icollisions_obs);
+	scroll_System.LoadEnemy(enemys);
+	scroll_System.ReInitialize(&iperforms_obs);
+	scroll_System.SetCharcter(charcter);
+}
+
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
@@ -431,6 +460,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	collision_System.Load_HeroCollisions(humans);
 	collision_System.Load_ObstacleCollisions(&icollisions_obs);
 	collision_System.Load_ArrowCollisions(&arrowBoxes);
+	collision_System.Extra_GameScoreChecking(&score);
 	scroll_System.LoadEnemy(enemys);
 	scroll_System.LoadArrows(&arrowBoxes);
 	//scroll_System.AddEnemy(enemytest);
@@ -583,7 +613,7 @@ void CGameStateRun::OnShow()
 	for(size_t i = 0;i<arrowBoxes.size();i++)
 		arrowBoxes[i]->OnShow();
 			// 取得 Back Plain 的 CDC 
-
+	MessageShow(10,50,score);
 
 	/*charcter->OnShow();
 	enemytest->OnShow();*/

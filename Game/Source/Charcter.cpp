@@ -308,8 +308,11 @@
 	}
 	bool Charcter::GetRestartGame()
 	{
-		if(GetY() > SIZE_Y)
+		if(GetY() > SIZE_Y||health <= 0)
+		{
+			health = 100;
 			return true;
+		}
 		return false;
 	}
 

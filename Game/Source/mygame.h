@@ -66,7 +66,6 @@ enum AUDIO_ID {				// 定義各種音效的編號
 };
 
 namespace game_framework {
-
 class CGameStateInit : public CGameState {
 public:
 	CGameStateInit(CGame *g);
@@ -98,11 +97,15 @@ public:
 	void OnMouseMove(UINT nFlags, CPoint point);	// 處理滑鼠的動作 
 	void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 	void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
+	bool GameOverChecker;
+	bool GameBeatChecker;
+	int  score;
 protected:
 	void OnMove();									// 移動遊戲元素
 	void OnShow();									// 顯示這個狀態的遊戲畫面
 private:
 	void reset();
+	void nextStage();
 	/*Map map;
 	Map map2;
 	Map map3;
