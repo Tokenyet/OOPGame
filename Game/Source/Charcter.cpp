@@ -7,11 +7,12 @@
 	Charcter::Charcter():Human(SIZE_X/2-50,0)
 	{
 		//myGravity = new Gravity(&GetY());
-		myType = new Mage(this);
+		myType = new SwordMan(this);
 		head_Direction = Head_Right;
 		upMove = downMove = rightMove = leftMove = false;
 		upRestriction=downRestriction=rightRestriction=leftRestriction = false;
-		health = 134;
+		myRect.SetOriginRectangle(SIZE_X/2-50,GetY(),GetWidth(),GetHeight(),5);
+		nextStage = false;
 		//g = 10;
 	}
 	Charcter::~Charcter()
@@ -107,7 +108,7 @@
 	{
 
 		myType->OnShow(SIZE_X/2-50,GetY());
-		MessageShow(SIZE_X/2 -50,GetY()-20,health);
+		MessageShow(SIZE_X/2 -50,GetY()-30,health);
 		/*picture_animation->SetTopLeft(SIZE_X/2-50,GetY());//SIZE_X/2-50
 		picture_animation->OnShow();*/
 	}
@@ -297,6 +298,10 @@
 			myType = new SwordMan(this);
 			myType->LoadBitmapA();
 		}
+		else
+		{
+			nextStage = true;
+		}
 		health = 100;
 		Item->MakeOwnerBy(this);
 		setMySize(myType->GetWidth(),myType->GetHeight());
@@ -310,12 +315,21 @@
 	{
 		if(GetY() > SIZE_Y||health <= 0)
 		{
+			nextStage = false;
 			health = 100;
 			return true;
 		}
 		return false;
 	}
-
+	bool Charcter::GetNextStage()
+	{
+		if(nextStage)
+		{
+			nextStage = false;
+			return true;
+		}
+		return false;
+	}
 	int Charcter::MyType()
 	{
 		return myType->MyType();

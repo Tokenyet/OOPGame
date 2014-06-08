@@ -52,7 +52,7 @@ public:
 	void Extra_GameScoreChecking(int* realScore)
 	{
 		sync_Score = realScore;
-		*sync_Score = 17;
+		//*sync_Score = 0;
 	}
 
 };

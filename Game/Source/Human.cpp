@@ -49,6 +49,7 @@
 		const char KEY_RIGHT = 0x27; // keyboard•kΩb¿Y
 		const char KEY_DOWN  = 0x28; // keyboard§UΩb¿Y
 		const char KEY_A = 65;  //A
+		const char KEY_H = 72;
 		if(keyin == KEY_LEFT)
 			leftMove = true;
 		if(keyin == KEY_UP)
@@ -59,6 +60,8 @@
 			rightMove = true;
 		if(keyin == KEY_A)
 			attackMove = true;
+		if(keyin == KEY_H)
+			health = 100;
 	}
 	void Human::KeyUpDetect(UINT keyin)
 	{

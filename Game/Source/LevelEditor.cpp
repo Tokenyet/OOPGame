@@ -56,7 +56,7 @@ void LevelEditor::Reset()
 
 	for(int i = 0;i < fileManager->GetLine();i++)
 		fileAnaylizer(fileStatementTemp[i]);
-	Initialization(this->scroll_system,this->collision_system,this->charcter);
+	//Initialization(this->scroll_system,this->collision_system,this->charcter);
 }
 
 void LevelEditor::NextStage()
@@ -126,6 +126,11 @@ void LevelEditor::fileAnaylizer(string source_String)
 	else if(class_type == MageThing)
 	{
 		Mage_Equip *TempThing = new Mage_Equip(position_x_y[0],position_x_y[1]);
+		things.push_back(TempThing);
+	}
+	else if(class_type == WinKey)
+	{
+		Win_Key *TempThing = new Win_Key(position_x_y[0],position_x_y[1]);
 		things.push_back(TempThing);
 	}
 	//TempObstacle->LoadBitmapA("Bitmaps/block-5.bmp");
@@ -217,6 +222,8 @@ void LevelEditor::Thing_BitmapLoader(Thing* thing,ObjectData obData)
 		case MageThing:
 		thing->LoadBitmapA("Bitmaps/L/l_magicball.bmp",RGB(0,0,0));
 		break;
+		case WinKey:
+		thing->LoadBitmapA("Bitmaps/key.bmp",RGB(0,0,0));
 		default:
 			ASSERT(1);
 	}
@@ -248,7 +255,15 @@ void LevelEditor::addObstacles(CPoint position)
 void LevelEditor::addEnemys(CPoint position)
 {
 	int offset = charcter->GetX() - SIZE_X/2 +50; 
-	Enemy* newEnemy = new Enemy(position.x + offset,position.y,Type_MushRoom);
+	//隨機Enemy & AI
+	int EnemyAI = rand()%2;
+	int EnemyType = rand()%9+10;
+	CharcterType enemyType = (CharcterType)EnemyType;
+	Enemy *newEnemy;
+	if(EnemyAI == 0)
+	newEnemy = new Enemy(position.x + offset,position.y,enemyType);
+	else
+	newEnemy = new Enemy_OverWall(position.x + offset,position.y,enemyType);
 
 	string newObstaclePosition = "";
 	newObstaclePosition += int2str(classType);
@@ -271,8 +286,10 @@ void LevelEditor::addThings(CPoint position)
 	Thing * newThing;
 	if(classType == ArmorThing)
 		newThing = new Arrow_Equip(position.x + offset,position.y);
-	else
+	else if(classType == MageThing)
 		newThing = new Mage_Equip(position.x + offset,position.y);
+	else
+		newThing = new Win_Key(position.x + offset,position.y);
 	//newThing->LoadBitmapA("",RGB(0,0,0));
 	string newObstaclePosition = "";
 	newObstaclePosition += int2str(classType);
@@ -299,7 +316,7 @@ void LevelEditor::SystemSync()
 		scroll_system->AddObject(obstacles[obstacles.size()-1]);
 		collision_system->Add_ObstacleCollisions(obstacles[obstacles.size()-1]);
 	}
-	else if(classType == ArmorThing||classType == MageThing)
+	else if(classType == ArmorThing||classType == MageThing||classType == WinKey)
 	{
 		scroll_system->AddObject(things[things.size()-1]);
 	}
@@ -345,27 +362,31 @@ void LevelEditor::KeyDownChange(UINT keyin)
 		classType = ArmorThing;
 	if(keyin == KEY_B)
 		classType = MageThing;
+	if(keyin == KEY_N)
+		classType = WinKey;
 }
 void LevelEditor::LMouseOnClick(bool on,CPoint position)
 {	
 
 	int offset = (charcter->GetX() - SIZE_X/2 +50); 
 	if(offset > 0)
-		offset%=32;
+		offset = 32 - offset%32;
 	else
 		offset = (0-offset)%32;
 	/*int charcter_offset;
 	charcter_offset = %32;*/
 	int origin_x = position.x;
-	int origin_y = position.y;
-	int offset_x = position.x%32 + offset;//-charcter_offset;
-	int offset_y = position.y%32;
-	CPoint newPosition(origin_x-offset_x,origin_y-offset_y);
+	int origin_y = 32* (position.y/32);//暫時替代
+	int offset_x = (position.x + (32-offset))%32;//-charcter_offset;
+	//2014/6/8 find error is (32 - offset)%32 not offset %32 32 is the width of picture
+	/*int offset_y = position.y%32;*/
+	//CPoint newPosition(origin_x-offset_x,origin_y-offset_y);
+	CPoint newPosition(origin_x - offset_x,origin_y);
 	if(classType < 3)
 	addObstacles(newPosition);
 	else if(classType == MushRoom)
 	addEnemys(newPosition);
-	else if(classType == ArmorThing||classType == MageThing)
+	else if(classType == ArmorThing||classType == MageThing||classType == WinKey)
 	addThings(newPosition);
 }
 void LevelEditor::LMouseUpClick(bool off){}
@@ -406,7 +427,7 @@ void LevelEditor::RMouseOnClick(bool on,CPoint position)
 			case RowBlock:
 				if(obstacles.empty())
 					break;
-				if(obstacles[obstacle_index])
+				if(obstacles[obstacle_index])//多餘
 					if(DelObstacle(i,obstacle_index,x,y,offset))
 						return;
 				obstacle_index++;
@@ -414,13 +435,17 @@ void LevelEditor::RMouseOnClick(bool on,CPoint position)
 			case MushRoom:
 				if(enemys.empty())
 					break;
-				if(enemys[enemy_index])
+				if((int)enemys.size() <= enemy_index)
+					//防爆...原因 主角殺敵沒同步到儲存資料(data in txt) 不過儲存資料不該被主角更改 所以也不算錯
+					break;
+				if(enemys[enemy_index])//多餘
 					if(DelEnemy(i,enemy_index,x,y,offset))
 						return;
-					enemy_index++;
+				enemy_index++;
 				break;
 			case ArmorThing:
 			case MageThing:
+			case WinKey:
 				if(things.empty())
 					break;
 				if(things[thing_index])
@@ -434,8 +459,6 @@ void LevelEditor::RMouseOnClick(bool on,CPoint position)
 		}
 	}
 }
-
-
 
 bool LevelEditor::DelObstacle(int recorder_index,int object_index,int x,int y,int offset)
 {

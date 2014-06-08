@@ -14,6 +14,7 @@ enum UsingItem
 	Type_SwordMan_Suit = 1,
 	Type_Archer_Suit = 2,
 	Type_Mage_Suit = 3,
+	Type_WinKey = 10,
 };
 
 
@@ -56,6 +57,13 @@ class Mage_Equip :public Thing
 {
 public:
 	Mage_Equip(const int init_x,const int init_y);
+	void LoadBitmap(char *,COLORREF RGB);
+};
+
+class Win_Key :public Thing
+{
+	public:
+	Win_Key(const int init_x,const int init_y);
 	void LoadBitmap(char *,COLORREF RGB);
 };
 

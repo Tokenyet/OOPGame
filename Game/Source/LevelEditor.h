@@ -13,6 +13,7 @@ enum ObjectData
 	MushRoom = 3,//"Bitmaps/l_mushroom.bmp"
 	ArmorThing = 5,//"Bitmaps/ball1.bmp"
 	MageThing = 6,//"Bitmaps/L/l_magicball.bmp"
+	WinKey = 10,
 };
 
 class LevelEditor

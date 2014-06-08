@@ -152,7 +152,7 @@
 	void Enemy::OnShow()
 	{
 		myType->OnShow(GetX(),GetY());
-		MessageShow(GetX(),GetY()-20,health);
+		MessageShow(GetX(),GetY()-40,health);
 		/*picture_animation->SetTopLeft(SIZE_X/2-50,GetY());//SIZE_X/2-50
 		picture_animation->OnShow();*/
 	}

@@ -9,6 +9,7 @@ class Charcter : public Human
 {
 private :
 	IRoleType *myType;
+	bool nextStage; //trash..
 protected:
 	void leftMoving();
 	void leftAnimation();
@@ -29,6 +30,7 @@ public:
 	void LoadBitmap();
 	bool GetAttacking();
 	bool GetRestartGame();
+	bool GetNextStage();//trash
 	int MyType();
 	SkillSheet MySkillSheet();
 };

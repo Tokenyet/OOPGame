@@ -87,8 +87,17 @@
 
 	void Mage_Equip::LoadBitmap(char *,COLORREF RGB)
 	{
-		Thing::LoadBitmap("Bitmaps/L/l_magicball.bmp",RGB(0,0,0));
+		Thing::LoadBitmap("Bitmaps/L/l_magicball.bmp",RGB(255,255,255));
 	}
 
+	Win_Key::Win_Key(const int init_x,const int init_y):Thing(init_x,init_y)
+	{
+		myItemType = Type_WinKey;
+	}
+
+	void Win_Key::LoadBitmap(char *,COLORREF RGB)
+	{
+		Thing::LoadBitmap("Bitmaps/key.bmp",RGB(255,255,255));
+	}
 
 

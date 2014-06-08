@@ -115,7 +115,7 @@
 			}
 	}
 
-	void Collision_System::checkArrow_Enemy()
+	void Collision_System::checkArrow_Enemy(/*int damage*/)
 	{
 		for(size_t i=0;i<arrowBoxes->size();i++)
 			for(size_t j = 0;j<enemyBoxes->size();j++)
@@ -127,7 +127,7 @@
 					arrowBoxes->erase(arrowBoxes->begin()+i);
 					delete arrow;
 					Enemy* enemy = (*enemyBoxes)[j];
-					if((*enemyBoxes)[j]->GetHurt(20)){
+					if((*enemyBoxes)[j]->GetHurt(50)){
 					enemyBoxes->erase(enemyBoxes->begin()+j);
 					delete enemy;}
 					return;
@@ -204,6 +204,7 @@
 			{
 				if(checkHuman_EnemyCollision(heroBoxes[i],(*enemyBoxes)[j]))
 				{
+					//int damage = heroBoxes[i]->MySkillSheet().UsedSkillDamage(); //根據技能清單取得傷害 尚未實裝
 					*sync_Score += 50;
 					if((*enemyBoxes)[j]->GetHurt(100)){
 						Del_EnemyCollisions((*enemyBoxes)[j]);

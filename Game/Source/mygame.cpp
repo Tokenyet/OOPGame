@@ -134,17 +134,20 @@ void CGameStateInit::OnShow()
 	//
 	// Demo螢幕字型的使用，不過開發時請盡量避免直接使用字型，改用CMovingBitmap比較好
 	//
-	CDC *pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC 
+	Map myPicture;
+	myPicture.LoadMap("Bitmaps/about.bmp");
+	myPicture.OnShow();
+	CDC *pDC = CDDraw::GetBackCDC();// 取得 Back Plain 的 CDC 
 	CFont f,*fp;
 	f.CreatePointFont(160,"Times New Roman");	// 產生 font f; 160表示16 point的字
 	fp=pDC->SelectObject(&f);					// 選用 font f
 	pDC->SetBkColor(RGB(0,0,0));
 	pDC->SetTextColor(RGB(255,255,0));
-	pDC->TextOut(SIZE_X/3,SIZE_Y/3,"Please Enter to Start.");
-	pDC->TextOut(SIZE_X/20,SIZE_Y-50,"Press Ctrl-F to switch in between window mode and full screen mode.");
-	if (ENABLE_GAME_PAUSE)
-		pDC->TextOut(SIZE_X/20,SIZE_Y-100,"Press Ctrl-Q to pause the Game.");
-	pDC->TextOut(SIZE_X/20,SIZE_Y-150,"Press Alt-F4 or ESC to Quit.");
+	pDC->TextOut(SIZE_X/20,SIZE_Y-150,"開始(Enter)");
+	pDC->TextOut(SIZE_X/20,SIZE_Y-70,"Full/Windows(Ctrl+F)");
+	/*if (ENABLE_GAME_PAUSE)
+		pDC->TextOut(SIZE_X/20,SIZE_Y-100,"暫停(Ctrl-Q)");*/
+	pDC->TextOut(SIZE_X/20,SIZE_Y-110,"跳出遊戲(ESC,Alt+F4)");
 	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
 	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 }								
@@ -162,7 +165,10 @@ void CGameStateOver::OnMove()
 {
 	counter--;
 	if (counter < 0)
+	{
 		GotoGameState(GAME_STATE_INIT);
+		score = 0;
+	}
 
 }
 
@@ -197,6 +203,8 @@ void CGameStateOver::OnShow()
 	pDC->SetBkColor(RGB(0,0,0));
 	pDC->SetTextColor(RGB(255,255,0));
 	char str[80];								// Demo 數字對字串的轉換
+	sprintf(str,"Your Score is : %d",score);
+	pDC->TextOut(240,250,str);
 	sprintf(str, "Game Over ! (%d)", counter / 30);
 	pDC->TextOut(240,210,str);
 	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
@@ -215,7 +223,7 @@ CGameStateRun::CGameStateRun(CGame *g)
 	rowObtest = new Obstacle(300,300);
 	enemytest = new Enemy(300,100,Type_MushRoom);
 	testX = testY = 0;
-	score = 0;
+
 
 	//thingTests = new vector<Thing*>();
 	/*thingtest = new Thing(400,400);
@@ -341,7 +349,6 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	map.SetMapLocation(0,testY);*/
 	//screenMap.OnMove();
 	//obtest->OnMove();
-
 	collision_System.OnCheck();
 	/*charcter->OnMove();
 	enemytest->OnMove();*/
@@ -366,15 +373,23 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	{
 		GotoGameState(GAME_STATE_OVER);
 		//reset();
+		reset();
+	}
+	if(charcter->GetNextStage())
+	{
+		GotoGameState(GAME_STATE_CHANGELEVEL);
+		//reset();
 		nextStage();
 	}
+
+
+	//TRACE("%d\n",score);
 }
 
 void CGameStateRun::reset()
 {
-	score = 0;
 	//enemytest->LoadBitmapA();
-	level_Editor.Reset();
+	/*level_Editor.Reset();
 	iperforms_obs.clear();
 	icollisions_obs.clear();
 	humans.clear();
@@ -395,6 +410,45 @@ void CGameStateRun::reset()
 	scroll_System.LoadEnemy(enemys);
 	scroll_System.Initialize(&iperforms_obs);
 	scroll_System.SetCharcter(charcter);
+	*/
+	delete charcter;
+	charcter = new Charcter();
+	charcter->LoadBitmapA();
+	level_Editor.Reset();
+	skillSets.Initialization(charcter,&arrowBoxes);
+	level_Editor.Initialization(&scroll_System,&collision_System,charcter);
+	vector<Obstacle*> *data_Obstacle = level_Editor.GetObstaclsDatas();
+	iperforms_obs.clear();
+	icollisions_obs.clear();
+	humans.clear();
+	for(size_t i = 0;i<data_Obstacle->size();i++)
+	{
+		iperforms_obs.push_back((*data_Obstacle)[i]);
+		icollisions_obs.push_back((*data_Obstacle)[i]);
+	}
+	//iperforms_obs.push_back(thingtest);//***
+	enemys = level_Editor.GetEnemysDatas();
+	humans.push_back(charcter);
+
+	thingTests = level_Editor.GetThingsDatas();
+	for(size_t i = 0;i<thingTests->size();i++)
+		iperforms_obs.push_back((*thingTests)[i]);
+
+
+	collision_System.Load_ThingCollisions(thingTests);
+	collision_System.Load_EnemyCollisions(enemys);
+	collision_System.Load_HeroCollisions(humans);
+	collision_System.Load_ObstacleCollisions(&icollisions_obs);
+	collision_System.Load_ArrowCollisions(&arrowBoxes);
+	collision_System.Extra_GameScoreChecking(&score);
+	scroll_System.LoadEnemy(enemys);
+	scroll_System.LoadArrows(&arrowBoxes);
+	//scroll_System.AddEnemy(enemytest);
+	/*scroll_System.AddEnemy(enemys);*/
+	scroll_System.Initialize(&iperforms_obs);
+	scroll_System.SetCharcter(charcter);
+
+
 
 }
 
@@ -414,7 +468,11 @@ void CGameStateRun::nextStage()
 	humans.push_back(charcter);
 	for(size_t i = 0;i<humans.size();i++)
 		humans[i]->Reset();
+	thingTests = level_Editor.GetThingsDatas();
+	for(size_t i = 0;i<thingTests->size();i++)
+		iperforms_obs.push_back((*thingTests)[i]);
 
+	collision_System.Load_ThingCollisions(thingTests);
 	collision_System.Load_EnemyCollisions(enemys);
 	collision_System.Load_HeroCollisions(humans);
 	collision_System.Load_ObstacleCollisions(&icollisions_obs);
@@ -434,6 +492,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//
 	// 開始載入資料
 	//
+	//score = 0;
 	obtest->LoadBitmapA("Bitmaps/block-5.bmp");
 	rowObtest->LoadBitmap("Bitmaps/block-4.bmp");
 	//enemytest->LoadBitmapA();
@@ -469,7 +528,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	scroll_System.SetCharcter(charcter);
 	game_framework::CAudio::Instance()->Load(0,  "sounds\\bgm.mp3");
 	game_framework::CAudio::Instance()->Load(1,  "sounds\\player-jump.mp3");
-	// 完成部分Loading動作，提高進度
+	// 完成部分Load
 	//
 	ShowInitProgress(50);
 	Sleep(300); // 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
@@ -508,11 +567,11 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	//screenMap.SetKeyDownControl(nChar);
 
 
-	if(nChar == KEY_ENTER)
+	/*if(nChar == KEY_ENTER)
 	{
 		GotoGameState(GAME_STATE_OVER);
 		reset();
-	}
+	}*/
 	scroll_System.KeyDownUpdate(nChar);
 	charcter->KeyDownDetect(nChar);
 	level_Editor.KeyDownChange(nChar);
@@ -619,4 +678,58 @@ void CGameStateRun::OnShow()
 	enemytest->OnShow();*/
 }
 
+
+
+
+CGameStateChangeLevel::CGameStateChangeLevel(CGame *g)
+: CGameState(g)
+{
+}
+
+void CGameStateChangeLevel::OnMove()
+{
+	counter--;
+	if (counter < 0)
+	{
+		GotoGameState(GAME_STATE_RUN);
+	}
+
+}
+
+void CGameStateChangeLevel::OnBeginState()
+{
+	counter = 30 * 5; // 5 seconds
+}
+
+void CGameStateChangeLevel::OnInit()
+{
+	//
+	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
+	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
+	//
+	ShowInitProgress(66);	// 接個前一個狀態的進度，此處進度視為66%
+	//
+	// 開始載入資料
+	//
+	Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+	//
+	// 最終進度為100%
+	//
+	ShowInitProgress(100);
+}
+
+void CGameStateChangeLevel::OnShow()
+{
+	CDC *pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC 
+	CFont f,*fp;
+	f.CreatePointFont(160,"Times New Roman");	// 產生 font f; 160表示16 point的字
+	fp=pDC->SelectObject(&f);					// 選用 font f
+	pDC->SetBkColor(RGB(0,0,0));
+	pDC->SetTextColor(RGB(255,255,0));
+	char str[80];								// Demo 數字對字串的轉換
+	sprintf(str, "ChangeLevel ! (%d)", counter / 30);
+	pDC->TextOut(240,210,str);
+	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
+	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
+}
 }
